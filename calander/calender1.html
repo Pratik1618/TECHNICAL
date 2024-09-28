@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FullCalendar with Backend Data</title>
+
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
+
+  <style>
+    /* Ensure the body and html elements occupy the full screen */
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Calendar container to take full screen */
+    #calendar-container {
+      margin-top: 20px;
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Ensure event titles wrap text */
+    .fc-event-title,
+    .fc-event-time {
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+
+    /* Ensure event content stays within the box */
+    .fc-event {
+      height: auto;
+      max-height: 60px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+
+    /* Modal styling for viewing event details */
+    #eventDetailsModal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    #eventDetailsContent {
+      background-color: white;
+      padding: 20px;
+      margin: 15% auto;
+      width: 300px;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    #eventDetailsContent button {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      overflow-x: auto;
+      white-space: nowrap;
+      background-color: #f8f9ff;
+      padding: 10px 20px;
+      border-bottom: 2px groove rgb(53, 43, 43);
+    }
+
+    .brand-logo {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .brand-logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    /* Navigation link styles */
+    .navbar .nav-link {
+      flex: 1 1 auto;
+      text-align: center;
+      color: #004494;
+      padding: 14px 20px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* Hover effect for navigation links only */
+    .navbar .nav-link:hover {
+      background-color: #1265c3;
+      color: #f8f9ff;
+      border-radius: 10px;
+    }
+
+    /* Active link style */
+    .navbar .nav-link.active {
+      background-color: #004494;
+      color: white;
+      border-radius: 10px;
+    }
+
+    /* Media query for small screens */
+    @media (max-width: 768px) {
+      .navbar {
+        justify-content: flex-start;
+      }
+    }
+
+    .whole-container {
+      background-color: #ffffff;
+      /* Existing background color */
+      border: none;
+      /* Remove border */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-height: 640px;
+      /* Set max height */
+      overflow-y: auto;
+      /* Vertical scrollbar if content exceeds max height */
+      padding: 20px;
+      /* Ensure content doesn't touch the border */
+      box-sizing: border-box;
+      border-radius: 1rem;
+    }
+    .type{
+      display: flex;
+      justify-content: center;
+      
+    }
+    .type > * {
+    margin: 0 10px; /* Horizontal space between items */
+}
+    #PPM{
+      height: 30px;
+      width: 50px;
+      background-color:violet ;
+      border-radius: 5px;
+      border: none;
+      color: white;
+    }
+    #INSPECTION{
+      background-color: darkgoldenrod;
+      border-radius: 5px;
+      color: white;
+      border: none;
+    }
+    #BREAKDOWN{
+      background-color: red;
+      border: none;
+      border-radius: 5px;
+      color: white;
+    }
+    #TICKET_CLOSED{
+      background-color: green;
+      border: none;
+      border-radius: 5px;
+      color: white;
+    }
+  </style>
+  <header>
+    <nav class="navbar">
+      <a href="#" class="brand-logo">
+          <img src="../logo/logo_1-removebg-preview.png" alt="Brand Logo">
+      </a>
+      <a href="../Sheduling/sheduling.html" class="nav-link" id="tab-schedule">SCHEDULE INSPECTION</a>
+      <a href="../Main/inspectionList.html" class="nav-link" id="tab-inspection">INSPECTION FORM</a>
+      <a href="../PPMform/ppminscpectionList.html" class="nav-link" id="tab-ppm">PPM FORM</a>
+      <a href="../brekdown/breakdownList.html" class="nav-link" id="tab-breakdown">BREAKDOWN</a>
+      <a href="../Client/client.html" class="nav-link" id="tab-client">CLIENT</a>
+      <a href="../Role/role.html" class="nav-link" id="tab-role">ROLE</a>
+      <a href="../Store/store.html" class="nav-link" id="tab-store">STORE</a>
+      <a href="../Zone/zone.html" class="nav-link" id="tab-zone">ZONE</a>
+      <a href="../State/state.html" class="nav-link" id="tab-state">STATE</a>
+      <a href="../City/city.html" class="nav-link" id="tab-city">CITY</a>
+      <a href="../calander/calender1.html" class="nav-link" id="tab-calender">CALENDAR</a>
+      <a href="../signUp/signUp.html" class="nav-link" id="tab-signUp">SIGN UP</a>
+      <a href="../login/login.html" class="nav-link">LOG OUT</a>
+  </nav>
+</header>
+</head>
+
+<body>
+  <div class="whole-container">
+    <div class="type">
+      <button id="PPM">PPM</button>
+      <button id="INSPECTION">INSPECTION</button>
+      <button id="BREAKDOWN">BREAKDOWN</button>
+      <button id="TICKET_CLOSED">TICKET CLOSED</button>
+    </div>
+    <div id="calendar-container">
+      <div id="calendar"></div>
+    </div>
+  </div>
+  <!-- Modal for viewing event details -->
+  <div id="eventDetailsModal">
+    <div id="eventDetailsContent">
+      <h3>Task Details</h3>
+      <p id="eventTicketNumber"></p>
+      <p id="eventClientName"></p>
+      <p id="eventStoreName"></p>
+      <p id="eventType"></p>
+      <p id="eventAddress"></p>
+      <p id="eventTechnicianName"></p>
+      <p id="eventTechnicianNumber"></p>
+      <p id="eventTechnicianEmail"></p>
+      <p id="eventStatus"></p>
+      <button id="closeEventDetails">Close</button>
+    </div>
+  </div>
+
+  <!-- FullCalendar JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+
+  <script>
+    api='http://localhost:8083';
+    token = localStorage.getItem('authToken');
+
+    //to keep tab active
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const tabs = document.querySelectorAll('.nav-link');
+
+      // Retrieve the last active tab from local storage
+      const activeTabId = localStorage.getItem('activeTab');
+
+      // If there's an active tab in local storage, activate it
+      if (activeTabId) {
+        document.querySelector(`#${activeTabId}`).classList.add('active');
+      }
+
+      // Add click event listener to each tab
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Remove 'active' class from all tabs
+          tabs.forEach(t => t.classList.remove('active'));
+
+          // Add 'active' class to the clicked tab
+          tab.classList.add('active');
+
+          // Save the active tab ID in local storage
+          localStorage.setItem('activeTab', tab.id);
+        });
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+  var calendarEl = document.getElementById('calendar');
+
+  // Define colors for different types
+  const typeColors = {
+    'PPM': 'violet',
+    'INSPECTION': 'darkgoldenrod', // dark yellow color
+    'BREAKDOWN': 'red'
+  };
+
+  // Initialize FullCalendar
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    selectable: true,
+    events: [], // Events will be added dynamically
+    eventClick: function (info) {
+      openEventDetails(info.event.extendedProps);
+    }
+  });
+
+  // Fetch data from the backend
+  fetch(`${api}/schedule/`,{headers: { 'Authorization': `${token}`}})
+    .then(response => response.json()) // Parse JSON response
+    .then(data => {
+      // Assuming the data structure contains an array of tasks
+      data.forEach(task => {
+        // Determine the color based on the type and status
+        const eventColor = task.status === 'TICKIT CLOSED' ? 'green' : (typeColors[task.scheduleFor] || 'blue'); // Default to blue if type is unknown
+
+        // Add each task as an event to FullCalendar
+        calendar.addEvent({
+          title: `${task.client.clientName} - ${task.store.storeCode + " - " + task.store.storeName}-${task.tikitNumber}`, // Short title display
+          start: task.date,  // Date field from backend
+          allDay: true,
+          backgroundColor: eventColor, // Set the background color
+          extendedProps: {
+            tikitNumber:task.tikitNumber,
+            clientName: task.client.clientName,
+            storeName: task.store.storeCode + " - " + task.store.storeName,
+            type: task.scheduleFor,
+            address: task.store.address,
+            technicianName: task.technicianName,
+            technicianNumber: task.mobNumber,
+            technicianEmail: task.technicianEmail,
+            status: task.status
+          }
+        });
+      });
+      calendar.render(); // Render the calendar with the fetched events
+    })
+    .catch(error => console.error('Error fetching tasks:', error));
+
+  // Open event details modal
+  function openEventDetails(props) {
+    document.getElementById('eventTicketNumber').textContent='Ticket Number: '+props.tikitNumber;
+    document.getElementById('eventClientName').textContent = 'Client Name: ' + props.clientName;
+    document.getElementById('eventStoreName').textContent = 'Store Name: ' + props.storeName;
+    document.getElementById('eventType').textContent = 'Type: ' + props.type;
+    document.getElementById('eventAddress').textContent = 'Address: ' + props.address;
+    document.getElementById('eventTechnicianName').textContent = 'Technician Name: ' + props.technicianName;
+    document.getElementById('eventTechnicianNumber').textContent = 'Technician Number: ' + props.technicianNumber;
+    document.getElementById('eventTechnicianEmail').textContent = 'Technician Email: ' + props.technicianEmail;
+    document.getElementById('eventStatus').textContent = 'Status: ' + props.status; // Fixed typo here
+    document.getElementById('eventDetailsModal').style.display = 'block';
+  }
+
+  // Close event details modal
+  document.getElementById('closeEventDetails').onclick = function () {
+    document.getElementById('eventDetailsModal').style.display = 'none';
+  };
+});
+
+
+  </script>
+</body>
+
+</html>

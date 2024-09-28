@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schedule Form</title>
+  <link rel="stylesheet" href="sheduling.css" />
+  <link rel="stylesheet" href="../NavBar/navbar.css">
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <!-- jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  <script src="../NavBar/navbar.js" defer></script>
+ 
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <div class="whole-container">
+    <div class="container">
+      <h2>Upload Excel File<button id="format">Download Excel Format</button></h2>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required />
+        <label for="excelFile" id="customFileButton">Choose File</label>
+        <span id="fileName">No file chosen</span> <!-- Display file name here -->
+        <button type="submit" id="uploadButton">Upload</button>
+    </form>
+    
+      <div id="upload-error-message" class="error"></div>
+        <div id="upload-success-message" class="success"></div>
+  </div>
+  <div class="container">
+    <h1>SCHEDULE INSPECTION</h1>
+    <form id="storeForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="clientName">Client Name:</label>
+          <select id="clientName" name="clientId" required>
+            <option value="">Select a client</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="storeName">Store Name:</label>
+          <select id="storeName" name="storeName" required>
+            <option value="">Select a Store</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="scheduleFor">Schedule for:</label>
+          <select id="scheduleFor" name="scheduleFor" required>
+            <option value="">Select Schedule for</option>
+            <option value="INSPECTION">INSPECTION</option>
+            <option value="PPM">PPM</option>
+            <option value="BREAKDOWN">BREAKDOWN</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="technicianName">Technician Name:</label>
+          <input type="text" id="technicianName" name="technicianName" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number:</label>
+          <input type="text" id="phoneNumber" name="phoneNumber" required maxlength="10" pattern="\d{10}" title="Please enter a 10-digit phone number" />
+        </div>
+        <div class="form-group">
+          <label for="technicianEmail">Technician Email:</label>
+          <input type="text" id="technicianEmail" name="technicianEmail" required />
+        </div>
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <input type="date" id="date" name="date" required />
+        </div>
+      </div>
+      <!-- Error message container -->
+      <div id="error-message" class="error"></div>
+      <!-- Success message container -->
+      <div id="success-message" class="success"></div>
+      <button type="submit" id="submit">Submit</button>
+    </form>
+  </div>
+   
+  
+  <div class="container">
+    <h2>SCHEDULED INSPECTIONS</h2>
+    <div class="filter-container">
+      <div class="filter-group">
+        <label for="filter-client">Client Name</label>
+        <input type="text" id="filter-client" placeholder="Filter by Client Name">
+      </div>
+      <div class="filter-group">
+        <label for="filter-store">Store Name</label>
+        <input type="text" id="filter-store" placeholder="Filter by Store Name">
+      </div>
+      <div class="filter-group">
+        <label for="filter-shadule">Schedule</label>
+        <input type="text" id="filter-shadule" placeholder="Filter by Schedule Type">
+      </div>
+      <div class="filter-group">
+        <label for="filter-technician">Technician</label>
+        <input type="text" id="filter-technician" placeholder="Filter by Technician Name">
+      </div>
+      <div class="filter-group">
+        <label for="filter-status">Status</label>
+        <select id="filter-status">
+          <option value="">Filter by Status</option>
+          <option value="TICKIT CLOSE">TICKIT CLOSE</option>
+          <option value="TICKIT OPEN">TICKIT OPEN</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-from-date">From</label>
+        <input type="date" id="filter-from-date" placeholder="From Date">
+      </div>
+      <div class="filter-group">
+        <label for="filter-to-date">To</label>
+        <input type="date" id="filter-to-date" placeholder="To Date">
+      </div>
+    </div>
+    <div class="table-container">
+      <button id="exportButton">Export to Excel</button>
+      <table id="scheduleTable" class="display">
+        <thead>
+          <tr>
+            <th>Ticket No.</th>
+            <th>Client Name</th>
+            <th>Store Name</th>
+            <th>Store Code</th>
+            <th>Schedule for</th>
+            <th>Technician Name</th>
+            <th>Phone Number</th>
+            <th>Technician Email</th>
+            <th>Visit on Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table data will be populated here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  </div>
+
+  
+  
+  <script src="sheduling.js"></script>
+ 
+</body>
+</html>

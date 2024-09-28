@@ -1,0 +1,356 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+h2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+#format {
+ 
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  padding: 0 15px; /* Add horizontal padding for better appearance */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+#format:hover { 
+  background-color:#be2520; 
+}
+#excelFile {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  width: 1px;
+  border: 0;
+  overflow: hidden;
+}
+
+/* Style the custom file button */
+#customFileButton {
+  display: inline-block;
+  background-color: #4CAF50; /* Custom background color */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Add padding */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Optional: Add rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  text-align: center; /* Center text */
+  font-size: 16px; /* Font size */
+  margin-right: 10px; /* Space between file button and submit button */
+}
+
+#customFileButton:hover {
+  background-color: #45a049; /* Darker background on hover */
+}
+
+/* Style for the file name display */
+#fileName {
+  font-size: 16px; /* Font size */
+  margin-left: 10px; /* Space between file button and file name */
+  color: #333; /* Text color */
+}
+
+/* Optional: Style for the submit button */
+#uploadButton {
+  display: inline-block;
+  background-color: #004494; /* Background color for submit button */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Add padding */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Optional: Add rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size */
+}
+
+#uploadButton:hover {
+  background-color: #007bb5; /* Darker background on hover */
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px; /* Adjust to fit your design needs */
+  margin: 20px auto;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  position: relative; /* Ensure positioning context for absolute elements */
+}
+.whole-container {
+  background-color: #ffffff; 
+  border: none; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 660px; 
+  overflow-y: auto; /* Vertical scrollbar if content exceeds max height */
+  padding: 20px; /* Ensure content doesn't touch the border */
+  box-sizing: border-box; 
+  border-radius: 1rem;
+}
+
+h1 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  width: 23%; /* Adjusted width for 4 fields per row */
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+select,
+input[type="text"],
+input[type="date"] {
+  width: 90%;
+  padding: 12px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus {
+  border-color: #0056b3;
+  outline: none;
+}
+
+#submit {
+  background-color: #0056b3;
+  color: #ffffff;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+#submit:hover {
+  background-color: #004494;
+}
+
+.error {
+  color: #d9534f;
+  margin: 10px 0;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.success {
+  color: #5bc0de;
+  margin: 10px 0;
+  font-size: 14px;
+}
+.pagination-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#storeTable_paginate {
+  margin-right: 10px;
+}
+
+#storeTable_paginate .paginate_button {
+  padding: 4px 8px;
+  margin: 2px;
+  font-size: 12px;
+}
+
+
+.table-container {
+  overflow-x: auto; /* Allow horizontal scrolling if needed */
+  margin-top: 20px; /* Add some space above the table */
+}
+
+#scheduleTable {
+  width: 100%; /* Ensure the table takes full width of the container */
+  min-width: 600px; /* Set a minimum width for the table */
+}
+
+.custom-filter {
+  float: right;
+  margin-bottom: 20px;
+}
+
+.custom-filter input {
+  width: 200px; /* Set width for the search input */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.edit{
+  height: 20px;
+  width: 50px;
+  background-color:rgb(240, 196, 17);
+  border: none;
+  border-radius: 5px;
+}
+.delete{
+  margin-top: 2px;
+  height: 20px;
+  width: 50px;
+  color: #ffffff;
+  background-color:rgb(244, 18, 44);
+  border: none;
+  border-radius: 5px;
+}
+#exportButton{
+  height:30px;
+  width: 120px;
+  color: #ffffff;
+  background-color: rgb(44, 149, 44);
+  border: none;
+  border-radius: 5px;
+
+}
+#exportButton:hover{
+  background-color:rgb(31, 124, 31) ;
+}
+
+.save{
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.cancel{
+  background-color: #f44336;
+  color: white;
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  background-color: #f8f9ff; /* Background color */
+  border-top: 2px groove rgb(53, 43, 43); /* Top border */
+  padding: 20px; /* Padding inside the footer */
+  text-align: center; /* Center text */
+}
+
+.footer .footer-content {
+  display: flex;
+  justify-content: space-between; /* Space between sections */
+  width: 100%; /* Full width */
+  max-width: 1200px; /* Maximum width */
+  margin-bottom: 20px; /* Space below content */
+}
+
+.footer .section {
+  flex: 1; /* Equal space for each section */
+  margin: 0 15px; /* Margin between sections */
+}
+
+.footer .section h3 {
+  color: #004494; /* Heading color */
+  margin-bottom: 10px; /* Space below heading */
+}
+
+.footer .section a {
+  color: #004494; /* Link color */
+  text-decoration: none; /* Remove underline */
+}
+
+.footer .section a:hover {
+  color: #1265c3; /* Hover color */
+  text-decoration: underline; /* Underline on hover */
+}
+
+.footer .social-media {
+  display: flex;
+  justify-content: center; /* Center icons horizontally */
+  margin-bottom: 20px; /* Space below social media icons */
+}
+
+.footer .social-media a {
+  margin: 0 10px; /* Space between icons */
+  color: #004494; /* Icon color */
+  text-decoration: none; /* Remove underline */
+}
+
+.footer .social-media a:hover {
+  color: #1265c3; /* Hover color */
+}
+
+.footer .social-media img {
+  height: 24px; /* Set height for icons */
+  width: auto; /* Maintain aspect ratio */
+}
+
+.footer .footer-bottom {
+  font-size: 0.875rem; /* Smaller font size */
+  color: rgb(53, 43, 43); /* Text color */
+}
+.footerlink{
+  color: black;
+  text-decoration: none;
+}
+
+#clientNameEdit,#storeNameEdit {
+  background-color: #aebcc8; /* Light blue background */
+  color: #333;              /* Dark text color */
+  border: 2px solid #6a5acd; /* Border color */
+ /* padding: 5px;            /* Padding inside the input field */
+  border-radius: 4px;      /* Rounded corners for the border */
+}
+
+/* Optional: Change background color when input is focused (even though it is readonly) */
+#clientNameEdit:focus,#storeNameEdit:focus{
+  outline: none;           /* Remove default focus outline */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Optional: Shadow effect */
+}
+
+.filter-container {
+      display: flex;
+      gap: 15px; /* Space between each group */
+      flex-wrap: wrap;
+      align-items: center; /* Align items vertically centered */
+      margin-bottom: 20px;
+    }
+
+    .filter-container label {
+      margin-right: 5px; /* Space between label and input */
+    }
+
+    .filter-container input,
+    .filter-container select {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+    }

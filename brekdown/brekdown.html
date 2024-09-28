@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Preventive Maintenance Checklist</title>
+    <link rel="stylesheet" href="breakDown.css">
+</head>
+
+    <header>
+        <nav class="navbar">
+            <a href="#" class="brand-logo">
+                <img src="../logo/logo_1-removebg-preview.png" alt="Brand Logo">
+            </a>
+            <a href="../Sheduling/sheduling.html" class="nav-link" id="tab-schedule">SCHEDULE INSPECTION</a>
+            <a href="../Main/inspectionList.html" class="nav-link" id="tab-inspection">INSPECTION FORM</a>
+            <a href="../PPMform/ppminscpectionList.html" class="nav-link" id="tab-ppm">PPM FORM</a>
+            <a href="../brekdown/breakdownList.html" class="nav-link" id="tab-breakdown">BREAKDOWN</a>
+            <a href="../Client/client.html" class="nav-link" id="tab-client">CLIENT</a>
+            <a href="../Role/role.html" class="nav-link" id="tab-role">ROLE</a>
+            <a href="../Store/store.html" class="nav-link" id="tab-store">STORE</a>
+            <a href="../Zone/zone.html" class="nav-link" id="tab-zone">ZONE</a>
+            <a href="../State/state.html" class="nav-link" id="tab-state">STATE</a>
+            <a href="../City/city.html" class="nav-link" id="tab-city">CITY</a>
+            <a href="../calander/calender1.html" class="nav-link" id="tab-calender">CALENDAR</a>
+            <a href="../signUp/signUp.html" class="nav-link" id="tab-signUp">SIGN UP</a>
+            <a href="../login/login.html" class="nav-link">LOG OUT</a>
+        </nav>
+    </header>
+    <body>
+        <div class="container">
+            <form id="multiStepForm">
+                <!-- Step 1: Company Details -->
+                <div class="form-section active" id="companyDetails">
+                    <h2>Company Details</h2>
+                    <div>
+                        <label for="ticketNumber">Ticket Number:</label>
+                        <input id="ticketNumber" type="number" name="ticketNumber" required>
+                    </div>
+                    <div>
+                        <label for="companyName">Client Name:</label>
+                        <select id="companyName" name="companyName" required>
+                          <option value="">Select a client</option>
+                          <option vlaue="Raymend">Raymend</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label for="companyAddress">Store Name:</label>
+                        <select id="companyAddress" name="companyAddress" required>
+                          <option value="">Select a Store</option>
+                          <option value="raymend1">Raymend1</option>
+                        </select>
+                      </div>
+                        <button class="next" type="button" id="next-company">Next &rarr;</button>
+                    </div>       
+                <!-- Step 2: Section A -->
+                <div class="main-border">
+                    <div class="form-section" id="sectionA">
+                        <h2>ELECTRICAL PREVENTIVE MAINTENANCE CHECKLIST</h2>
+                            <table id="checklistTable">
+                                <thead>
+                                    <tr>
+                                        <th>BREAKDOWN ON</th>
+                                        <th>STATUS</th>
+                                        <th>RESION</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="row1">
+                                        <td><input type="text" id="breakdown1" name="breakdown1" placeholder="breakdown" /></td>
+                                        <td><select id="status1" name="status1">
+                                            <option value="ACTIVE">ACTIVE</option>
+                                            <option value="CLOSED">CLOSED</option>
+                                        </select></td>
+                                        <td><input type="text" id="resion1" name="resion1" placeholder="Enter the resion" /></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button id="addRowButton" type="button">+ Add</button>
+                        <div class="backnext">
+                            <button class="back" type="button" onclick="showNextSection('sectionA', 'companyDetails')">
+                                &larr; Back </button>
+                            <button class="next" id="submitButton" type="submit" >Submit
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+        
+   
+    <script src="breakDown.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Preventive Maintenance Checklist</title>
+    <link rel="stylesheet" href="breakDown.css">
+</head>
+
+    <body>
+        <div class="container">
+            <form id="multiStepForm">
+                <input type="hidden" id="storeId">
+                <!-- Step 1: Company Details -->
+                <div class="form-section active" id="companyDetails">
+                    <h2>Company Details</h2>
+                    <div>
+                        <label for="ticketNumber">Ticket Number:</label>
+                        <input id="ticketNumberEdit" type="number" name="ticketNumber" required readonly>
+                    </div>
+                    <div>
+                        <label for="companyName">Company Name:</label>
+                        <input type="text" id="clientNameEdit" name="clientName" required readonly>
+                      </div>
+                      <div>
+                        <label for="storeNameEdit">Store Name:</label>
+                        <input type="text" id="storeNameEdit" name="storeNameEdit" required readonly>
+                       </div> 
+                        <button class="next" type="button" id="next-company">Next &rarr;</button>
+                    </div>       
+                <!-- Step 2: Section A -->
+                <div class="main-border">
+                    <div class="form-section" id="sectionA">
+                        <h2>ELECTRICAL PREVENTIVE MAINTENANCE CHECKLIST</h2>
+                            <table id="checklistTable">
+                                <thead>
+                                    <tr>
+                                        <th>BREAKDOWN ON</th>
+                                        <th>STATUS</th>
+                                        <th>RESION</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                            <button id="addRowButton" type="button">+ Add</button>
+                        <div class="backnext">
+                            <button class="back" type="button" onclick="showNextSection('sectionA', 'companyDetails')">
+                                &larr; Back </button>
+                                <div id="error-message" class="error"></div>
+                                <!-- Success message container -->
+                                <div id="success-message" class="success"></div>
+                                <button type="button"  class="save" onclick="saveEdit()">Save</button>
+                                      <button type="button" class="cancel" onclick="cancelEdit()">Cancel</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+        
+   
+    <script src="breakDownEdit.js"></script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow-x: auto;
+  white-space: nowrap;
+  background-color: #f8f9ff;
+  padding: 10px 20px;
+  border-bottom: 2px groove rgb(53, 43, 43);
+}
+
+.brand-logo {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand-logo img {
+  height: 50px;
+  width: auto;
+}
+
+/* Navigation link styles */
+.navbar .nav-link {
+  flex: 1 1 auto;
+  text-align: center;
+  color: #004494;
+  padding: 14px 20px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Hover effect for navigation links only */
+.navbar .nav-link:hover {
+  background-color: #1265c3;
+  color: #f8f9ff;
+  border-radius: 10px;
+}
+
+/* Active link style */
+.navbar .nav-link.active {
+  background-color: #004494;
+  color: white;
+  border-radius: 10px;
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+  .navbar {
+    justify-content: flex-start;
+  }
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+.whole-container {
+  background-color: #ffffff; /* Existing background color */
+  border: none; /* Remove border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 660px; /* Set max height */
+  overflow-y: auto; /* Vertical scrollbar if content exceeds max height */
+  padding: 20px; /* Ensure content doesn't touch the border */
+  box-sizing: border-box; 
+  border-radius: 1rem;
+}
+
+h1,h3 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-row div {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.form-row div:last-child {
+  margin-right: 0;
+}
+
+select,
+input[type="text"],input[type="email"] {
+  margin: 10px 0;
+  padding: 12px;
+  width: calc(100% - 24px);
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+input[type="text"]:focus,input[type="email"]:focus {
+  border-color: #0056b3;
+  outline: none;
+}
+
+#submit,#save,#cancle {
+  background-color: #0056b3;
+  color: #ffffff;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+#submit:hover {
+  background-color: #004494;
+}
+
+.error {
+  color: #d9534f;
+  margin: 10px 0;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.success {
+  color: #5bc0de;
+  margin: 10px 0;
+  font-size: 14px;
+}
+/* th,
+td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+} */
+
+.table-container {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.pagination {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.page-item {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.page-item.active {
+  background-color: #0056b3;
+  color: white;
+  border-radius: 4px;
+}
+
+.pagination-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#storeTable_paginate {
+  margin-right: 10px;
+}
+
+#storeTable_paginate .paginate_button {
+  padding: 4px 8px;
+  margin: 2px;
+  font-size: 12px;
+}
+.edit{
+  height: 20px;
+  width: 50px;
+  background-color:rgb(240, 196, 17);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.delete{
+  margin-top: 2px;
+  height: 20px;
+  width: 50px;
+  color: #ffffff;
+  background-color:rgb(244, 18, 44);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.export{
+  margin-top: 2px;
+  height: 20px;
+  width: 50px;
+  color: #ffffff;
+  background-color:rgb(65, 97, 201);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.delete:hover{
+  background-color:hsl(353, 95%, 40%) ;
+}
+.edit:hover{
+  background-color:hsl(48, 88%, 40%) ;
+}
+.export:hover{
+background-color: rgb(39, 67, 159);
+}
+
+.save{
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.cancel{
+  background-color: #f44336;
+  color: white;
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#exportButton{
+  height:30px;
+  width: 120px;
+  color: #ffffff;
+  background-color: rgb(44, 149, 44);
+  border: none;
+  border-radius: 5px;
+
+}
+.download-qr{
+  color: white;
+  background-color: black;
+  border-radius: 5px;
+  border:none;
+  cursor: pointer;
+}
+.download-qr:hover{
+  color: white;
+  background-color: rgb(60, 53, 53);
+  border-radius: 5px;
+  border:none;
+}
+#exportButton:hover{
+  background-color:rgb(31, 124, 31) ;
+}
+#clientNameEdit,#zoneNameEdit,#stateNameEdit,#cityNameEdit {
+  background-color: #aebcc8; /* Light blue background */
+  color: #333;              /* Dark text color */
+  border: 2px solid #6a5acd; /* Border color */
+ /* padding: 5px;            /* Padding inside the input field */
+  border-radius: 4px;      /* Rounded corners for the border */
+}
+
+/* Optional: Change background color when input is focused (even though it is readonly) */
+#clientNameEdit:focus,#zoneNameEdit:focus,#stateNameEdit:focus ,#cityNameEdit:focus{
+  outline: none;           /* Remove default focus outline */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Optional: Shadow effect */
+}

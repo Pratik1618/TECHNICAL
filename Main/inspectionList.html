@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspection List</title>
+
+    <link rel="stylesheet" href="inspectionList.css">
+    <link rel="stylesheet" href="../NavBar/navbar.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <!-- jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+  <script src="../NavBar/navbar.js" defer></script>
+
+
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <div class="whole-container">
+    <div class="container">
+        <a href="main.html">
+          <button id="inscpectionButton">INSPECTION FORM</button>
+        </a>
+      </div>
+    <div class="container">
+        <h2>SCHEDULED INSPECTION VISITS DATA TABLE</h2>
+        <div class="table-container">
+          <div id="previewModal" class="modal">
+            <div class="modal-content">
+              <span class="close-button">&times;</span>
+              <div id="previewContainer"></div>
+            </div>
+          </div>
+  
+          <table id="inspectionId" class="display">
+            <thead>
+              <tr>
+                <th>Sr.no</th>
+                <th>Ticket Number</th>
+                <th>Client Name</th>
+                <th>Store Name</th>
+                <th>Store Code</th>
+                <th>Zone</th>
+                <th>State</th>
+                <th>Addresss</th>
+                <th>Status</th>
+                <th>Actions</th>
+               
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Table data will be populated here -->
+            </tbody>
+          </table>
+         
+        </div>
+        <div id="pagination" class="pagination">
+          <!-- Page numbers and navigation buttons will be generated here -->
+        </div>
+      </div>
+      
+      </div>
+<script src="inspectionList.js"></script>
+</body>
+</html>

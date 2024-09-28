@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Account</title>
+    <link rel="stylesheet" href="signUp.css" />
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Edit an Account</h2>
+        <form action="/submit-signup" id="signUpForm" method="POST">
+            <div class="form-group">
+                <input type="hidden" id="userId">
+                <label for="username">Name</label>
+                <input type="text" id="userNameEdit" name="username" required />
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="number" id="phoneNumberEdit" name="phoneNumber" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="passwordEdit" name="password" required />
+            </div>
+            <div class="form-group">
+                <label for="clientName">Select the Client</label>
+                <input type="text" id="clientNameEdit" name="clientName" required readonly/>
+            </div>
+            <div class="form-group">
+                <label for="zoneName">Select the Zone</label>
+                <input type="text" id="zoneNameEdit" name="zoneName" required readonly/>
+            </div>
+            <div class="form-group">
+                <label for="roleName">Select the Role</label>
+                <input type="text" id="roleNameEdit" name="roleName" required readonly/>
+            </div>
+            <div class="form-group">
+                <label for="storeName">Select the Store</label>
+                <input type="text" id="storeNameEdit" name="storeName" required readonly/>
+            </div>
+            <div id="success-message"></div>
+            <div id="error-message"></div>
+            <button type="button" class="save-btn" onclick="saveEdit()">Save</button>
+            <button type="button" class="cancel-btn" onclick="cancelEdit()">Cancel</button>
+        </form>
+    </div>
+    <script src="editSignUp.js"></script>
+</body>
+</html>

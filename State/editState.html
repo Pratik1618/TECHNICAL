@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDIT STATE INFORMATION</title>
+  <link rel="stylesheet" href="stateStyle.css" />
+  
+</head>
+
+
+<body>
+   <div class="whole-container">
+  <div class="container">
+    <input type="hidden" id="stateId">
+    <h1>EDIT STATE INFORMATION</h1>
+    <form id="storeForm">
+      <div>
+        <label for="zoneName">Zone Name:</label>
+        <input type="text" id="zoneNameEdit" name="zoneNameEdit" required readonly/>
+      </div>
+      <div>
+        <label for="stateName">State Name:</label>
+        <input type="text" id="stateName" name="stateName" required />
+      </div>
+      
+      <!-- Error message container -->
+      <div id="error-message" class="error"></div>
+      <!-- Success message container -->
+      <div id="success-message" class="success"></div>
+      <button type="button"  class="save" onclick="saveEdit()">Save</button>
+      <button type="button" class="cancel" onclick="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+</div>
+  <script src="editState.js">
+  
+  </script>
+</body>
+
+</html>

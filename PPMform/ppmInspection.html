@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Electrical Preventive Maintenance Checklist</title>
+    <link rel="stylesheet" href="ppmInspection.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar">
+        <a href="#" class="brand-logo">
+            <img src="../logo/logo_1-removebg-preview.png" alt="Brand Logo">
+        </a>
+        <a href="../Sheduling/sheduling.html" class="nav-link" id="tab-schedule">SCHEDULE INSPECTION</a>
+        <a href="../Main/inspectionList.html" class="nav-link" id="tab-inspection">INSPECTION FORM</a>
+        <a href="../PPMform/ppminscpectionList.html" class="nav-link" id="tab-ppm">PPM FORM</a>
+        <a href="../brekdown/breakdownList.html" class="nav-link" id="tab-breakdown">BREAKDOWN</a>
+        <a href="../Client/client.html" class="nav-link" id="tab-client">CLIENT</a>
+        <a href="../Role/role.html" class="nav-link" id="tab-role">ROLE</a>
+        <a href="../Store/store.html" class="nav-link" id="tab-store">STORE</a>
+        <a href="../Zone/zone.html" class="nav-link" id="tab-zone">ZONE</a>
+        <a href="../State/state.html" class="nav-link" id="tab-state">STATE</a>
+        <a href="../City/city.html" class="nav-link" id="tab-city">CITY</a>
+        <a href="../calander/calender1.html" class="nav-link" id="tab-calender">CALENDAR</a>
+        <a href="../signUp/signUp.html" class="nav-link" id="tab-signUp">SIGN UP</a>
+        <a href="../login/login.html" class="nav-link">LOG OUT</a>
+    </nav>
+  </header>
+
+    <body>
+      <div class="container">
+        <form id="multiStepForm">
+          <!-- Step 1: Company Details -->
+          <div class="form-section active" id="companyDetails">
+            <h2>Company Details</h2>
+            <div>
+              <label for="ticketNumber">Ticket Number:</label>
+              <input
+                id="ticketNumber"
+                type="number"
+                name="ticketNumber"
+                required
+              />
+            </div>
+            <div>
+              <label for="companyName">Company Name:</label>
+              <select id="companyName" name="companyName" required>
+                <option value="">Select a client</option>
+              </select>
+            </div>
+            <div>
+              <label for="companyAddress">Store Name:</label>
+              <select id="companyAddress" name="companyAddress" required>
+                <option value="">Select a Store</option>
+              </select>
+            </div>
+            <div>
+              <label for="frequency">Frequency:</label>
+              <select name="frequency" id="frequency" required>
+                <option value="quarterly">Quarterly</option>
+                <!-- <option value="monthly">Monthly</option>
+                            <option value="yearly">Yearly</option> -->
+              </select>
+            </div>
+            <button class="next" type="button" id="next-company">
+              Next &rarr;
+            </button>
+          </div>
+          <!-- Step 2: Section A -->
+          <div class="main-border">
+            <div class="form-section" id="sectionA">
+              <h2>ELECTRICAL PREVENTIVE MAINTENANCE CHECKLIST</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th>EQUIPMENT</th>
+                    <th>DESCRIPTION</th>
+                    <th>PARAMETER</th>
+                    <th>VALUE</th>
+                    <th>REASON</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Main Control Panel</td>
+                    <td>Ensure cable terminations are proper</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters1"
+                        name="parameters1"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values1"
+                        name="values1"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion1"
+                        name="resion1"
+                        placeholder="Enter the resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="file" id="photo1" name="mainControlPanelPhoto"accept="image/*"onchange="previewPhoto('photo1', 'photoPreview1')" />
+                      <input type="hidden" name="mainControlPanelPhotoId" id="mainControlPanelPhotoId" />
+                    </td>
+                    <td>
+                      <button type="button" onclick="uploadPhoto('photo1', 'file', 'photoPreview1', 'mainControlPanelPhotoId')">
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img id="photoPreview1" style="display: none; width: 100px; height: 100px"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Distribution Boards</td>
+                    <td>Ensure cable terminations are proper</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters2"
+                        name="parameters2"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values2"
+                        name="values2"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion2"
+                        name="resion2"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="file"id="photo2"name="distributionBoards1Photo" accept="image/*" onchange="previewPhoto('photo2', 'photoPreview2')" />
+                      <input type="hidden" name="distributionBoards1PhotoId" id="distributionBoards1PhotoId" />
+
+                    </td>
+                    <td>
+                      <button type="button" onclick="uploadPhoto('photo2','file','photoPreview2', 'distributionBoards1PhotoId' )">
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview2"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Distribution Boards</td>
+                    <td>Check tightness of the connections</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters3"
+                        name="parameters3"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values3"
+                        name="values3"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion3"
+                        name="resion3"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="file"id="photo3"name="distributionBoards2Photo"accept="image/*"onchange="previewPhoto('photo3', 'photoPreview3')" />
+                      <input type="hidden" name="distributionBoards2PhotoId" id="distributionBoards2PhotoId" />
+                    </td>
+                    <td>
+                      <button type="button" onclick="uploadPhoto('photo3','file','photoPreview3', 'distributionBoards2PhotoId')">
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview3"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Bus Duct</td>
+                    <td>Ensure bus terminations are proper</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters4"
+                        name="parameters4"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values4"
+                        name="values4"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion4"
+                        name="resion4"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="file" id="photo4"name="busDuctPhoto"  accept="image/*" onchange="previewPhoto('photo4', 'photoPreview4')"/>
+                      <input type="hidden" name="busDuctPhotoId" id="busDuctPhotoId" />
+                    </td>
+                    <td>
+                      <button type="button"  onclick="uploadPhoto('photo4','file','photoPreview4', 'busDuctPhotoId' )" > UploadPhoto</button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview4"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Capacitor Panel</td>
+                    <td>Ensure cable terminations are proper</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters19"
+                        name="parameters19"
+                        placeholder="Enter Parameter19"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values19"
+                        name="values19"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion19"
+                        name="resion19"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="file"
+                        id="photo19"
+                        name="capacitorPanelPhoto"
+                        accept="image/*"
+                        onchange="previewPhoto('photo19', 'photoPreview19')"
+                      />
+                      <input type="hidden" name="capacitorPanelPhotoId" id="capacitorPanelPhotoId" />
+
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo19','file', 'photoPreview19', 'capacitorPanelPhotoId')"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview19"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Electric Motors</td>
+                    <td>
+                      Ensure all electrical connections are clean and tight
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters5"
+                        name="parameters5"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values5"
+                        name="values5"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion5"
+                        name="resion5"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="file" id="photo5" name="electricMotor1PhotoId"accept="image/*"onchange="previewPhoto('photo5', 'photoPreview5')" />
+                      <input type="hidden" name="electricMotor1PhotoId" id="electricMotor1PhotoId" />
+                    </td>
+                    <td>
+                      <button type="button" onclick="uploadPhoto('photo5', 'file', 'photoPreview5', 'electricMotor1PhotoId')">
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img id="photoPreview5" style="display: none; width: 100px; height: 100px"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Electric Motors</td>
+                    <td>Ensure no vibration or overheating</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters6"
+                        name="parameters6"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values6"
+                        name="values6"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion6"
+                        name="resion6"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="file"
+                        id="photo6"
+                        name="electricMotor2Photo"
+                        accept="image/*"
+                        onchange="previewPhoto('photo6', 'photoPreview6')"
+                      />
+                      <input type="hidden" name="electricMotor2PhotoId" id="electricMotor2PhotoId" />
+
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo6','file', 'photoPreview6', 'electricMotor2PhotoId')"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview6"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>UPS DB</td>
+                    <td>
+                      Do the changeover and see if the changeover switch is
+                      taking the load and record the load
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters7"
+                        name="parameters7"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values7"
+                        name="values7"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion7"
+                        name="resion7"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="file"
+                        id="photo7"
+                        name="updDbPhoto"
+                        accept="image/*"
+                        onchange="previewPhoto('photo7', 'photoPreview7')"
+                      />
+                      <input type="hidden" name="updDbPhotoId" id="updDbPhotoId" />
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo7','file', 'photoPreview7', 'updDbPhotoId')"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview7"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Shutter Motor</td>
+                    <td>Ensure the motor safety switch is working properly</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters8"
+                        name="parameters8"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values8"
+                        name="values8"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion8"
+                        name="resion8"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="file"
+                        id="photo8"
+                        name="shutterMotorPhoto"
+                        accept="image/*"
+                        onchange="previewPhoto('photo8', 'photoPreview8')"
+                      />
+                      <input type="hidden" name="shutterMotorPhotoId" id="shutterMotorPhotoId" />
+
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo8','file', 'photoPreview8', 'shutterMotorPhotoId')"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview8"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Signage</td>
+                    <td>
+                      Ensure the Signage drivers are kept in a safe space & no
+                      wire cuts
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters9"
+                        name="parameters9"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values9"
+                        name="values9"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion9"
+                        name="resion9"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="file"
+                        id="photo9"
+                        name="signagePhoto"
+                        accept="image/*"
+                        onchange="previewPhoto('photo9', 'photoPreview9')"
+                      />
+                      <input type="hidden" name="signagePhotoId" id="signagePhotoId" />
+
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo9','file', 'photoPreview9', 'signagePhotoId')"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview9"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Stabiliser Panel</td>
+                    <td>
+                      Ensure the transformers are performing properly with
+                      manual parameters
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters10"
+                        name="parameters10"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values10"
+                        name="values10"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion10"
+                        name="resion10"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input  type="file"  id="photo10" name="stablizerPanelPhoto"accept="image/*" onchange="previewPhoto('photo10', 'photoPreview10')" />
+                      <input type="hidden" name="stablizerPanelPhotoId" id="stablizerPanelPhotoId" />
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo10','file','photoPreview10', 'stablizerPanelPhotoId' )"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview10"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>DG Changeover Switch</td>
+                    <td>
+                      Checking the changeover switch connection from the
+                      supplier & the load side
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters11"
+                        name="parameters11"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values11"
+                        name="values11"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion11"
+                        name="resion11"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input  type="file"  id="photo11"  name="dgChangoverSwitchphoto"  accept="image/*" onchange="previewPhoto('photo11', 'photoPreview11')" />
+                      <input type="hidden" name="dgChangoverSwitchphotoId" id="dgChangoverSwitchphotoId" />
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo11','file', 'photoPreview11', 'dgChangoverSwitchphotoId')"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview11"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Kill Switch</td>
+                    <td>Checking the kill switch is working properly</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters12"
+                        name="parameters12"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values12"
+                        name="values12"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion12"
+                        name="resion12"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="file"
+                        id="photo12"
+                        name="killSwitchPhoto"
+                        accept="image/*"
+                        onchange="previewPhoto('photo12', 'photoPreview12')"
+                      />
+                      <input type="hidden" name="killSwitchPhotoId" id="killSwitchPhotoId" />
+
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo12','file', 'photoPreview12', 'killSwitchPhotoId')"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview12"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Energy Meter to our source</td>
+                    <td>
+                      Check the fuse or the MCCB switch speader link termination
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters13"
+                        name="parameters13"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values13"
+                        name="values13"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion13"
+                        name="resion13"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="file"
+                        id="photo13"
+                        name="energyMeterPhoto"
+                        accept="image/*"
+                        onchange="previewPhoto('photo13', 'photoPreview13')"
+                      />
+                      <input type="hidden" name="energyMeterPhotoId" id="energyMeterPhotoId" />
+
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo13','file', 'photoPreview13', 'energyMeterPhotoId')"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview13"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Load checking phase wise</td>
+                    <td>Load balancing of the individual phase & 3 phase</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters14"
+                        name="parameters14"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values14"
+                        name="values14"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion14"
+                        name="resion14"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="file"
+                        id="photo14"
+                        name="loadCheckingPhoto"
+                        accept="image/*"
+                        onchange="previewPhoto('photo14', 'photoPreview14')"
+                      />
+                      <input type="hidden" name="loadCheckingPhotoId" id="loadCheckingPhotoId" />
+
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo14','file', 'photoPreview14','loadCheckingPhotoId')"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview14"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>LED Screen</td>
+                    <td>Checking the neutral to earth parameters</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters15"
+                        name="parameters15"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values15"
+                        name="values15"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion15"
+                        name="resion15"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="file"
+                        id="photo15"
+                        name="loadCheckingPhoto"
+                        accept="image/*"
+                        onchange="previewPhoto('photo15', 'photoPreview15')"
+                      />
+                      <input type="hidden" name="leadScreenPhotoId" id="leadScreenPhotoId" />
+
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo15','file', 'photoPreview15', 'leadScreenPhotoId')"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview15"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>HVAC Distribution Panel</td>
+                    <td>
+                      Individually checking the panel & value updating phase
+                      wise
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters16"
+                        name="parameters16"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values16"
+                        name="values16"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion16"
+                        name="resion16"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="file"
+                        id="photo16"
+                        name="hvacPanelPhoto"
+                        accept="image/*"
+                        onchange="previewPhoto('photo16', 'photoPreview16')"
+                      />
+                      <input type="hidden" name="hvacPanelPhotoId" id="hvacPanelPhotoId" />
+
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo16', 'file', 'photoPreview16','hvacPanelPhotoId')"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview16"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Earth Pit</td>
+                    <td>
+                      Check the OHM value between the phase to earth value
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters17"
+                        name="parameters17"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values17"
+                        name="values17"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion17"
+                        name="resion17"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="file"
+                        id="photo17"
+                        name="earthPitPhoto"
+                        accept="image/*"
+                        onchange="previewPhoto('photo17', 'photoPreview17')"
+                      />
+                      <input type="hidden" name="earthPitPhotoId" id="earthPitPhotoId" />
+
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo17','file', 'photoPreview17', 'earthPitPhotoId')"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview17"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Water Pump</td>
+                    <td>Check the wire & the gland physically</td>
+                    <td>
+                      <input
+                        type="text"
+                        id="parameters18"
+                        name="parameters18"
+                        placeholder="Enter Parameters"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="values18"
+                        name="values18"
+                        placeholder="Enter Value"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="resion18"
+                        name="resion18"
+                        placeholder="Enter Resion"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="file"
+                        id="photo18"
+                        name="waterPumpPhoto"
+                        accept="image/*"
+                        onchange="previewPhoto('photo18', 'photoPreview18')"
+                      />
+                      <input type="hidden" name="waterPumpPhotoId" id="waterPumpPhotoId" />
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onclick="uploadPhoto('photo18','file', 'photoPreview18', 'waterPumpPhotoId')"
+                      >
+                        UploadPhoto
+                      </button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <img
+                        id="photoPreview18"
+                        style="display: none; width: 100px; height: 100px"
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="backnext">
+                <button
+                  class="back"
+                  type="button"
+                  onclick="showNextSection('sectionA', 'companyDetails')"
+                >
+                  &larr; Back
+                </button>
+                <button class="next" id="submitForm" type="submit">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </body>
+    <script src="ppmInspection.js"></script>
+  </body>
+</html>

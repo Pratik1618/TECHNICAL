@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="signUp.css" />
+    <!-- jQuery library -->
+     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- DataTables JS -->
+      <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+</head>
+    <header>
+      <nav class="navbar">
+        <a href="#" class="brand-logo">
+            <img src="../logo/logo_1-removebg-preview.png" alt="Brand Logo">
+        </a>
+        <a href="../Sheduling/sheduling.html" class="nav-link" id="tab-schedule">SCHEDULE INSPECTION</a>
+        <a href="../Main/inspectionList.html" class="nav-link" id="tab-inspection">INSPECTION FORM</a>
+        <a href="../PPMform/ppminscpectionList.html" class="nav-link" id="tab-ppm">PPM FORM</a>
+        <a href="../brekdown/breakdownList.html" class="nav-link" id="tab-breakdown">BREAKDOWN</a>
+        <a href="../Client/client.html" class="nav-link" id="tab-client">CLIENT</a>
+        <a href="../Role/role.html" class="nav-link" id="tab-role">ROLE</a>
+        <a href="../Store/store.html" class="nav-link" id="tab-store">STORE</a>
+        <a href="../Zone/zone.html" class="nav-link" id="tab-zone">ZONE</a>
+        <a href="../State/state.html" class="nav-link" id="tab-state">STATE</a>
+        <a href="../City/city.html" class="nav-link" id="tab-city">CITY</a>
+        <a href="../calander/calender1.html" class="nav-link" id="tab-calender">CALENDAR</a>
+        <a href="../signUp/inspectionList.html" class="nav-link" id="tab-signUp">SIGN UP</a>
+        <a href="../login/login.html" class="nav-link">LOG OUT</a>
+    </nav>
+    </header>
+  <body>
+    <div class="signup-container">
+      
+      <h2>Create an Account</h2>
+      <form action="/submit-signup" id="signUpForm" method="POST">
+        <div class="form-group">
+          <label for="username">Name</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number</label>
+          <input type="number" id="phoneNumber" name="phoneNumber" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="clientName">Select the Client</label>
+          <select name="clientName" id="clientName">
+            <option value="">Select the client</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="zoneName">Select the Zone</label>
+          <select name="zoneName" id="zoneName">
+            <option value="">Select the Zone</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="roleName">Select the Role</label>
+          <select name="roleName" id="roleName">
+            <option value="">Select the Role</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="storeName">Select the Store</label>
+          <select name="storeName" id="storeName">
+            <option value="">Select the Store</option>
+          </select>
+        </div>
+        <div id="success-message"></div>
+        <div id="error-message"></div>
+        <button type="submit" class="submit-btn">Sign Up</button>
+      </form>
+     
+    </div>
+   
+    <script src="signUp.js"></script>
+  </body>
+</html>

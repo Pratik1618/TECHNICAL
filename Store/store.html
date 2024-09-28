@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STORE INFORMATION</title>
+  <link rel="stylesheet" href="storeStyle.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<header>
+  <nav class="navbar">
+    <a href="#" class="brand-logo">
+        <img src="../logo/logo_1-removebg-preview.png" alt="Brand Logo">
+    </a>
+    <a href="../Sheduling/sheduling.html" class="nav-link" id="tab-schedule">SCHEDULE INSPECTION</a>
+    <a href="../Main/inspectionList.html" class="nav-link" id="tab-inspection">INSPECTION FORM</a>
+    <a href="../PPMform/ppminscpectionList.html" class="nav-link" id="tab-ppm">PPM FORM</a>
+    <a href="../brekdown/breakdownList.html" class="nav-link" id="tab-breakdown">BREAKDOWN</a>
+    <a href="../Client/client.html" class="nav-link" id="tab-client">CLIENT</a>
+    <a href="../Role/role.html" class="nav-link" id="tab-role">ROLE</a>
+    <a href="../Store/store.html" class="nav-link" id="tab-store">STORE</a>
+    <a href="../Zone/zone.html" class="nav-link" id="tab-zone">ZONE</a>
+    <a href="../State/state.html" class="nav-link" id="tab-state">STATE</a>
+    <a href="../City/city.html" class="nav-link" id="tab-city">CITY</a>
+    <a href="../calander/calender1.html" class="nav-link" id="tab-calender">CALENDAR</a>
+    <a href="../signUp/signUp.html" class="nav-link" id="tab-signUp">SIGN UP</a>
+    <a href="../login/login.html" class="nav-link">LOG OUT</a>
+</nav>
+</header>
+<body>
+  <div class="whole-container">
+  <div class="container">
+    <h1>STORE INFORMATION</h1>
+    <form id="storeForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="clientName">Client Name:</label>
+          <select id="clientName" name="clientId" required>
+            <option value="">Select a client</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="storeName">Store/Branch Name:</label>
+          <input type="text" id="storeName" name="storeName" required />
+        </div>
+        <div class="form-group">
+          <label for="storeCode">Store/Branch Code:</label>
+          <input type="text" id="storeCode" name="storeCode" required />
+        </div>
+        <div class="form-group">
+          <label for="zoneName">Zone Name:</label>
+          <select id="zoneName" name="zoneName" required>
+            <option value="">Select a Zone</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="stateName">State Name:</label>
+          <select id="stateName" name="stateName" required>
+            <option value="">Select a State</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row"> 
+        <div class="form-group">
+          <label for="city">City:</label>
+          <select id="cityName" name="cityName" required>
+            <option value="">Select a City</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="type">Type:</label>
+          <select id="type" name="type" required>
+            <option value="">Select store type</option>
+            <option value="HS">HS</option>
+            <option value="MALL">MALL</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="sqft">Sq. Feet:</label>
+          <input type="text" id="sqft" name="sqft" required />
+        </div>
+        <div class="form-group">
+          <label for="billing">Billing :</label>
+          <input type="text" id="billing" name="billing" required />
+        </div>
+        <div class="form-group">
+          <label for="storeMangerEmail">Store Manager Email:</label>
+          <input type="text" id="storeManagerEmail" name="storeManagerEmail" required />
+        </div>
+      </div>
+      
+      <div class="form-row">
+        
+        <div class="form-group">
+          <label for="zonalHeadEmail">Store Manager Zonal Head Email:</label>
+          <input type="email" id="zonalHeadEmail" name="zonalHeadEmail" required />
+        </div>
+        <div class="form-group">
+          <label for="nationalHeadEmail">Store Manager National Head Email:</label>
+          <input type="email" id="nationalHeadEmail" name="nationalHeadEmail" required />
+        </div>
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address" required />
+        </div>
+      </div>
+      <!-- Error message container -->
+      <div id="error-message" class="error"></div>
+      <!-- Success message container -->
+      <div id="success-message" class="success"></div>
+      <button type="submit" id="submit">Submit</button>
+    </form>
+    <br>
+</div>
+<div class="container">
+   <div class="table-container">
+    <h2>STORE LIST</h2>
+    <button id="exportButton">Export to Excel</button>
+    <table id="storeTable" class = "display">
+      <thead>
+        <tr>
+          <th>Client Name</th>
+          <th>Store/Branch Name</th>
+          <th>Store/Branch Code</th>
+          <th>Zone Name</th>
+          <th>State Name</th>
+          <th>City</th>
+          <th>Type</th>
+          <th>Sq. Feet</th>
+          <th>Billing</th>
+          <th>Store Manager Email</th>
+          <th>Zonal Head Email</th>
+          <th>National Head Email</th>
+          <th>Address</th>
+          <th>QR Code</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="storeTableBody">
+        <!-- Rows will be populated here via JavaScript -->
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination-container">
+    <div id = "pagination" class="pagination">
+      <!-- Pagination will be populated here via JavaScript -->
+    </div>
+
+    <!-- Your existing table and pagination code -->
+     <!-- Your existing table and pagination code -->
+
+<!-- Edit Form (initially hidden) -->
+</div>
+</div>
+ </div>
+  <script src="storeJs.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Store</title>
+    <link rel="stylesheet" href="storeStyle.css" />
+   
+</head>
+<body onload="loadEditForm()">
+
+    <div  class="container">
+        <h3>Edit Store</h3>
+        <form id="editForm">
+            <input type="hidden" id="storeId">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="clientName">Client Name:</label>
+                    <input type="text" id="clientNameEdit" name="clientName" required readonly>
+                </div>
+                <div class="form-group">
+                    <label for="storeName">Store Name:</label>
+                    <input type="text" id="storeName" name="storeName" required>
+                </div>
+                <div class="form-group">
+                    <label for="storeCode">Store Code:</label>
+                    <input type="text" id="storeCode" name="storeCode" required>
+                </div>
+                <div class="form-group">
+                    <label for="zoneName">Zone Name:</label>
+                    <input type="text" id="zoneNameEdit" name="zoneName" required readonly>
+                </div>
+                <div class="form-group">
+                    <label for="stateName">State Name:</label>
+                    <input type="text" id="stateNameEdit" name="stateName" required readonly>  
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" id="cityNameEdit" name="cityName" required readonly>
+                </div>
+                <div class="form-group">
+                    <label for="type">Type:</label>
+                    <select id="type" name="type" required>
+                        <option value="HS">HS</option>
+                        <option value="MALL">MALL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sqft">Sq. Feet:</label>
+                    <input type="text" id="sqft" name="sqft" required>
+                </div>
+                <div class="form-group">
+                    <label for="billing">Billing:</label>
+                    <input type="text" id="billing" name="billing" required>
+                </div>
+                <div class="form-group">
+                    <label for="storeManagerEmail">Store Manager Email:</label>
+                    <input type="email" id="storeManagerEmail" name="storeManagerEmail" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="zonalHeadEmail">Zonal Head Email:</label>
+                    <input type="email" id="zonalHeadEmail" name="zonalHeadEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="nationalHeadEmail">National Head Email:</label>
+                    <input type="email" id="nationalHeadEmail" name="nationalHeadEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+            </div>
+            <button type="button" class="save" onclick="saveEdit()">Save</button>
+            <button type="button" class="cancel" onclick="cancelEdit()">Cancel</button>
+        </form>
+    </div>
+
+    <script src="edit.js"></script>
+</body>
+</html>

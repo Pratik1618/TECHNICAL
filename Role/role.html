@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-Step Form with Sections</title>
+    <link rel="stylesheet" href="role.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  </head>
+  <header>
+    <nav class="navbar">
+      <a href="#" class="brand-logo">
+          <img src="../logo/logo_1-removebg-preview.png" alt="Brand Logo">
+      </a>
+      <a href="../Sheduling/sheduling.html" class="nav-link" id="tab-schedule">SCHEDULE INSPECTION</a>
+      <a href="../Main/inspectionList.html" class="nav-link" id="tab-inspection">INSPECTION FORM</a>
+      <a href="../PPMform/ppminscpectionList.html" class="nav-link" id="tab-ppm">PPM FORM</a>
+      <a href="../brekdown/breakdownList.html" class="nav-link" id="tab-breakdown">BREAKDOWN</a>
+      <a href="../Client/client.html" class="nav-link" id="tab-client">CLIENT</a>
+      <a href="../Role/role.html" class="nav-link" id="tab-role">ROLE</a>
+      <a href="../Store/store.html" class="nav-link" id="tab-store">STORE</a>
+      <a href="../Zone/zone.html" class="nav-link" id="tab-zone">ZONE</a>
+      <a href="../State/state.html" class="nav-link" id="tab-state">STATE</a>
+      <a href="../City/city.html" class="nav-link" id="tab-city">CITY</a>
+      <a href="../calander/calender1.html" class="nav-link" id="tab-calender">CALENDAR</a>
+      <a href="../signUp/signUp.html" class="nav-link" id="tab-signUp">SIGN UP</a>
+      <a href="../login/login.html" class="nav-link">LOG OUT</a>
+  </nav>
+</header>
+  <body>
+    <body>
+    <div class="whole-container">
+      <div class="container">
+        <h1>ROLE INFORMATION</h1>
+        <form id="storeForm">
+          <div>
+            <label for="roleName">Role Name:</label>
+            <input type="text" id="roleName" name="roleName" required />
+          </div>
+          <!-- Error message container -->
+          <div id="error-message" class="error"></div>
+          <!-- Success message container -->
+          <div id="success-message" class="success"></div>
+          <button type="submit" id="submit">Submit</button>
+        </form>
+      </div>
+      <div class="container">
+        <h2>ROLE LIST</h2>
+        <button id = "exportButton" >Export to excel</button>
+        <table id="roletTable" class="display">
+          <thead>
+            <tr>
+              <th>Sr No</th>
+              <th>Role Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+      <script src="role.js">
+</script>
+    </body>
+  </body>
+</html>
