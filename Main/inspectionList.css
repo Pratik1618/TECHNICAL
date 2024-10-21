@@ -20,7 +20,7 @@ body {
   background-color: #ffffff; /* Existing background color */
   border: none; /* Remove border */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 660px; /* Set max height */
+  height: 600px; /* Set max height */
   overflow-y: auto; /* Vertical scrollbar if content exceeds max height */
   padding: 20px; /* Ensure content doesn't touch the border */
   box-sizing: border-box; 
@@ -133,7 +133,7 @@ select:focus {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-#inscpectionButton{
+#inscpectionButton,#HISTORY{
   height: 30px;
   width: 250px;
   font-size: 20px;
@@ -144,7 +144,7 @@ select:focus {
   border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-#inscpectionButton:hover{
+#inscpectionButton:hover,#HISTORY:hover{
   background-color: #0056b3;
 }
 .edit{
@@ -356,4 +356,22 @@ overflow-x: auto;
 .close-button:focus {
   color: black;
   text-decoration: none;
+}
+.approval{
+  margin-top: 2px;
+  height: 20px;
+  color: #ffffff;
+  background-color:green;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.reject{
+  margin-top: 2px;
+  height: 20px;
+  color: #ffffff;
+  background-color:rgb(241, 47, 50);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

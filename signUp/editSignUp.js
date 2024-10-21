@@ -1,4 +1,4 @@
-const api = 'http://localhost:8083';
+const api = getBaseUrl();
 const token = localStorage.getItem('authToken');
 
 // Load the form with user data when the page is loaded
@@ -15,7 +15,7 @@ function loadEditForm() {
 
     fetch(`${api}/user/${userId}`, {
         headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `${token}`
         }
     })
     .then(response => response.json())
@@ -31,16 +31,18 @@ function populateForm(user) {
     document.getElementById("userId").value = user.id;
     document.getElementById("userNameEdit").value = user.userName;
     document.getElementById("phoneNumberEdit").value = parseInt(user.mobileNumber);
+
     document.getElementById("passwordEdit").value = user.password;
-    
-    document.getElementById("clientNameEdit").value =  user.client.clientName;
-    clientNameEditValue=user.client.id;
-    document.getElementById("zoneNameEdit").value =user.zone.zoneName;
-    zoneNameEditValue=user.zone.id;
-    document.getElementById("roleNameEdit").value =user.role.roleType+"-"+user.role.displayName;
-    roleNameEditValue=user.role.id;
-    document.getElementById("storeNameEdit").value = user.store.storeCode+"-"+user.store.storeName;
-    storeNameEditValue=user.store.id;
+   
+    document.getElementById("clientNameEdit").value = user.client && user.client.clientName ? user.client.clientName : null;
+    clientNameEditValue = user.client && user.client.id ? user.client.id : null;
+    document.getElementById("zoneNameEdit").value =user.zone && user.zone.zoneName ?user.zone.zoneName:null;
+
+    zoneNameEditValue=user.zone && user.zone.id ? user.zone.id:null;
+    document.getElementById("roleNameEdit").value =user.role;
+    roleNameEditValue=user.role;
+    document.getElementById("storeNameEdit").value = user.store&& user.store.storeCode+"-"+user.store.storeName?user.store.storeCode+"-"+user.store.storeName:null;
+    storeNameEditValue=user.store && user.store.id ?user.store.id:null ;
 }
 
 function saveEdit() {
@@ -49,46 +51,74 @@ function saveEdit() {
     const phoneNumber = String(document.getElementById("phoneNumberEdit").value);
     const password = document.getElementById("passwordEdit").value;
 
-    const client =clientNameEditValue ;
-    const zone =zoneNameEditValue ;
+    function parseOrNull(value) {
+        // Check if value is not null, undefined, or not a string
+        if (value !== null && value !== undefined) {
+            // Only trim if it's a string
+            const trimmedValue = typeof value === 'string' ? value.trim() : String(value).trim();
+            const parsedValue = parseInt(trimmedValue);  // Specify base 10 for parsing
+    
+            // Return the parsed value or null if it's NaN
+            return isNaN(parsedValue) ? null : parsedValue;
+        }
+    
+        // Return null if value is null, undefined, or empty
+        return null;
+    }
+    
+    
+    // function parseOrNull(value) {
+    //     if(value!=null){
+    //     const parsedValue = parseInt(value.trim());
+        
+    //     return isNaN(parsedValue) ? null : parsedValue;
+    // }}
+    const client = parseOrNull(clientNameEditValue);
+    const zone = parseOrNull(zoneNameEditValue);
+    const store = parseOrNull(storeNameEditValue);
+    
     const role =roleNameEditValue ;
-    const store =storeNameEditValue ;
+    
 
     const formData = {
-        client: { id: parseInt(client) },
+        client: client !== null ? { id: client } : null,
         userName: userName,
         mobileNumber: phoneNumber,
         password: password,
-        zone: { id: parseInt(zone) },
-        role: { id: parseInt(role) },
-       store: { id: parseInt(store) }
+        store: store !== null ? { id: store } : null,
+        zone: zone !== null ? { id: zone } : null,
+        role:  role ,
+       
     };
 
     fetch(`${api}/user/update/${userId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
+             'Authorization': `${token}`
         },
         body: JSON.stringify(formData)
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            document.getElementById("success-message").textContent = "User updated successfully!";
-            window.location.href = "inspectionList.html"; // Redirect after 2 seconds
-        } else {
-            document.getElementById("error-message").textContent = data.message || "Error updating user";
-            console.log(data.message);
-        }
+    .then((response) => {
+        return response.json().then((data) => {
+            if (response.ok) {
+                alert("User updated successfully");
+                window.location.href = "signUpList.html"; // Redirect after successful save
+            } else {
+                // Handle specific errors based on response content
+                console.error("Failed to update state:", data.message);
+                alert(data.message || "Error updating state");
+            }
+        });
     })
-    .catch(error => {
-        console.error("Error updating user:", error);
-        document.getElementById("error-message").textContent = "Error updating user. Please try again.";
+    .catch((error) => {
+        console.error("Error updating state:", error);
+        alert("Error updating state. Please try again.");
     });
 }
 
 function cancelEdit() {
-    window.location.href = "inspectionList.html"; // Redirect to the main page
+    window.location.href = "signUpList.html"; // Redirect to the main page
 }
 
 function getQueryParam(param) {

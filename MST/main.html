@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Step Form with Sections</title>
+
+    <link rel="stylesheet" href="mainStyle.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <form id="multiStepForm">
+            <!-- Step 1: Company Details -->
+            <div class="form-section active" id="companyDetails">
+                <h2>Company Details</h2>
+                <div>
+                    <label for="ticketNumber">Ticket Number:</label>
+                    <input id="ticketNumber" type="number" name="ticketNumber" required>
+                </div>
+                <div>
+                    <label for="companyName">Company Name:</label>
+                    <select id="companyName" name="companyName" required>
+                        <option value="">Select a client</option>
+                        <option value="raymend">Raymand</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="companyAddress">Store Name:</label>
+                    <select id="companyAddress" name="companyAddress" required>
+                        <option value="">Select a Store</option>
+                        <option value="raymend">Raymand</option>
+                    </select>
+                </div>
+                <div id="error-message" style="color: red;"></div>
+                <div id="success-message" style="color: green;"></div>
+
+
+                <button class="next" type="button" id="next-company">Next &rarr;</button>
+            </div>
+
+            <!-- Step 2: Section A -->
+            <div class="main-border">
+                <div class="form-section" id="sectionA">
+                    <h2>Section A: Electrical</h2>
+                    <table>
+                        <tr>
+                            <th>Sec</th>
+                            <th>ITEMS</th>
+                            <th>YES</th>
+                            <th>NO</th>
+                            <th>CONDITION</th>
+                            <th>REMARK</th>
+                        </tr>
+
+                        <tr>
+                            <td>1</td>
+                            <td>UPS Room</td>
+                            <td><input type="radio" id="upsRoomYesNo1" name="upsRoomYesNo" value="YES"></td>
+                            <td><input type="radio" id="upsRoomYesNo2" name="upsRoomYesNo" value="NO"></td>
+                            <td>
+                                <label>OK</label><input type="radio" id="upsRoomOkNotOk1" name="upsRoomOkNotOk"
+                                    value="OK">
+                                <br><label>NOT OK</label><input type="radio" id="upsRoomOkNotOk2" name="upsRoomOkNotOk"
+                                    value="Not OK">
+                            </td>
+                            <td><input class="text-box" type="text" id="upsRoomRemark1" name="upsRoomRemark"></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Main Switch area/earthing</td>
+                            <td><input type="radio" id="mainSwitch1" name="mainSwitchYesNo" value="YES"></td>
+                            <td><input type="radio" id="mainSwitch2" name="mainSwitchYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="mainSwitch3" name="mainSwitchOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="mainSwitch4"
+                                    name="mainSwitchOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="mainSwitch5" name="mainSwitch"></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Plug points of each work station/Cabin/Training room/Meeting room</td>
+                            <td><input type="radio" id="plugPoint1" name="plugPointYesNo" value="YES"></td>
+                            <td><input type="radio" id="plugPoint2" name="plugPointYesNo" value="NO"></td>
+                            <td>
+                                <label>OK</label>
+                                <input type="radio" id="plugPoint3" name="plugPointOkNotOk" value="OK">
+                                <br>
+                                <label>NOT OK</label>
+                                <input type="radio" id="plugPoint4" name="plugPoint4OkNotOk" value="Not OK">
+                            </td>
+
+                            <td><input class="text-box" type="text" id="plugPoint5" name="plugPoint"></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Lighting condition of the branches - Electrical panels, switches, & MCB condition</td>
+                            <td><input type="radio" id="lightingCondition1" name="lightingConditionYesNo" value="YES">
+                            </td>
+                            <td><input type="radio" id="lightingCondition2" name="lightingConditionYesNo" value="NO">
+                            </td>
+                            <td><label>OK</label><input type="radio" id="lightingCondition3"
+                                    name="lightingConditionOkNotOk" value="OK"><br><label>NOT OK</label><input
+                                    type="radio" id="lightingCondition4" name="lightingConditionOkNotOk" value="Not OK">
+                            </td>
+                            <td><input class="text-box" type="text" id="lightingCondition5" name="lightingCondition5">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Checked electrical meter room (mention current reading)</td>
+                            <td><input type="radio" id="electialMeter1" name="electialMeterYesNo" value="YES"></td>
+                            <td><input type="radio" id="electialMeter2" name="electialMeterYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="electialMeter3" name="electialMeterOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="electialMeter4"
+                                    name="electialMeterOkNotOk" value="Not OK"></td>
+                            <td><label>R:</label><input class="text-box-not-hide" type="text" id="electialMeter5"
+                                    name="electialMeter"><br><label>Y:</label><input class="text-box-not-hide"
+                                    type="text" id="electialMeter6" name="electialMeter"><br><label>B:</label><input
+                                    class="text-box-not-hide" type="text" id="electialMeter7" name="electialMeter"></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Fans</td>
+                            <td><input type="radio" id="fan1" name="fanYesNo" value="YES"></td>
+                            <td><input type="radio" id="fan2" name="fanYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="fan3" name="fanOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="fan4" name="fanOkNotOk"
+                                    value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="fan5" name="fan"></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Lights</td>
+                            <td><input type="radio" id="lights1" name="lightsYesNo" value="YES"></td>
+                            <td><input type="radio" id="lights2" name="lightsYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="fan3" name="lightsOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="lights4"
+                                    name="lightsOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="lights5" name="lights"></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Server Room Hygiene</td>
+                            <td><input type="radio" id="serverRoom1" name="serverRoomYesNo" value="YES"></td>
+                            <td><input type="radio" id="serverRoom2" name="serverRoomYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="serverRoom13" name="serverRoomOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="serverRoom14"
+                                    name="serverRoomOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="serverRoom15" name="lights"></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Inverter</td>
+                            <td><input type="radio" id="inverter1" name="inverterYesNo" value="YES"></td>
+                            <td><input type="radio" id="inverter2" name="inverterYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="inverter13" name="inverterOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="inverter14"
+                                    name="inverterOkNotOk" value="Not OK"></td>
+                            <td><label>Battery Water Level : Min / Mid / Max</label><input class="text-box-not-hide"
+                                    type="text" id="inverter15" name="inverter"></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Writing and Cabling</td>
+                            <td><input type="radio" id="writing1" name="writingYesNo" value="YES"></td>
+                            <td><input type="radio" id="writing2" name="writingYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="writing3" name="writingOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="writing4"
+                                    name="writingOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="writing5" name="writing"></td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </table>
+
+                    <div class="backnext">
+                        <button class="back" type="button" onclick="showNextSection('sectionA', 'companyDetails')">
+                            &larr; Back </button>
+                        <button class="next" type="button" onclick="showNextSection('sectionA', 'sectionB')">Next &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Section B -->
+                <div class="form-section" id="sectionB">
+                    <h2>Section B: Plumbing</h2>
+                    <table>
+                        <tr>
+                            <th>Sec</th>
+                            <th>ITEMS</th>
+                            <th>YES</th>
+                            <th>NO</th>
+                            <th>CONDITION</th>
+                            <th>REMARK</th>
+                        </tr>
+
+                        <tr>
+                            <td>1</td>
+                            <td>Plumbing/Fittings in the branch</td>
+                            <td><input type="radio" id="plumbing" name="plumbingYesNo" value="YES"></td>
+                            <td><input type="radio" id="plumbing2" name="plumbingYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="plumbing3" name="plumbingOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="plumbing4"
+                                    name="plumbingOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="plumbing5" name="plumbing"></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Water Supply</td>
+                            <td><input type="radio" id="waterSupply" name="waterSupplyYesNo" value="YES"></td>
+                            <td><input type="radio" id="waterSupply2" name="waterSupplyYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="waterSupply3" name="waterSupplyOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="waterSupply4"
+                                    name="waterSupplyOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="waterSupply5" name="waterSupply"></td>
+                        </tr>
+
+                        <tr>
+                            <td>3</td>
+                            <td>Toilet</td>
+                            <td><input type="radio" id="toilet" name="toiletYesNo" value="YES"></td>
+                            <td><input type="radio" id="toilet2" name="toiletYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="toilet" name="toiletOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="toilet4"
+                                    name="toiletOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="toilet5" name="toilet"></td>
+                        </tr>
+
+                        <!-- Add more rows as needed -->
+                    </table>
+
+                    <div class="backnext">
+                        <button class="back" type="button" onclick="showNextSection('sectionB', 'sectionA')"> &larr;
+                            Back </button>
+                        <button class="next" type="button" onclick="showNextSection('sectionB', 'sectionC')">Next &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Section C (Example) -->
+                <div class="form-section" id="sectionC">
+                    <h2>Section C: Carpentry</h2>
+                    <table>
+                        <tr>
+                            <th>Sec</th>
+                            <th>ITEMS</th>
+                            <th>YES</th>
+                            <th>NO</th>
+                            <th>CONDITION</th>
+                            <th>REMARK</th>
+                        </tr>
+
+                        <tr>
+                            <td>1</td>
+                            <td>Storage units</td>
+                            <td><input type="radio" id="storageUnit1" name="storageUnitYesNo" value="YES"></td>
+                            <td><input type="radio" id="storageUnit2" name="storageUnitYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="storageUnit3" name="storageUnitOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="storageUnit4"
+                                    name="storageUnitOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="storageUnit5" name="storageUnit"></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Collapsible gate</td>
+                            <td><input type="radio" id="collapsibleGate1" name="collapsibleGateYesNo" value="YES"></td>
+                            <td><input type="radio" id="collapsibleGate2" name="collapsibleGateYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="collapsibleGate3" name="collapsibleGateOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="collapsibleGate4"
+                                    name="collapsibleGateOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="collapsibleGate5" name="collapsibleGate"></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Front Door</td>
+                            <td><input type="radio" id="frontDoor1" name="frontDoorYesNo" value="YES"></td>
+                            <td><input type="radio" id="frontDoor2" name="frontDoorYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="frontDoor3" name="frontDoorOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="frontDoor4"
+                                    name="frontDoorOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="frontDoor5" name="frontDoor"></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Executive Chairs</td>
+                            <td><input type="radio" id="executiveChairs1" name="executiveChairsYesNo" value="YES"></td>
+                            <td><input type="radio" id="executiveChairs2" name="executiveChairsYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="executiveChairs3" name="executiveChairsOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="executiveChairs4"
+                                    name="executiveChairsOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="executiveChairs5" name="executiveChairs"></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Work Stations</td>
+                            <td><input type="radio" id="workStations1" name="workStationsYesNo" value="YES"></td>
+                            <td><input type="radio" id="workStations2" name="workStationsYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="workStations3" name="workStationsOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="workStations4"
+                                    name="workStationsOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="workStations5" name="workStations"></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>BM Cabin/Cubicle condition</td>
+                            <td><input type="radio" id="bmCabin1" name="bmCabinYesNo" value="YES"></td>
+                            <td><input type="radio" id="bmCabin2" name="bmCabinYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="bmCabin3" name="bmCabinOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="bmCabin4"
+                                    name="bmCabinOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="bmCabin5" name="bmCabin"></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Cash Counter</td>
+                            <td><input type="radio" id="cashCounter1" name="cashCounterYesNo" value="YES"></td>
+                            <td><input type="radio" id="cashCounter2" name="cashCounterYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="cashCounter3" name="cashCounterOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="cashCounter4"
+                                    name="cashCounterOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="cashCounter5" name="cashCounter"></td>
+                        </tr>
+                        <!-- Add your rows for Section C here -->
+                    </table>
+                    <!-- <div class="photo">
+                        <label for="sectionCPhoto">Upload Photo:</label>
+                        <input type="file" id="sectionCPhoto" accept="image/*" required><br><br>
+                    </div> -->
+                    <div class="backnext">
+                        <button class="back" type="button" onclick="showNextSection('sectionC', 'sectionB')"> &larr;
+                            Back </button>
+                        <button class="next" type="button" onclick="showNextSection('sectionC', 'sectionD')">Next &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!--step 5 : Section D-->
+                <div class="form-section" id="sectionD">
+                    <h2>Section D: Genral</h2>
+                    <table>
+                        <tr>
+                            <th>Sec</th>
+                            <th>ITEMS</th>
+                            <th>YES</th>
+                            <th>NO</th>
+                            <th>CONDITION</th>
+                            <th>REMARK</th>
+                        </tr>
+
+                        <tr>
+                            <td>1</td>
+                            <td>Rolling Shutter at Main Entrance</td>
+                            <td><input type="radio" id="checkDoor1" name="checkDoorYesNo" value="YES"></td>
+                            <td><input type="radio" id="checkDoor2" name="checkDoorYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="checkDoor3" name="checkDoorOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="checkDoor4"
+                                    name="checkDoorOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="checkDoor5" name="checkDoor"></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Pantry</td>
+                            <td><input type="radio" id="pantry1" name="pantryYesNo" value="YES"></td>
+                            <td><input type="radio" id="pantry2" name="pantryYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="pantry3" name="pantryOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="pantry4"
+                                    name="pantryOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="pantry5" name="pantry"></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>AC</td>
+                            <td><input type="radio" id="ac1" name="acYesNo" value="YES"></td>
+                            <td><input type="radio" id="ac2" name="acYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="ac3" name="acOkNotOk" value="OK"><br><label>NOT
+                                    OK</label><input type="radio" id="ac4" name="acOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="ac5" name="ac"></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Glow sign board</td>
+                            <td><input type="radio" id="glowSignBoard1" name="glowSignBoardYesNo" value="YES"></td>
+                            <td><input type="radio" id="glowSignBoard2" name="glowSignBoardYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="glowSignBoard3" name="glowSignBoardOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="glowSignBoard4"
+                                    name="glowSignBoardOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="glowSignBoard5" name="glowSignBoard"></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Pest Control</td>
+                            <td><input type="radio" id="pestControl1" name="pestControlYesNo" value="YES"></td>
+                            <td><input type="radio" id="pestControl2" name="pestControlYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="pestControl3" name="pestControlOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="pestControl4"
+                                    name="pestControlOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="pestControl5" name="pestControl"></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Display Board</td>
+                            <td><input type="radio" id="displayBoard1" name="displayBoardYesNo" value="YES"></td>
+                            <td><input type="radio" id="displayBoard2" name="displayBoardYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="displayBoard3" name="displayBoardOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="displayBoard4"
+                                    name="displayBoardOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="displayBoard5" name="displayBoard"></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Fire Extinguisher</td>
+                            <td><input type="radio" id="fireExtinguisher1" name="fireExtinguisherYesNo" value="YES">
+                            </td>
+                            <td><input type="radio" id="fireExtinguisher2" name="fireExtinguisherYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="fireExtinguisher3"
+                                    name="fireExtinguisherOkNotOk" value="OK"><br><label>NOT OK</label><input
+                                    type="radio" id="fireExtinguisher4" name="fireExtinguisherOkNotOk" value="Not OK">
+                            </td>
+                            <td><label>Zone:Green</label><input class="text-box-not-hide" type="text"
+                                    id="fireExtinguisher5" name="fireExtinguisher"><label>|Red</label><input
+                                    class="text-box-not-hide" type="text" id="fireExtinguisher6"
+                                    name="fireExtinguisher"></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>HK Consumable stock maintained</td>
+                            <td><input type="radio" id="consumableStock1" name="consumableStockYesNo" value="YES"></td>
+                            <td><input type="radio" id="consumableStock2" name="consumableStockYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="consumableStock3" name="consumableStockOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="consumableStock4"
+                                    name="consumableStockOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="consumableStock5" name="consumableStock"></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Condition of office paint</td>
+                            <td><input type="radio" id="officePaint1" name="officePaintYesNo" value="YES"></td>
+                            <td><input type="radio" id="officePaint2" name="officePaintYesNo" value="NO"></td>
+                            <td><label>OK</label><input type="radio" id="officePaint3" name="officePaintOkNotOk"
+                                    value="OK"><br><label>NOT OK</label><input type="radio" id="officePaint4"
+                                    name="officePaintOkNotOk" value="Not OK"></td>
+                            <td><input class="text-box" type="text" id="officePaint5" name="officePaint"></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Overall Office Cleanliness</td>
+                            <td><input type="radio" id="OfficeCleanliness1" name="OfficeCleanlinessYesNo" value="YES">
+                            </td>
+                            <td><input type="radio" id="OfficeCleanliness2" name="OfficeCleanlinessYesNo" value="NO">
+                            </td>
+                            <td><label>OK</label><input type="radio" id="OfficeCleanliness3"
+                                    name="OfficeCleanlinessOkNotOk" value="OK"><br><label>NOT OK</label><input
+                                    type="radio" id="OfficeCleanliness4" name="OfficeCleanlinessOkNotOk" value="Not OK">
+                            </td>
+                            <td><input class="text-box" type="text" id="OfficeCleanliness5" name="OfficeCleanliness">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>Any Suggestions and improvements</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><input class="text-box-not-hide" type="text" id="improvements" name="OfficeCleanliness">
+                            </td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </table>
+                    <!-- <div class="photo">
+                        <label for="sectionDPhoto">Upload Photo:</label>
+                        <input type="file" id="sectionDPhoto" accept="image/*" required><br><br>
+                    </div> -->
+                    <div class="backnext">
+                        <button class="back" type="button" onclick="showNextSection('sectionD', 'sectionC')"> &larr;
+                            Back </button>
+                        <button class="next" type="button" onclick="showNextSection('sectionD', 'sectionE')">Next &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Section E-->
+                <div class="form-section" id="sectionE">
+                    <h2>Section E: Details of power Suupply</h2>
+                    <table>
+                        <tr>
+                            <th>Proper Earthing</th>
+
+                            <th>Earth Pit (Separate/Common)<br>( if separate water billing)</th>
+                            <th>Available /Sanctioned load</th>
+                            <th>Required Load</th>
+                            <th>Avg. Billing for last 3 months</th>
+                            <th>Meter No</th>
+                            <th>Amout of Three Month</th>
+                            <th>Due On</th>
+
+                        </tr>
+                        <tr>
+                            <td>UPS output<br>PHASE NEUTRAL=220-230V:<input type="text" class="text-box-not-hide"
+                                    id="ph1" placeholder="PHASE NEUTRAL"><br>PHASE EARTH=220-230V<input type="text"
+                                    class="text-box-not-hide" id="pe1" placeholder="PHASE EARTH"><br>NETURAL EARTH =
+                                0-3V:<input type="text" class="text-box-not-hide" id="ne1" placeholder="NETURAL EARTH">
+                            </td>
+
+                            <td><select name="Month" id="earthing" class="text-box-not-hide">
+                                    <option value="">Select Earth Pit</option>
+                                    <option value="COMMON EARTH PIT">COMMON EARTH PIT</option>
+                                    <option value="SEPARATE EARTH PIT">SEPARATE EARTH PIT</option>
+                            </td>
+                            <td><input class="text-box-not-hide" type="text" id="load" name="load">
+                            </td>
+                            <td><input class="text-box-not-hide" type="text" id="requireLoad" name="requireLoad">
+                            </td>
+                            <td><select name="Month" id="month1">
+                                    <option value="">Select Month</option>
+                                    <option value="Jan">Jan</option>
+                                    <option value="Feb">Feb</option>
+                                    <option value="Mar">Mar</option>
+                                    <option value="Apr">Apr</option>
+                                    <option value="May">May</option>
+                                    <option value="Jun">Jun</option>
+                                    <option value="July">July</option>
+                                    <option value="Aug">Aug</option>
+                                    <option value="Sept">Sept</option>
+                                    <option value="Oct">Oct</option>
+                                    <option value="Nov">Nov</option>
+                                    <option value="Dec">Dec</option>
+                                </select><input class="text-box-not-hide" type="text" id="month1Reading"
+                                    name="month1Reading" placeholder="Meter Reading of Month 1">
+                                <select name="Month" id="month2">
+                                    <option value="">Select Month</option>
+                                    <option value="Jan">Jan</option>
+                                    <option value="Feb">Feb</option>
+                                    <option value="Mar">Mar</option>
+                                    <option value="Apr">Apr</option>
+                                    <option value="May">May</option>
+                                    <option value="Jun">Jun</option>
+                                    <option value="July">July</option>
+                                    <option value="Aug">Aug</option>
+                                    <option value="Sept">Sept</option>
+                                    <option value="Oct">Oct</option>
+                                    <option value="Nov">Nov</option>
+                                    <option value="Dec">Dec</option>
+                                </select><input class="text-box-not-hide" type="text" id="month2Reading"
+                                    name="month2Reading" placeholder="Meter reading of Month 2">
+                                <select name="Month" id="month3">
+                                    <option value="">Select Month</option>
+                                    <option value="Jan">Jan</option>
+                                    <option value="Feb">Feb</option>
+                                    <option value="Mar">Mar</option>
+                                    <option value="Apr">Apr</option>
+                                    <option value="May">May</option>
+                                    <option value="Jun">Jun</option>
+                                    <option value="July">July</option>
+                                    <option value="Aug">Aug</option>
+                                    <option value="Sept">Sept</option>
+                                    <option value="Oct">Oct</option>
+                                    <option value="Nov">Nov</option>
+                                    <option value="Dec">Dec</option>
+                                </select><input class="text-box-not-hide" type="text" id="month3Reading"
+                                    name="month3Reading" placeholder="Meter Reading of Month 3">
+                            </td>
+                            <td><input type="number" class="text-box-not-hide" id="meterReading"></td>
+                            <td><input class="text-box-not-hide" type="text" id="month1Amout" name="downflowFrequency01"
+                                    placeholder="Amount of month 1"><br><br><br><br><input class="text-box-not-hide"
+                                    type="text" id="month2Amout" name="downflowFrequency01"
+                                    placeholder="Amout of Month 2"><br><br><br><br><input class="text-box-not-hide"
+                                    type="text" id="month3Amout" name="downflowFrequency01"
+                                    placeholder="amouth of month 3"></td>
+                            <td><input class="text-box-not-hide" type="date" id="date" name="downflowFrequency01"></td>
+                        </tr>
+                        <tr>
+                            <td>Panel (Input)<br>PHASE NEUTRAL=220-230V:<input type="text" class="text-box-not-hide"
+                                    placeholder="PHASE NEUTRAL" id="ph2"><br>PHASE EARTH=220-230V<input type="text"
+                                    class="text-box-not-hide" placeholder="PHASE EARTH" id="pe2"><br>NEUTRAL EARTH=
+                                0-3V:<input type="text" class="text-box-not-hide" placeholder="NEUTRAL EARTH" id="ne2">
+                            </td>
+                            <td><input class="text-box-not-hide" type="text" id="panel3" name="panel">
+                            </td>
+                            <td><input class="text-box-not-hide" type="text" id="panel4" name="panel">
+                            </td>
+                            <td><input class="text-box-not-hide" type="text" id="panel5" name="downflowFrequency01">
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </table>
+                    <div class="backnext">
+                        <button class="back" type="button" onclick="showNextSection('sectionE', 'sectionD')"> &larr;
+                            Back </button>
+                        <button class="next" id="previewButton" type="button"
+                            onclick="showNextSection('sectionE', 'previewSection')">Preview &rarr; </button>
+                    </div>
+                </div>
+
+                <!-- section F-->
+
+
+                <!--section G-->
+
+                <!--section H-->
+
+
+                <!-- Step 10: Submit Section -->
+                <div class="form-section" id="previewSection">
+                    <h2>Preview</h2>
+                    <p><strong>Ticket Number:</strong> <span id="previewTicketNumber"></span></p>
+                    <p><strong>Company Name:</strong> <span id="previewCompanyName"></span></p>
+                    <p><strong>Company Address:</strong> <span id="previewCompanyAddress"></span></p>
+                    <div id="previewTables"></div>
+                    <div class="backnext">
+                        <button class="back" type="button"
+                            onclick="showNextSection('previewSection', 'sectionE')">Previous</button>
+                        <button class="back" id="submitForm" class="sub-pre" type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </form>
+
+    </div>
+    <script src="../globals/global.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-api='http://localhost:8083';
+api=getBaseUrl();
 token = localStorage.getItem('authToken');
 
 
@@ -49,12 +49,13 @@ async function uploadPhoto(photoInputId, backendName, previewImgId, dtoKeyId = '
 
     if (!response.ok) {
       throw new Error('Photo upload failed');
+    }else{
+      alert("Photo Upload Sucessfully")
     }
-    else{
-      alert("Photo Uploaded Sucessfully")
-    }
+
     const data = await response.json();
     console.log(data);
+    
     await applyValueToID(dtoKeyId, data.id);
 
   } catch (error) {
@@ -716,6 +717,7 @@ document.addEventListener("DOMContentLoaded", function () {
           console.log("Success:", result);
           displaySuccess("Data saved successfully!");
           document.getElementById("multiStepForm").reset();
+          window.location.href="inspectionList.html";
         })
         .catch((error) => {
           console.error("Error submitting form:", error);

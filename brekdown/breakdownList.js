@@ -1,39 +1,24 @@
-api='http://localhost:8083/';
+api=getBaseUrl();
 token = localStorage.getItem('authToken');
-
-//to keep tab active
-document.addEventListener("DOMContentLoaded", (event) => {
-    const tabs = document.querySelectorAll(".nav-link");
-  
-    // Retrieve the last active tab from local storage
-    const activeTabId = localStorage.getItem("activeTab");
-  
-    // If there's an active tab in local storage, activate it
-    if (activeTabId) {
-      document.querySelector(`#${activeTabId}`).classList.add("active");
-    }
-  
-    // Add click event listener to each tab
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        // Remove 'active' class from all tabs
-        tabs.forEach((t) => t.classList.remove("active"));
-  
-        // Add 'active' class to the clicked tab
-        tab.classList.add("active");
-  
-        // Save the active tab ID in local storage
-        localStorage.setItem("activeTab", tab.id);
-      });
-    });
-  });
-  
+approverId = localStorage.getItem('userId');
+userrole=localStorage.getItem("userRole");
+if (userrole !== "ADMIN" && userrole !== "TECHNICIAN") {
+  document.getElementById('breakDownContainerHide').style.display = 'none';
+}
+else if(userrole==="TECHNICIAN"){
+  document.getElementById('appRejHide').style.display = 'none';
+  // document.getElementById('actionHide').style.display = 'none';
+}
+else if(userrole === "ADMIN"){
+  document.getElementById('appRejHide').style.display = 'none';
+  document.getElementById('HISTORY').style.display = 'none';
+}
   
   // Example data fetching function (replace with your actual API call)
   document.addEventListener("DOMContentLoaded", function () {
     const table = $("#ppmId").DataTable({
       ajax: {
-        url: `${api}breakdown/`, // Replace with your API endpoint
+        url: `${api}/breakdown/`, // Replace with your API endpoint
         dataSrc: "",
         headers: { 'Authorization': `${token}`}
       },
@@ -55,14 +40,37 @@ document.addEventListener("DOMContentLoaded", (event) => {
         {
           data: null,
           render: function (data, type, row) {
+            if(userrole==="ISMART_LEVEL_1" ||userrole==="ISMART_LEVEL_2"||userrole==="STORE_MANAGER"||userrole==="ZONAL_HEAD"||userrole==="NATIONAL_HEAD"){
             return `
+              <button class="preview" onclick="previewInspectionForm(${row.id})">Preview</button>
+              <button class="export" onclick="exportInspectionForm(${row.id})">Export</button>
+              
+            `;
+            }else if(userrole==="TECHNICIAN"){
+              return `
              <button class="edit" onclick="window.location.href='breakDownEdit.html?id=${row.id}'">Edit</button>
+              <button class="preview" onclick="previewInspectionForm(${row.id})">Preview</button>
+              <button class="export" onclick="exportInspectionForm(${row.id})">Export</button>
+            `;
+            }else if(userrole==="ADMIN"){
+              return `
               <button class="preview" onclick="previewInspectionForm(${row.id})">Preview</button>
               <button class="delete" onclick="deleteInspectionForm(${row.id})">Delete</button>
               <button class="export" onclick="exportInspectionForm(${row.id})">Export</button>
               
             `;
+            }
           },
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            if(userrole==="ISMART_LEVEL_1" ||userrole==="ISMART_LEVEL_2"||userrole==="STORE_MANAGER"||userrole==="ZONAL_HEAD"||userrole==="NATIONAL_HEAD"){
+            return  `
+              <button class="approval" onclick="approvalInspectionForm(${row.id})">Approval</button>
+              <button class="reject" onclick="rejectInspectionForm(${row.id})">Reject</button>
+              `;}return''
+          },  
         },
         
       ],
@@ -85,13 +93,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     
     window.exportInspectionForm = function (id) {
       // Define the URL for the Excel file
-      const url = `${api}breakdown/${id}/excel?token=${encodeURIComponent(token)}`;
+      const url = `${api}/breakdown/${id}/excel?token=${encodeURIComponent(token)}`;
       window.location.href = url;
     };
   
     
     window.previewInspectionForm = function(id) {
-      const url = `${api}breakdown/${id}/excel?token=${encodeURIComponent(token)}`;
+      const url = `${api}/breakdown/${id}/excel?token=${encodeURIComponent(token)}`;
     
       fetch(url)
         .then(response => response.arrayBuffer()) // Get the file as an ArrayBuffer
@@ -174,7 +182,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // Handle delete store operation
     window.deleteInspectionForm = function (id) {
       if (confirm("Are you sure you want to delete this store?")) {
-        fetch(`${api}breakdown/delete/${id}`, {
+        fetch(`${api}/breakdown/delete/${id}`, {
           method: "DELETE",
           headers: { 'Authorization': `${token}`}
         })
@@ -208,4 +216,71 @@ document.addEventListener("DOMContentLoaded", (event) => {
     styleSheet.innerText = customFilterStyle;
     document.head.appendChild(styleSheet);
   });
+  function sendInspectionForm(id, isAccepted, approverId, token) {
+    // Ensure approverId is a number, if it should be a Long on the backend
+    const approverIdNumber = Number(approverId);
+  
+    // Construct URL with query parameters
+    const url = new URL(`${api}/breakdown/${id}/action`);
+    const params = new URLSearchParams({
+        approverId: approverIdNumber, // Use number here
+        isAccepted: isAccepted
+    });
+  
+    url.search = params.toString();
+  
+    // Log the URL and parameters for debugging
+    console.log(`Sending request to: ${url}`);
+    console.log(`Authorization Token: ${token}`);
+  
+    // Make the API request
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+        }
+    })
+    .then(response => {
+        console.log(`Response Status: ${response.status}`);
+        return response.text().then(text => {
+            try {
+                // Attempt to parse JSON response
+                const json = JSON.parse(text);
+                return json;
+            } catch (error) {
+                // Log the text response if JSON parsing fails
+                console.error('Error parsing JSON:', text);
+                throw new Error(`Response parsing error: ${error.message}`);
+            }
+        });
+    })
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+  }
+  
+  
+  function approvalInspectionForm(id) {
+    const isConfirmed = confirm("Are you sure you want to approve this?");
+    if (isConfirmed) {
+        // Directly use localStorage values
+        console.log('Approver ID:', approverId);
+        console.log('Token:', token);
+        sendInspectionForm(id, true, approverId, token);
+    }
+  }
+  
+  function rejectInspectionForm(id) {
+    const isConfirmed = confirm("Are you sure you want to reject this?");
+    if (isConfirmed) {
+        // Directly use localStorage values
+        console.log('Approver ID:', approverId);
+        console.log('Token:', token);
+        sendInspectionForm(id, false, approverId, token);
+    }
+  }
   

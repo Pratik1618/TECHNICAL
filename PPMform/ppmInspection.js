@@ -1,31 +1,7 @@
-api='http://localhost:8083';
+api=getBaseUrl();
 token = localStorage.getItem('authToken');
 
-document.addEventListener("DOMContentLoaded", (event) => {
-  const tabs = document.querySelectorAll(".nav-link");
 
-  // Retrieve the last active tab from local storage
-  const activeTabId = localStorage.getItem("activeTab");
-
-  // If there's an active tab in local storage, activate it
-  if (activeTabId) {
-    document.querySelector(`#${activeTabId}`).classList.add("active");
-  }
-
-  // Add click event listener to each tab
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      // Remove 'active' class from all tabs
-      tabs.forEach((t) => t.classList.remove("active"));
-
-      // Add 'active' class to the clicked tab
-      tab.classList.add("active");
-
-      // Save the active tab ID in local storage
-      localStorage.setItem("activeTab", tab.id);
-    });
-  });
-});
 function previewPhoto(fileInputId, previewImgId) {
   const fileInput = document.getElementById(fileInputId);
   const previewImg = document.getElementById(previewImgId);
@@ -75,7 +51,7 @@ async function uploadPhoto(photoInputId, backendName, previewImgId, dtoKeyId = '
       if (!response.ok) {
           throw new Error('Photo upload failed');
       }else{
-        alert("Photo Upload Sucessfully");
+        alert("Photo Upload Sucessfully")
       }
       
       const data = await response.json();
@@ -403,6 +379,7 @@ document
         console.log("Success:", result);
         displaySuccess("Data saved successfully!");
         document.getElementById("multiStepForm").reset();
+        window.location.href="ppmInspection.html";
       })
       .catch((error) => {
         console.error("Error submitting form:", error);

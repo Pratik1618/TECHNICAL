@@ -1,33 +1,8 @@
-api='http://localhost:8083/';
+api=getBaseUrl();
 token = localStorage.getItem('authToken');
 
 
-document.addEventListener("DOMContentLoaded", (event) => {
-    const tabs = document.querySelectorAll(".nav-link");
-  
-    // Retrieve the last active tab from local storage
-    const activeTabId = localStorage.getItem("activeTab");
-  
-    // If there's an active tab in local storage, activate it
-    if (activeTabId) {
-      document.querySelector(`#${activeTabId}`).classList.add("active");
-    }
-  
-    // Add click event listener to each tab
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        // Remove 'active' class from all tabs
-        tabs.forEach((t) => t.classList.remove("active"));
-  
-        // Add 'active' class to the clicked tab
-        tab.classList.add("active");
-  
-        // Save the active tab ID in local storage
-        localStorage.setItem("activeTab", tab.id);
-      });
-    });
-  });
-  
+
 //show Next
 function showNextSection(currentSectionId, nextSectionId) {
     document.getElementById(currentSectionId).classList.remove('active');
@@ -61,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to fetch client and store data based on the ticket number
     function fetchDataByTicketNumber(ticketInput) {
         // Fetch data for the ticket
-        fetch(`${api}schedule/ticket/${ticketInput}`,{headers: { 'Authorization': `${token}`}}) // Update URL as necessary
+        fetch(`${api}/schedule/ticket/${ticketInput}`,{headers: { 'Authorization': `${token}`}}) // Update URL as necessary
             .then(response => response.json())
             .then(data => {
                 console.log("Ticket data:", data); // Log data for debugging
@@ -189,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             // Send the data to the backend
-            fetch(`${api}breakdown/create`, {
+            fetch(`${api}/breakdown/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -206,6 +181,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 console.log('Success:', data);
                 // Handle successful response
+                alert("Form Submited Sucessfully")
+                window.location.href="breakdownList.html";
             })
             .catch(error => {
                 console.error('Error:', error);

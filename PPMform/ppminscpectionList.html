@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inspection List</title>
+    <title>PPM List</title>
 
     <link rel="stylesheet" href="ppminscpectionList.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
@@ -13,15 +13,12 @@
   <!-- DataTables JS -->
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <link rel="stylesheet" href="../NavBar/navbar.css">
-  <script src="../NavBar/navbar.js" defer></script>
-
+  <link rel="stylesheet" href="../Navbar/navbar.css">
 </head>
 <body>
   <div id="navbar-placeholder"></div>
-
   <div class="whole-container">
-    <div class="container">
+    <div class="container" id="ppmContainerHide">
         <a href="ppmInspection.html">
           <button id="inscpectionButton">PPM INSPECTION FORM</button>
         </a>
@@ -36,6 +33,9 @@
         </div>
     <div class="container">
         <h2>SCHEDULED PPM INSPECTION VISITS DATA TABLE</h2>
+        <a href="historyPpm.html">
+          <button id="HISTORY">HISTORY</button>
+        </a>
         <div class="table-container">
           <table id="ppmId" class="display">
             <thead>
@@ -49,7 +49,8 @@
                 <th>State</th>
                 <th>Addresss</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th id="actionHide">Actions</th>
+                <th id="appRejHide">Approval/Rejection</th>
               </tr>
             </thead>
             <tbody>
@@ -63,6 +64,8 @@
         </div>
       </div>
       </div>
+      <script src="../globals/global.js"></script>
 <script src="ppminscpectionList.js"></script>
+<script src="../Navbar/navbar.js" defer></script>
 </body>
 </html>

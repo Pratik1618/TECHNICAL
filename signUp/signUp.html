@@ -11,31 +11,15 @@
       <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../Navbar/navbar.css">
+    <script src="../Navbar/navbar.js" defer></script>
 
 </head>
-    <header>
-      <nav class="navbar">
-        <a href="#" class="brand-logo">
-            <img src="../logo/logo_1-removebg-preview.png" alt="Brand Logo">
-        </a>
-        <a href="../Sheduling/sheduling.html" class="nav-link" id="tab-schedule">SCHEDULE INSPECTION</a>
-        <a href="../Main/inspectionList.html" class="nav-link" id="tab-inspection">INSPECTION FORM</a>
-        <a href="../PPMform/ppminscpectionList.html" class="nav-link" id="tab-ppm">PPM FORM</a>
-        <a href="../brekdown/breakdownList.html" class="nav-link" id="tab-breakdown">BREAKDOWN</a>
-        <a href="../Client/client.html" class="nav-link" id="tab-client">CLIENT</a>
-        <a href="../Role/role.html" class="nav-link" id="tab-role">ROLE</a>
-        <a href="../Store/store.html" class="nav-link" id="tab-store">STORE</a>
-        <a href="../Zone/zone.html" class="nav-link" id="tab-zone">ZONE</a>
-        <a href="../State/state.html" class="nav-link" id="tab-state">STATE</a>
-        <a href="../City/city.html" class="nav-link" id="tab-city">CITY</a>
-        <a href="../calander/calender1.html" class="nav-link" id="tab-calender">CALENDAR</a>
-        <a href="../signUp/inspectionList.html" class="nav-link" id="tab-signUp">SIGN UP</a>
-        <a href="../login/login.html" class="nav-link">LOG OUT</a>
-    </nav>
-    </header>
+
   <body>
+    <div id="navbar-placeholder"></div>
     <div class="signup-container">
-      
+    
       <h2>Create an Account</h2>
       <form action="/submit-signup" id="signUpForm" method="POST">
         <div class="form-group">
@@ -50,7 +34,12 @@
           <label for="password">Password</label>
           <input type="password" id="password" name="password" required />
         </div>
-        
+        <div class="form-group">
+          <label for="roleName">Select the Role</label>
+          <select name="roleName" id="roleName">
+            <option value="">Select the Role</option>
+          </select>
+        </div>
         <div class="form-group">
           <label for="clientName">Select the Client</label>
           <select name="clientName" id="clientName">
@@ -63,12 +52,7 @@
             <option value="">Select the Zone</option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="roleName">Select the Role</label>
-          <select name="roleName" id="roleName">
-            <option value="">Select the Role</option>
-          </select>
-        </div>
+       
         <div class="form-group">
           <label for="storeName">Select the Store</label>
           <select name="storeName" id="storeName">
@@ -81,7 +65,7 @@
       </form>
      
     </div>
-   
+   <script src="../globals/global.js"></script>
     <script src="signUp.js"></script>
   </body>
 </html>

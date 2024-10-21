@@ -1,13 +1,27 @@
-api='http://localhost:8083';
+api=getBaseUrl();
 token = localStorage.getItem('authToken');
-
-
+approverId = localStorage.getItem('userId');
+userrole=localStorage.getItem("userRole");
 //to keep tab active
-
+if (userrole !== "ADMIN" && userrole !== "TECHNICIAN") {
+  document.getElementById('incpeactionContainerHide').style.display = 'none';
+}
+else if(userrole==="TECHNICIAN"){
+  document.getElementById('appRejHide').style.display = 'none';
+  // document.getElementById('actionHide').style.display = 'none';
+}
+else if(userrole === "ADMIN"){
+  document.getElementById('appRejHide').style.display = 'none';
+  document.getElementById('HISTORY').style.display = 'none';
+}
+// if (userrole !== "ADMIN" || userrole !== "") {
+//   document.getElementById('incpeactionContainerHide').style.display = 'none';
+// }
 
 
 // Example data fetching function (replace with your actual API call)
 document.addEventListener("DOMContentLoaded", function () {
+  
   const table = $("#inspectionId").DataTable({
     ajax: {
       url: `${api}/inspectionForm/`, // Replace with your API endpoint
@@ -33,12 +47,31 @@ document.addEventListener("DOMContentLoaded", function () {
       {
         data: null,
         render: function (data, type, row) {
+          if(userrole==="ISMART_LEVEL_1" ||userrole==="ISMART_LEVEL_2"||userrole==="STORE_MANAGER"||userrole==="ZONAL_HEAD"||userrole==="NATIONAL_HEAD"||userrole==="TECHNICIAN"){
           return `
+            <button class="preview" onclick="previewInspectionForm(${row.id})">Preview</button>
+            <button class="export" onclick="exportInspectionForm(${row.id})">Export</button>
+          `;
+          }else if(userrole==="ADMIN"){
+            return `
             <button class="preview" onclick="previewInspectionForm(${row.id})">Preview</button>
             <button class="delete" onclick="deleteInspectionForm(${row.id})">Delete</button>
             <button class="export" onclick="exportInspectionForm(${row.id})">Export</button>
           `;
+          }
+          
+          return ''
         },
+      },
+      {
+        data: null,
+        render: function (data, type, row) {
+          if(userrole==="ISMART_LEVEL_1" ||userrole==="ISMART_LEVEL_2"||userrole==="STORE_MANAGER"||userrole==="ZONAL_HEAD"||userrole==="NATIONAL_HEAD"){
+          return  `
+            <button class="approval" onclick="approvalInspectionForm(${row.id})">Approval</button>
+            <button class="reject" onclick="rejectInspectionForm(${row.id})">Reject</button>
+            `;}return''
+        },  
       },
     
     ],
@@ -62,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.exportInspectionForm = function(id) {
     const url = `${api}/inspectionForm/${id}/excel`;
     window.location.href = url;
+
 };
 
 window.previewInspectionForm = function(id) {
@@ -232,3 +266,71 @@ function displayPreview(data, photoRows, imageUrls) {
   styleSheet.innerText = customFilterStyle;
   document.head.appendChild(styleSheet);
 });
+
+function sendInspectionForm(id, isAccepted, approverId, token) {
+  // Ensure approverId is a number, if it should be a Long on the backend
+  const approverIdNumber = Number(approverId);
+
+  // Construct URL with query parameters
+  const url = new URL(`${api}/inspectionForm/${id}/action`);
+  const params = new URLSearchParams({
+      approverId: approverIdNumber, // Use number here
+      isAccepted: isAccepted
+  });
+
+  url.search = params.toString();
+
+  // Log the URL and parameters for debugging
+  console.log(`Sending request to: ${url}`);
+  console.log(`Authorization Token: ${token}`);
+
+  // Make the API request
+  fetch(url, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+      }
+  })
+  .then(response => {
+      console.log(`Response Status: ${response.status}`);
+      return response.text().then(text => {
+          try {
+              // Attempt to parse JSON response
+              const json = JSON.parse(text);
+              return json;
+          } catch (error) {
+              // Log the text response if JSON parsing fails
+              console.error('Error parsing JSON:', text);
+              throw new Error(`Response parsing error: ${error.message}`);
+          }
+      });
+  })
+  .then(data => {
+      console.log('Success:', data);
+  })
+  .catch(error => {
+      console.error('Error:', error);
+  });
+}
+
+
+function approvalInspectionForm(id) {
+  const isConfirmed = confirm("Are you sure you want to approve this?");
+  if (isConfirmed) {
+      // Directly use localStorage values
+      console.log('Approver ID:', approverId);
+      console.log('Token:', token);
+      sendInspectionForm(id, true, approverId, token);
+  }
+}
+
+function rejectInspectionForm(id) {
+  const isConfirmed = confirm("Are you sure you want to reject this?");
+  if (isConfirmed) {
+      // Directly use localStorage values
+      console.log('Approver ID:', approverId);
+      console.log('Token:', token);
+      sendInspectionForm(id, false, approverId, token);
+  }
+}

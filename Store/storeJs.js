@@ -1,32 +1,7 @@
 token = localStorage.getItem('authToken');
-api='http://localhost:8083';
+api=getBaseUrl();
 
 //to Keep tab active
-document.addEventListener('DOMContentLoaded', (event) => {
-  const tabs = document.querySelectorAll('.nav-link');
-  
-  // Retrieve the last active tab from local storage
-  const activeTabId = localStorage.getItem('activeTab');
-  
-  // If there's an active tab in local storage, activate it
-  if (activeTabId) {
-    document.querySelector(`#${activeTabId}`).classList.add('active');
-  }
-  
-  // Add click event listener to each tab
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      // Remove 'active' class from all tabs
-      tabs.forEach(t => t.classList.remove('active'));
-      
-      // Add 'active' class to the clicked tab
-      tab.classList.add('active');
-      
-      // Save the active tab ID in local storage
-      localStorage.setItem('activeTab', tab.id);
-    });
-  });
-});
 
 // get call
 document.addEventListener("DOMContentLoaded", function () {
@@ -229,7 +204,7 @@ function displaySuccess(message) {
         console.log("Success:", result);
         displaySuccess("Data saved successfully!");
         document.getElementById("storeForm").reset();
-        table.ajax.reload(); 
+        table.ajax.reload();
       })
       .catch((error) => {
         console.error("Error submitting form:", error);
@@ -307,9 +282,8 @@ function displaySuccess(message) {
       searching: true,
       paging: true,
       info: true,
-      lengthChange: true, // Hide the page length dropdown
+      lengthChange: false, // Hide the page length dropdown
       pageLength: 5, // Number of entries per page
-      lengthMenu: [5, 10, 25, 50, 100,200,300,400,500], // Options for page length
       language: {
           search: "Search:",
           info: "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -345,47 +319,6 @@ function displaySuccess(message) {
       }
   };
 
-  window.downloadQRCode = async function(url) {
-     // Replace with your actual token or fetch dynamically
-
-    try {
-        // Log the URL to ensure it is correct
-        console.log('Fetching QR code from URL:', url);
-
-        // Make a request to the QR code URL with the Authorization header
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Authorization': `${token}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        // Get the blob from the response
-        const blob = await response.blob();
-        
-        // Create a URL for the blob
-        const blobUrl = URL.createObjectURL(blob);
-        
-        // Create a temporary link element
-        const a = document.createElement('a');
-        a.href = blobUrl;
-        a.download = 'qr-code.png'; // Specify the desired filename here
-        document.body.appendChild(a);
-        a.click();
-        
-        // Cleanup
-        a.remove();
-        URL.revokeObjectURL(blobUrl);
-    } catch (error) {
-        console.error('Error downloading QR code:', error);
-    }
-};
-
-
   document
   .getElementById("exportButton")
   .addEventListener("click", function () {
@@ -393,11 +326,45 @@ function displaySuccess(message) {
   });
 
 
-// window.downloadQRCode = function(url){
-//   window.location.href = url;
-// }
+  window.downloadQRCode = async function(url) {
+    // Replace with your actual token or fetch dynamically
 
+   try {
+       // Log the URL to ensure it is correct
+       console.log('Fetching QR code from URL:', url);
 
+       // Make a request to the QR code URL with the Authorization header
+       const response = await fetch(url, {
+           method: 'GET',
+           headers: {
+               'Authorization': `${token}`
+           }
+       });
+
+       if (!response.ok) {
+           throw new Error('Network response was not ok');
+       }
+
+       // Get the blob from the response
+       const blob = await response.blob();
+       
+       // Create a URL for the blob
+       const blobUrl = URL.createObjectURL(blob);
+       
+       // Create a temporary link element
+       const a = document.createElement('a');
+       a.href = blobUrl;
+       a.download = 'qr-code.png'; // Specify the desired filename here
+       document.body.appendChild(a);
+       a.click();
+       
+       // Cleanup
+       a.remove();
+       URL.revokeObjectURL(blobUrl);
+   } catch (error) {
+       console.error('Error downloading QR code:', error);
+   }
+};
 
 
 function exportToExcel(table) {

@@ -1,29 +1,6 @@
-api="http://localhost:8083",
-document.addEventListener('DOMContentLoaded', (event) => {
-  const tabs = document.querySelectorAll('.nav-link');
-  
-  // Retrieve the last active tab from local storage
-  const activeTabId = localStorage.getItem('activeTab');
-  
-  // If there's an active tab in local storage, activate it
-  if (activeTabId) {
-    document.querySelector(`#${activeTabId}`).classList.add('active');
-  }
-  
-  // Add click event listener to each tab
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      // Remove 'active' class from all tabs
-      tabs.forEach(t => t.classList.remove('active'));
-      
-      // Add 'active' class to the clicked tab
-      tab.classList.add('active');
-      
-      // Save the active tab ID in local storage
-      localStorage.setItem('activeTab', tab.id);
-    });
-  });
-});
+api=getBaseUrl();
+token = localStorage.getItem('authToken');
+
 
 document.getElementById('phoneNumber').addEventListener('input', function (event) {
   const input = event.target;
@@ -38,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const storeSelect = document.getElementById("storeName");
 
   // Fetch clients and populate dropdown
-  fetch(`${api}/client/`)
+  fetch(`${api}/client/`,{ headers: {'Authorization': `${token}`} })
     .then((response) => response.json())
     .then((data) => {
       console.log("Client data:", data);
@@ -56,14 +33,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   // Fetch roles independently
-  fetch(`${api}/role/`)
+  fetch(`${api}/role/`,{ headers: {'Authorization': `${token}`} })
     .then((response) => response.json())
     .then((data) => {
       console.log("Role data:", data);
       data.forEach((role) => {
         const option = document.createElement("option");
-        option.value = role.id;
-        option.textContent = role.roleType + "- " + role.displayName;
+        option.value = role;
+        option.textContent = role;
         roleSelect.appendChild(option);
       });
     })
@@ -78,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const selectedClientId = this.value;
 
     if (selectedClientId) {
-      fetch(`${api}/store/zone/client/${selectedClientId}`)
+      fetch(`${api}/store/zone/client/${selectedClientId}`,{ headers: {'Authorization': `${token}`} })
         .then((response) => response.json())
         .then((data) => {
           console.log("Zone data:", data); // Log zone data
@@ -96,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "Failed to load zones. Please try again.";
         });
 
-      fetch(`${api}/store/client/${selectedClientId}`)
+      fetch(`${api}/store/client/${selectedClientId}`,{ headers: {'Authorization': `${token}`} })
         .then((response) => response.json())
         .then((data) => {
           console.log("Store data:", data); // Log store data
@@ -128,38 +105,32 @@ document.addEventListener("DOMContentLoaded", function () {
     .addEventListener("submit", function (event) {
       event.preventDefault();
       const userName = document.getElementById("username").value;
-      const phoneNumber=String(document.getElementById("phoneNumber").value);
-      const password=document.getElementById("password").value;
+      const phoneNumber = String(document.getElementById("phoneNumber").value);
+      const password = document.getElementById("password").value;
+      const roleName= document.getElementById("roleName").value;
+      
+      console.log(roleName)
+      // const role = document.getElementById("roleName").value;
+      
+
       function parseOrNull(value) {
-        const parsedValue = parseInt(value.trim());
-        return isNaN(parsedValue) ? null : parsedValue;
-    }
-    const client = parseOrNull(document.getElementById("clientName").value);
-    console.log(client);
-    const zone = parseOrNull(document.getElementById("zoneName").value);
-    console.log(zone);
-    const role = parseOrNull(document.getElementById("roleName").value);
-    console.log(role);
-    const store = parseOrNull(document.getElementById("storeName").value);
+          const parsedValue = parseInt(value.trim());
+          return isNaN(parsedValue) ? null : parsedValue;
+      }
+      const client = parseOrNull(document.getElementById("clientName").value);
+      const zone = parseOrNull(document.getElementById("zoneName").value);
+      const store = parseOrNull(document.getElementById("storeName").value);
 
       const storeData = {
-        client: {
-          id:client
-        },
-        userName:userName,
-        mobileNumber:phoneNumber,
-        password:password,
-        store:{
-          id:store
-        },
-        zone:{
-          id:zone,
-        },
-        role:{
-          id:role,
-        }
-
+          client: client !== null ? { id: client } : null,
+          userName: userName,
+          mobileNumber: phoneNumber,
+          password: password,
+          store: store !== null ? { id: store } : null,
+          zone: zone !== null ? { id: zone } : null,
+          role: roleName 
       };
+
 
       console.log("Form data:", storeData);
 
@@ -167,6 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `${token}`
         },
         body: JSON.stringify(storeData),
       })

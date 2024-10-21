@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Schedule Form</title>
   <link rel="stylesheet" href="sheduling.css" />
-  <link rel="stylesheet" href="../NavBar/navbar.css">
+ 
   <!-- DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   <!-- jQuery library -->
@@ -13,13 +13,15 @@
   <!-- DataTables JS -->
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-  <script src="../NavBar/navbar.js" defer></script>
+  <link rel="stylesheet" href="../Navbar/navbar.css">
  
 </head>
+<header>
+</header>
 <body>
   <div id="navbar-placeholder"></div>
   <div class="whole-container">
-    <div class="container">
+    <div class="container" id="containerHide">
       <h2>Upload Excel File<button id="format">Download Excel Format</button></h2>
       <form id="uploadForm" enctype="multipart/form-data">
         <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required />
@@ -31,7 +33,7 @@
       <div id="upload-error-message" class="error"></div>
         <div id="upload-success-message" class="success"></div>
   </div>
-  <div class="container">
+  <div class="container" id="shaduleContainerHide">
     <h1>SCHEDULE INSPECTION</h1>
     <form id="storeForm">
       <div class="form-row">
@@ -54,6 +56,7 @@
             <option value="INSPECTION">INSPECTION</option>
             <option value="PPM">PPM</option>
             <option value="BREAKDOWN">BREAKDOWN</option>
+            <option value="MST">MST</option>
           </select>
         </div>
         <div class="form-group">
@@ -83,43 +86,46 @@
     </form>
   </div>
    
-  
   <div class="container">
     <h2>SCHEDULED INSPECTIONS</h2>
-    <div class="filter-container">
-      <div class="filter-group">
-        <label for="filter-client">Client Name</label>
+    <!-- <div class="filter-container"> -->
+      <div class="form-row">
+      <div class="form-group">
+        <label for="filter-client">Client Name:</label>
         <input type="text" id="filter-client" placeholder="Filter by Client Name">
       </div>
-      <div class="filter-group">
-        <label for="filter-store">Store Name</label>
+      <div class="form-group">
+        <label for="filter-store">Store Name:</label>
         <input type="text" id="filter-store" placeholder="Filter by Store Name">
       </div>
-      <div class="filter-group">
-        <label for="filter-shadule">Schedule</label>
+      <div class="form-group">
+        <label for="filter-shadule">Schedule:</label>
         <input type="text" id="filter-shadule" placeholder="Filter by Schedule Type">
       </div>
-      <div class="filter-group">
-        <label for="filter-technician">Technician</label>
-        <input type="text" id="filter-technician" placeholder="Filter by Technician Name">
       </div>
-      <div class="filter-group">
-        <label for="filter-status">Status</label>
+      <div class="form-row">
+       <div class="form-group">
+        <label for="filter-technician">Technician:</label>
+        <input type="text" id="filter-technician" placeholder="Filter by Technician Name">
+       </div>
+       <div class="form-group">
+        <label for="filter-status">Status:</label>
         <select id="filter-status">
           <option value="">Filter by Status</option>
-          <option value="TICKIT CLOSE">TICKIT CLOSE</option>
-          <option value="TICKIT OPEN">TICKIT OPEN</option>
+          <option value="TICKET CLOSE">TICKET CLOSE</option>
+          <option value="TICKET OPEN">TICKET OPEN</option>
         </select>
-      </div>
-      <div class="filter-group">
-        <label for="filter-from-date">From</label>
+       </div>
+       <div class="form-group">
+        <label for="filter-from-date">From:</label>
         <input type="date" id="filter-from-date" placeholder="From Date">
-      </div>
-      <div class="filter-group">
-        <label for="filter-to-date">To</label>
+       </div>
+       <div class="form-group">
+        <label for="filter-to-date">To:</label>
         <input type="date" id="filter-to-date" placeholder="To Date">
+       </div>
       </div>
-    </div>
+    <!-- </div> -->
     <div class="table-container">
       <button id="exportButton">Export to Excel</button>
       <table id="scheduleTable" class="display">
@@ -135,7 +141,7 @@
             <th>Technician Email</th>
             <th>Visit on Date</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th id ="adminActionHide">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -144,12 +150,48 @@
       </table>
     </div>
   </div>
-
+  <!-- <footer class="footer">
+    <div class="footer-content">
+     
+      <div class="section">
+        <h3>Contact Us</h3>
+        <p>Email: hr@ismartfacitech.com</p>
+        <p>Phone: +91 79690 47777</p>
+        <p>Address: 317, A/2, Nilgiri CS Ltd, Near Wadala RTO, Wadala, Mumbai - 400037.</p>
+      </div>
+  
+    
+      <div class="section">
+        <h3>About Us</h3>
+        <p>We are committed to providing the best service. Learn more about our company and our mission.</p>
+        <a href="https://ismartfacitech.com/">Learn More</a>
+      </div>
+    </div>
+  
+   
+    <div class="social-media">
+      <a href="https://www.instagram.com/yourprofile" target="_blank" aria-label="Instagram">
+        <img src="../logo/image005.png" alt="Instagram">
+      </a>
+      <a href="https://twitter.com/yourprofile" target="_blank" aria-label="Twitter">
+        <img src="../logo/image004.png" alt="Twitter">
+      </a>
+      <a href="https://www.linkedin.com/in/yourprofile" target="_blank" aria-label="LinkedIn">
+        <img src="../logo/image003.png" alt="LinkedIn">
+      </a>
+      <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">
+        <img src="../logo/image002.png" alt="Facebook">
+      </a>
+    </div>
+  
+  
+    <div class="footer-bottom">
+      &copy;<a class ="footerlink"href="https://ismartfacitech.com/">iSmart Facitech Pvt Limited 2024</a> All rights reserved.
+    </div>
+  </footer> -->
   </div>
-
-  
-  
+  <script src="../globals/global.js"></script>
   <script src="sheduling.js"></script>
- 
+  <script src="../Navbar/navbar.js" defer></script>
 </body>
 </html>

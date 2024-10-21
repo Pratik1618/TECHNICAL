@@ -1,32 +1,7 @@
-api='http://localhost:8083';
+api=getBaseUrl();;
 token = localStorage.getItem('authToken');
 
 //to keep tab active
-document.addEventListener('DOMContentLoaded', (event) => {
-  const tabs = document.querySelectorAll('.nav-link');
-  
-  // Retrieve the last active tab from local storage
-  const activeTabId = localStorage.getItem('activeTab');
-  
-  // If there's an active tab in local storage, activate it
-  if (activeTabId) {
-    document.querySelector(`#${activeTabId}`).classList.add('active');
-  }
-  
-  // Add click event listener to each tab
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      // Remove 'active' class from all tabs
-      tabs.forEach(t => t.classList.remove('active'));
-      
-      // Add 'active' class to the clicked tab
-      tab.classList.add('active');
-      
-      // Save the active tab ID in local storage
-      localStorage.setItem('activeTab', tab.id);
-    });
-  });
-});
 
 //post methods
 document.addEventListener("DOMContentLoaded", function () {
@@ -66,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
           console.log("Success:", result);
           displaySuccess("Data saved successfully!");
           document.getElementById("storeForm").reset();
+          table.ajax.reload();
         })
         .catch((error) => {
           console.error("Error submitting form:", error);
@@ -94,10 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
     errorMessageElement.textContent = ""; // Clear error message
     successMessageElement.textContent = message;
   }
-});
+
 
 //data table of client
-document.addEventListener("DOMContentLoaded", function() {
+
   const table = $("#clientTable").DataTable({
       ajax: {
           url: `${api}/client/`, // Replace with your API endpoint
@@ -167,10 +143,39 @@ document.addEventListener("DOMContentLoaded", function() {
       exportToExcel();
     });
 
-  window.exportToExcel = function(){
-    const url = `${api}/client/excel?token=${encodeURIComponent(token)}`
-    window.location.href = url;
-  }
+  
+  window.exportToExcel = function() {
+   
+    const url = `${api}/client/excel`; // Endpoint to get the Excel file
+
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': `${token}`,
+             // Optional: specify content type if needed
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.blob(); // Convert response to a blob (binary large object)
+    })
+    .then(blob => {
+        // Create a link element
+        const link = document.createElement('a');
+        const objectURL = URL.createObjectURL(blob); // Create an object URL for the blob
+        link.href = objectURL;
+        link.download = 'client.xlsx'; // Set the default filename for the download
+        document.body.appendChild(link);
+        link.click(); // Programmatically click the link to trigger the download
+        URL.revokeObjectURL(objectURL); // Clean up the object URL
+        document.body.removeChild(link);
+    })
+    .catch(error => {
+        console.error('Error exporting to Excel:', error);
+    });
+}
 
   // Optional: Style the search input field with CSS
   const customFilterStyle = `

@@ -1,3 +1,4 @@
+const apiUrl=getBaseUrl();
 document.getElementById("loginForm").addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the form from submitting normally
 
@@ -5,8 +6,9 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
     const password = document.getElementById("password").value;
     const errorMessage = document.getElementById("error-message");
 
+	//const Url = getBaseUrl();
     // Send login request to the backend
-    fetch('http://localhost:8083/login/', { // Replace with your backend login URL
+    fetch(`${apiUrl}/login/`, { // Replace with your backend login URL
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -15,14 +17,19 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
     })
     .then(response => response.json())
     .then(data => {
-        if (data.token) {
-            // Store the token in localStorage
+        if (data.token && data.id && data.userName&&data.role) {
+            // Store the token and user ID in localStorage
             localStorage.setItem('authToken', data.token);
-
-            // Redirect to another page after successful login
+            localStorage.setItem('userId', data.id);
+            localStorage.setItem('UserName',data.userName)
+            localStorage.setItem("userRole",data.role)
+            if(data.role==="TECHNICIAN"){
+                window.location.href ="../Main/inspectionList.html"
+            }else{
             window.location.href = "../Sheduling/sheduling.html"; // Example redirect
+            }
         } else {
-            // Show error message if token is not returned
+            // Show error message if token or ID is not returned
             errorMessage.textContent = "Invalid username or password.";
         }
     })
@@ -31,6 +38,3 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
         errorMessage.textContent = "An error occurred. Please try again.";
     });
 });
-
-
-

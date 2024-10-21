@@ -7,32 +7,19 @@
     <title>Multi-Step Form with Sections</title>
 
     <link rel="stylesheet" href="mainStyle.css">
+   
+    
 </head>
 <header>
-    <nav class="navbar">
-        <a href="#" class="brand-logo">
-            <img src="../logo/logo_1-removebg-preview.png" alt="Brand Logo">
-        </a>
-        <a href="../Sheduling/sheduling.html" class="nav-link" id="tab-schedule">SCHEDULE INSPECTION</a>
-        <a href="../Main/inspectionList.html" class="nav-link" id="tab-inspection">INSPECTION FORM</a>
-        <a href="../PPMform/ppminscpectionList.html" class="nav-link" id="tab-ppm">PPM FORM</a>
-        <a href="../brekdown/breakdownList.html" class="nav-link" id="tab-breakdown">BREAKDOWN</a>
-        <a href="../Client/client.html" class="nav-link" id="tab-client">CLIENT</a>
-        <a href="../Role/role.html" class="nav-link" id="tab-role">ROLE</a>
-        <a href="../Store/store.html" class="nav-link" id="tab-store">STORE</a>
-        <a href="../Zone/zone.html" class="nav-link" id="tab-zone">ZONE</a>
-        <a href="../State/state.html" class="nav-link" id="tab-state">STATE</a>
-        <a href="../City/city.html" class="nav-link" id="tab-city">CITY</a>
-        <a href="../calander/calender1.html" class="nav-link" id="tab-calender">CALENDAR</a>
-        <a href="../signUp/signUp.html" class="nav-link" id="tab-signUp">SIGN UP</a>
-        <a href="../login/login.html" class="nav-link">LOG OUT</a>
-    </nav>
+   
 </header>
 <body>
+   
     <div class="container">
         <form id="multiStepForm">
             <!-- Step 1: Company Details -->
             <div class="form-section active" id="companyDetails">
+                <h1>Incepction Form</h1>
                 <h2>Company Details</h2>
                 <div>
                     <label for="ticketNumber">Ticket Number:</label>
@@ -51,24 +38,7 @@
                       <option value="">Select a Store</option>
                     </select>
                   </div>
-                  <!-- <div>
-                    <label for="zoneName">Zone Name:</label>
-                    <select id="zoneName" name="zoneName" required>
-                      <option value="">Select a Zone</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label for="stateName">State Name:</label>
-                    <select id="stateName" name="stateName" required>
-                      <option value="">Select a State</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label for="addressName">Address:</label>
-                    <select id="addressName" name="addressName" required>
-                      <option value="">Select a Address</option>
-                    </select> -->
-                  <!-- </div> -->
+                 
                 <button class="next" type="button" id="next-company">Next &rarr;</button>
             </div>
 
@@ -659,6 +629,8 @@
                     <p>State :<span id="previewState"></span></p>
                     <p>Address:<span id="previewAdd"></span></p> -->
                     <div id="previewTables"></div>
+                    <div id="success-message"></div>
+                    <div id="error-message"></div>
                     <div class="backnext">
                         <button class="back" type="button"
                             onclick="showNextSection('previewSection', 'sectionH')">Previous</button>
@@ -674,6 +646,7 @@
         </form>
     
     </div>
+    <script src="../globals/global.js"></script>
     <script src="main.js"></script>
 </body>
 

@@ -1,22 +1,58 @@
-<!-- navbar.html -->
- 
-<nav class="navbar">
+<nav class="navbar" id="navbar">
     <a href="#" class="brand-logo">
         <img src="../logo/logo_1-removebg-preview.png" alt="Brand Logo">
     </a>
     <a href="../Sheduling/sheduling.html" class="nav-link" id="tab-schedule">SCHEDULE INSPECTION</a>
     <a href="../Main/inspectionList.html" class="nav-link" id="tab-inspection">INSPECTION FORM</a>
     <a href="../PPMform/ppminscpectionList.html" class="nav-link" id="tab-ppm">PPM FORM</a>
+    <a href="../MST/mstList.html" class="nav-link" id="tab-mst">MST FORM</a>
     <a href="../brekdown/breakdownList.html" class="nav-link" id="tab-breakdown">BREAKDOWN</a>
     <a href="../Client/client.html" class="nav-link" id="tab-client">CLIENT</a>
-    <a href="../Role/role.html" class="nav-link" id="tab-role">ROLE</a>
     <a href="../Store/store.html" class="nav-link" id="tab-store">STORE</a>
     <a href="../Zone/zone.html" class="nav-link" id="tab-zone">ZONE</a>
     <a href="../State/state.html" class="nav-link" id="tab-state">STATE</a>
     <a href="../City/city.html" class="nav-link" id="tab-city">CITY</a>
     <a href="../calander/calender1.html" class="nav-link" id="tab-calender">CALENDAR</a>
-    <a href="../signUp/signUp.html" class="nav-link" id="tab-signUp">SIGN UP</a>
-    <a href="../login/login.html" class="nav-link">LOG OUT</a>
+    <a href="../signUp/signUpList.html" class="nav-link" id="tab-signUp">SIGN UP</a>
+    <a href="#" class="nav-link">
+        <img id="logOut" src="../logo/logout.png" alt="Brand Logo"><spam id="logout-link"></spam>
+    </a>
+    <!-- <a href="#" class="nav-link" id="logout-link">LOG OUT</a> -->
 </nav>
 
+<script>
+    // Get user role from localStorage
+    var userRole = localStorage.getItem("userRole");
+    console.log("user role: " + userRole);
+ const userName=localStorage.getItem("UserName");
+    // Function to update navigation based on user role
+    function updateNav() {
+        if (userRole === 'TECHNICIAN') {
+            // Change inner text for admin
+            document.getElementById('tab-schedule').style.display = 'none';
+            document.getElementById('tab-zone').style.display = 'none';
+            document.getElementById('tab-state').style.display = 'none';
+            document.getElementById('tab-city').style.display = 'none';
+            document.getElementById('tab-signUp').style.display = 'none';
+            document.getElementById('tab-calender').style.display = 'none';
+            document.getElementById('tab-client').style.display = 'none';
+            document.getElementById('tab-store').style.display = 'none';
+            document.getElementById('logout-link').innerText =" Hello, "+userName;
+            
+        } else if (userRole === 'ADMIN') {
+            document.getElementById('logout-link').innerText =" Hello, "+userName;
+            // Add more technician-specific text changes as needed
+        } else {
+            document.getElementById('tab-zone').style.display = 'none';
+            document.getElementById('tab-state').style.display = 'none';
+            document.getElementById('tab-city').style.display = 'none';
+            document.getElementById('tab-client').style.display = 'none';
+            document.getElementById('logout-link').innerText =" Hello, "+userName;
+            document.getElementById('tab-store').style.display = 'none';
+            document.getElementById('tab-signUp').style.display = 'none';
+        }
+    }
 
+    // Call the function to update the navigation
+    updateNav();
+</script>

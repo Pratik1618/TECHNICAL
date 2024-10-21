@@ -1,4 +1,4 @@
-api='http://localhost:8083';
+api=getBaseUrl();
 token = localStorage.getItem('authToken');
 
 function loadEditForm() {

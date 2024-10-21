@@ -317,11 +317,7 @@ border-radius: 5px;
 overflow-y: auto;
 overflow-x: auto;
 }
-/* @media (max-width: 768px) {
-  .preview {
-    justify-content: flex-start;
-  }
-} */
+
 .close-button {
   position: absolute;
   top: 10px;
@@ -339,9 +335,9 @@ overflow-x: auto;
 }
 
 .modal-content {
-  max-width: 90vw; /* Limits the width to 90% of the viewport width */
-  max-height: 80vh; /* Limits the height to 80% of the viewport height */
-  overflow: auto; /* Adds scrollbars if content overflows */
+  max-width: 90vw; 
+  max-height: 80vh; 
+  overflow: auto; 
 }
 
 /* Style for the table */

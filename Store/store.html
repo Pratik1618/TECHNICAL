@@ -9,28 +9,13 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="../Navbar/navbar.css">
+<script src="../Navbar/navbar.js" defer></script>
 </head>
-<header>
-  <nav class="navbar">
-    <a href="#" class="brand-logo">
-        <img src="../logo/logo_1-removebg-preview.png" alt="Brand Logo">
-    </a>
-    <a href="../Sheduling/sheduling.html" class="nav-link" id="tab-schedule">SCHEDULE INSPECTION</a>
-    <a href="../Main/inspectionList.html" class="nav-link" id="tab-inspection">INSPECTION FORM</a>
-    <a href="../PPMform/ppminscpectionList.html" class="nav-link" id="tab-ppm">PPM FORM</a>
-    <a href="../brekdown/breakdownList.html" class="nav-link" id="tab-breakdown">BREAKDOWN</a>
-    <a href="../Client/client.html" class="nav-link" id="tab-client">CLIENT</a>
-    <a href="../Role/role.html" class="nav-link" id="tab-role">ROLE</a>
-    <a href="../Store/store.html" class="nav-link" id="tab-store">STORE</a>
-    <a href="../Zone/zone.html" class="nav-link" id="tab-zone">ZONE</a>
-    <a href="../State/state.html" class="nav-link" id="tab-state">STATE</a>
-    <a href="../City/city.html" class="nav-link" id="tab-city">CITY</a>
-    <a href="../calander/calender1.html" class="nav-link" id="tab-calender">CALENDAR</a>
-    <a href="../signUp/signUp.html" class="nav-link" id="tab-signUp">SIGN UP</a>
-    <a href="../login/login.html" class="nav-link">LOG OUT</a>
-</nav>
-</header>
+
 <body>
+  <div id="navbar-placeholder"></div>
+
   <div class="whole-container">
   <div class="container">
     <h1>STORE INFORMATION</h1>
@@ -156,6 +141,7 @@
 </div>
 </div>
  </div>
+ <script src="../globals/global.js"></script>
   <script src="storeJs.js"></script>
 </body>
 </html>

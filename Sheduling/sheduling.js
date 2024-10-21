@@ -1,35 +1,17 @@
-api='http://localhost:8083';
+api=getBaseUrl();
 token = localStorage.getItem('authToken');
-
+userName=localStorage.getItem('UserName');
+userrole=localStorage.getItem("userRole");
+console.log("userrole"+userrole);
 
 
 //to keep tab active
-// document.addEventListener("DOMContentLoaded", (event) => {
-//   const tabs = document.querySelectorAll(".nav-link");
 
-//   // Retrieve the last active tab from local storage
-//   const activeTabId = localStorage.getItem("activeTab");
-
-//   // If there's an active tab in local storage, activate it
-//   if (activeTabId) {
-//     document.querySelector(`#${activeTabId}`).classList.add("active");
-//   }
-
-//   // Add click event listener to each tab
-//   tabs.forEach((tab) => {
-//     tab.addEventListener("click", () => {
-//       // Remove 'active' class from all tabs
-//       tabs.forEach((t) => t.classList.remove("active"));
-
-//       // Add 'active' class to the clicked tab
-//       tab.classList.add("active");
-
-//       // Save the active tab ID in local storage
-//       localStorage.setItem("activeTab", tab.id);
-//     });
-//   });
-// });
-
+if (userrole!="ADMIN"){
+  document.getElementById('containerHide').style.display = 'none';
+  document.getElementById('shaduleContainerHide').style.display = 'none';
+  document.getElementById('adminActionHide').style.display = 'none';
+}
 //phone number
 const phoneNumberInput = document.getElementById("phoneNumber");
 
@@ -218,101 +200,100 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Initialize DataTables when the document is ready
 
-const table = $("#scheduleTable").DataTable({
-  ajax: {
-      url: `${api}/schedule/`,
-      dataSrc: '',
-      headers: {
-          'Authorization': `${token}`
-      },
-  },
-  columns: [
-      { data: "tikitNumber" },
-      { data: "client.clientName" },
-      { data: "store.storeName" },
-      { data: "store.storeCode" },
-      { data: "scheduleFor" },
-      { data: "technicianName" },
-      { data: "mobNumber" },
-      { data: "technicianEmail" },
-      { data: "date" },
-      {
-          data: "status",
-          render: function (data) {
-              if (data === "TICKIT CLOSE") {
-                  return `<span style="color: green;">${data}</span>`;
-              } else if (data === "TICKIT OPEN") {
-                  return `<span style="color: red;">${data}</span>`;
+    const table = $("#scheduleTable").DataTable({
+        ajax: {
+            url: `${api}/schedule/`, // Replace with your API endpoint
+            dataSrc: '',
+            headers: {
+              'Authorization': `${token}`
+            },
+        },
+        columns: [
+            { data: "tikitNumber" },
+            { data: "client.clientName" },
+            { data: "store.storeName" },
+            {data:  "store.storeCode"},
+            { data: "scheduleFor" },
+            { data: "technicianName" },
+            { data: "mobNumber" },
+            { data: "technicianEmail" },
+            { data: "date" },
+            {
+              data: "status",
+              render: function(data, type, row) {
+                  if (data === "TICKET CLOSED") {
+                      return `<span style="color: green;">${data}</span>`;
+                  }else if(data==="TICKET OPEN"){
+                    return `<span style="color: red;">${data}</span>`;
+                  }
+                  return data;
               }
-              return data;
+          },
+            {
+              data: null,
+              render: function(data, type, row) {
+                  if (userrole === "ADMIN") {
+                      return `
+                          <button class="edit" onclick="window.location.href='editShedule.html?id=${row.id}'">Edit</button>
+                          <button class="delete" onclick="deleteSchedule(${row.id})">Delete</button>
+                      `;
+                  }
+                  return ''; 
+              }
           }
-      },
-      {
-          data: null,
-          render: function (data, type, row) {
-              return `
-                  <button class="edit" onclick="window.location.href='editShedule.html?id=${row.id}'">Edit</button>
-                  <button class ="delete" onclick="deleteSchedule(${row.id})">Delete</button>
-              `;
-          }
+        ],
+        searching: true,
+        paging: true,
+        info: true,
+        lengthChange: false, // Hide the page length dropdown
+        pageLength: 5, // Number of entries per page
+        language: {
+            search: "Search:",
+            info: "Showing _START_ to _END_ of _TOTAL_ entries",
+            paginate: {
+                previous: "Previous",
+                next: "Next"
+            }
+        }
+    });
+    $('#filter-client').on('keyup', function () {
+      table.column(1).search(this.value).draw();
+    });
+    
+    $('#filter-shadule').on('keyup', function () {
+      table.column(4).search(this.value).draw();
+    });
+    $('#filter-store').on('keyup', function () {
+      table.column(2).search(this.value).draw();
+    });
+    $('#filter-technician').on('keyup', function () {
+      table.column(5).search(this.value).draw();
+    });
+    
+    $('#filter-status').on('change', function () {
+      table.column(9).search(this.value).draw();
+    });
+    
+    // Date range filtering
+    $.fn.dataTable.ext.search.push(function (settings, data) {
+      const fromDate = $('#filter-from-date').val();
+      const toDate = $('#filter-to-date').val();
+      const visitDate = data[8]; // The date column in the DataTable
+    
+      if (
+          (!fromDate && !toDate) ||
+          (fromDate && !toDate && visitDate >= fromDate) ||
+          (!fromDate && toDate && visitDate <= toDate) ||
+          (fromDate && toDate && visitDate >= fromDate && visitDate <= toDate)
+      ) {
+          return true;
       }
-  ],
-  searching: true,
-  paging: true,
-  info: true,
-  lengthChange: true, // Enable page length selection
-  pageLength: 5,
-  lengthMenu: [5, 10, 25, 50, 100,200,300,400,600], // Options for page length
-  language: {
-      search: "Search:",
-      info: "Showing _START_ to _END_ of _TOTAL_ entries",
-      paginate: {
-          previous: "Previous",
-          next: "Next"
-      }
-  }
-});
-
-// Custom filtering functionality
-$('#filter-client').on('keyup', function () {
-  table.column(1).search(this.value).draw();
-});
-
-$('#filter-shadule').on('keyup', function () {
-  table.column(4).search(this.value).draw();
-});
-$('#filter-store').on('keyup', function () {
-  table.column(2).search(this.value).draw();
-});
-$('#filter-technician').on('keyup', function () {
-  table.column(5).search(this.value).draw();
-});
-
-$('#filter-status').on('change', function () {
-  table.column(9).search(this.value).draw();
-});
-
-// Date range filtering
-$.fn.dataTable.ext.search.push(function (settings, data) {
-  const fromDate = $('#filter-from-date').val();
-  const toDate = $('#filter-to-date').val();
-  const visitDate = data[8]; // The date column in the DataTable
-
-  if (
-      (!fromDate && !toDate) ||
-      (fromDate && !toDate && visitDate >= fromDate) ||
-      (!fromDate && toDate && visitDate <= toDate) ||
-      (fromDate && toDate && visitDate >= fromDate && visitDate <= toDate)
-  ) {
-      return true;
-  }
-  return false;
-});
-
-$('#filter-from-date, #filter-to-date').on('change', function () {
-  table.draw();
-});
-
+      return false;
+    });
+    
+    $('#filter-from-date, #filter-to-date').on('change', function () {
+      table.draw();
+    });
     // Handle delete store operation
   window.deleteSchedule = function (id) {
     if (confirm("Are you sure you want to delete this store?")) {
@@ -355,6 +336,7 @@ function exportToExcel(table) {
     { header: "Mobile Number", key: "mobNumber" },
     { header: "Technician Email", key: "technicianEmail" },
     { header: "Date", key: "date" },
+    {header:"Status",key:"status"},
   ];
 
   // Map column headers and data keys
@@ -448,6 +430,7 @@ function deleteSchedule(id) {
 });
 
 //download format 
+// Custom filtering functionality
 
 document
     .getElementById("format")

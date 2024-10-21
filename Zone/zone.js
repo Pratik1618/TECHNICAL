@@ -1,32 +1,7 @@
  token = localStorage.getItem('authToken');
-api='http://localhost:8083/';
+api=getBaseUrl();
 
 //to keep tab active
-document.addEventListener('DOMContentLoaded', (event) => {
-  const tabs = document.querySelectorAll('.nav-link');
-  
-  // Retrieve the last active tab from local storage
-  const activeTabId = localStorage.getItem('activeTab');
-  
-  // If there's an active tab in local storage, activate it
-  if (activeTabId) {
-    document.querySelector(`#${activeTabId}`).classList.add('active');
-  }
-  
-  // Add click event listener to each tab
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      // Remove 'active' class from all tabs
-      tabs.forEach(t => t.classList.remove('active'));
-      
-      // Add 'active' class to the clicked tab
-      tab.classList.add('active');
-      
-      // Save the active tab ID in local storage
-      localStorage.setItem('activeTab', tab.id);
-    });
-  });
-});
 
 document.addEventListener("DOMContentLoaded", function () {
   //const clientSelect = document.getElementById("clientName");
@@ -44,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       console.log("Form data:", storeData);
 
-      fetch(`${api}zone/new`, {
+      fetch(`${api}/zone/new`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Success:", result);
         displaySuccess("Data saved successfully!");
         document.getElementById("storeForm").reset();
+        table.ajax.reload();
       })
       .catch((error) => {
         console.error("Error submitting form:", error);
@@ -93,13 +69,13 @@ document.addEventListener("DOMContentLoaded", function () {
     errorMessageElement.textContent = ""; // Clear error message
     successMessageElement.textContent = message;
   }
-});
+
 
 // Initialize DataTables when the document is ready
-document.addEventListener("DOMContentLoaded", function() {
+
     const table = $("#zoneDataTable").DataTable({
         ajax: {
-            url: `${api}zone/`, // Replace with your API endpoint
+            url: `${api}/zone/`, // Replace with your API endpoint
             dataSrc: '',
             headers: {
               'Authorization': `${token}`
@@ -142,8 +118,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Handle delete store operation
   window.deleteZone = function (id) {
-    if (confirm("Are you sure you want to delete this store?")) {
-      fetch(`${api}zone/delete/${id}`, {
+    if (confirm("Are you sure you want to delete this zone?")) {
+      fetch(`${api}/zone/delete/${id}`, {
         method: "DELETE",
         headers: {
           'Authorization': `${token}`
@@ -153,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function() {
           if (response.ok) {
             table.ajax.reload(); // Refresh the table data
           } else {
-            console.error("Failed to delete the store");
+            console.error("Failed to delete the zone.");
           }
         })
         .catch((error) => console.error("Error deleting store:", error));
@@ -168,11 +144,36 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
  
+  window.exportToExcel = function() {
+   
+    const url =`${api}/zone/excel`; // Endpoint to get the Excel file
 
-  window.exportToExcel = function(){
-    const url = `${api}zone/excel`
-    window.location.href = url;
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': `${token}`,
+             // Optional: specify content type if needed
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.blob(); // Convert response to a blob (binary large object)
+    })
+    .then(blob => {
+        // Create a link element
+        const link = document.createElement('a');
+        const objectURL = URL.createObjectURL(blob); // Create an object URL for the blob
+        link.href = objectURL;
+        link.download = 'zone.xlsx'; // Set the default filename for the download
+        document.body.appendChild(link);
+        link.click(); // Programmatically click the link to trigger the download
+        URL.revokeObjectURL(objectURL); // Clean up the object URL
+        document.body.removeChild(link);
+    })
+    .catch(error => {
+        console.error('Error exporting to Excel:', error);
+    });
+
   }
-
-
-

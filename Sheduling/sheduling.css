@@ -4,11 +4,6 @@ body {
   margin: 0;
   padding: 0;
 }
-h2 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 
 #format {
@@ -19,10 +14,15 @@ h2 {
   border-radius: 5px;
   height: 30px;
   padding: 0 15px; /* Add horizontal padding for better appearance */
-  cursor: pointer; /* Show pointer cursor on hover */
+  cursor: pointer; 
 }
 #format:hover { 
   background-color:#be2520; 
+}
+h2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 #excelFile {
   position: absolute;
@@ -82,13 +82,13 @@ h2 {
   background: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  position: relative; /* Ensure positioning context for absolute elements */
+  position: relative; 
 }
 .whole-container {
   background-color: #ffffff; 
   border: none; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-height: 660px; 
+  max-height: 600px; 
   overflow-y: auto; /* Vertical scrollbar if content exceeds max height */
   padding: 20px; /* Ensure content doesn't touch the border */
   box-sizing: border-box; 
@@ -331,26 +331,4 @@ select:focus {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Optional: Shadow effect */
 }
 
-.filter-container {
-      display: flex;
-      gap: 15px; /* Space between each group */
-      flex-wrap: wrap;
-      align-items: center; /* Align items vertically centered */
-      margin-bottom: 20px;
-    }
 
-    .filter-container label {
-      margin-right: 5px; /* Space between label and input */
-    }
-
-    .filter-container input,
-    .filter-container select {
-      padding: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .filter-group {
-      display: flex;
-      align-items: center;
-    }

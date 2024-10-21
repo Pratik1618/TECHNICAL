@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Step Form with Sections</title>
+
+    <link rel="stylesheet" href="mainStyle.css">
+</head>
+<header>
+  </header>
+<body>
+    <div class="container">
+        <form id="multiStepForm">
+            <input type="hidden" id="storeId">
+            <h1>Edit Inscpection</h1>
+            <!-- Step 1: Company Details -->
+            <div class="form-section active" id="companyDetails">
+                <h2>Company Details</h2>
+                <div>
+                    <label for="ticketNumber">Ticket Number:</label>
+                    <input id="ticketNumberEdit" type="number" name="ticketNumber" required readonly>
+                </div>
+                <div>
+                    <label for="companyName">Company Name:</label>
+                    <input type="text" id="clientNameEdit" name="clientName" required readonly>
+                  </div>
+                  <div>
+                    <label for="storeNameEdit">Store Name:</label>
+                    <input type="text" id="storeNameEdit" name="storeNameEdit" required readonly>
+                   </div> 
+                <button class="next" type="button" id="next-company">Next &rarr;</button>
+            </div>
+
+            <!-- Step 2: Section A -->
+            <div class="main-border">
+                <div class="form-section" id="sectionA">
+                    <h2>Section A: Signage & Frontage</h2>
+                    <table>
+                        <tr>
+                            <th>Sec</th>
+                            <th>ITEM CHECKED</th>
+                            <th>OK</th>
+                            <th>NOT OK</th>
+                            <th>MINIMUM ACCEPTABLE STANDARD</th>
+                            <th>Reason</th>
+                        </tr>
+
+                        <tr>
+                            <td>1</td>
+                            <td>Check Illumination of Signage</td>
+                            <td><input type="radio" id="illumination1" name="illumination" value="OK" ></td>
+                            <td><input type="radio" id="illumination2" name="illumination" value="Not OK" ></td>
+                            <td>Fully illuminated with no dark spots</td>
+                            <td><input class="text-box" type="text" id="illumination3" name="illuminationStandard"></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Check Physical Condition of Signage</td>
+                            <td><input type="radio" id="physicalCondition1" name="physicalCondition" value="OK" ></td>
+                            <td><input type="radio" id="physicalCondition2"name="physicalCondition" value="Not OK" ></td>
+                            <td>No cracks, sratches with no sound</td>
+                            <td><input class="text-box" type="text" id="physicalCondition3"name="physicalConditionStandard"></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Check fire exitinguishers</td>
+                            <td><input type="radio" id="checkFireExitinguishers1" name="checkFireExitinguishers"
+                                    value="OK" required></td>
+                            <td><input type="radio" id="checkFireExitinguishers2" name="checkFireExitinguishers"
+                                    value="Not OK" required></td>
+                            <td>In proper operation with no sound</td>
+                            <td><input class="text-box" id="checkFireExitinguishers3" type="text"
+                                    name="checkFireExitinguishers01"></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Check whether CCTV system is recording from all cameras </td>
+                            <td><input type="radio" id="CCTVrecording1" name="CCTVrecording" value="OK" ></td>
+                            <td><input type="radio" id="CCTVrecording2" name="CCTVrecording" value="Not OK" >
+                            </td>
+                            <td>No wobbling or breakage</td>
+                            <td><input class="text-box" id="CCTVrecording3" type="text" id="fname"
+                                    name="CCTVrecording01"></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Check functioning of emergancy lights</td>
+                            <td><input type="radio" id="emergancyLights1" name="emergancyLights" value="OK" >
+                            </td>
+                            <td><input type="radio" id="emergancyLights2" name="emergancyLights" value="Not OK"></td>
+                            <td>No wobbling or breakage</td>
+                            <td><input class="text-box" id="emergancyLights3" type="text" id="fname"
+                                    name="emergancyLights01"></td>
+
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </table>
+                    <!-- <div class="photo">
+                        <label for="sectionAPhoto">Upload Photo:</label>
+                        <input type="file" id="sectionAPhoto" accept="image/*" required><br><br>
+                    </div> -->
+                    <div class="backnext">
+                        <button class="back" type="button" onclick="showNextSection('sectionA', 'companyDetails')">
+                            &larr; Back </button>
+                        <button class="next" type="button" onclick="showNextSection('sectionA', 'sectionB')">Next &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Section B -->
+                <div class="form-section" id="sectionB">
+                    <h2>Section B: Safety & Security</h2>
+                    <table>
+                        <tr>
+                            <th>Sec</th>
+                            <th>ITEM CHECKED</th>
+                            <th>OK</th>
+                            <th>NOT OK</th>
+                            <th>MINIMUM ACCEPTABLE STANDARD</th>
+                            <th>Reason</th>
+                        </tr>
+
+                        <tr>
+                            <td>1</td>
+                            <td>Check whether the fire alarm panel is operational</td>
+                            <td><input type="radio" id="fireAlarm1" name="fireAlarm" value="OK" ></td>
+                            <td><input type="radio" id="fireAlarm2" name="fireAlarm" value="Not OK" ></td>
+                            <td>System is Operational</td>
+                            <td><input class="text-box" id="fireAlarm3" type="text" name="fireAlarmStandard"></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Check on faculty smoke detectors/broken MCP glass etc.</td>
+                            <td><input type="radio" id="smokeDetectors1" name="smokeDetectors"  value="OK"></td>
+                            <td><input type="radio" id="smokeDetectors2" name="smokeDetectors" value="Not OK"></td>
+                            <td>System is Operational </td>
+                            <td><input class="text-box" id="smokeDetectors3" type="text" name="smokeDetectorsStandard">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>3</td>
+                            <td>Check fire exitinguishers</td>
+                            <td><input type="radio" id="exitinguishers1" name="exitinguishers" value="OK" ></td>
+                            <td><input type="radio" id="exitinguishers2" name="exitinguishers" value="Not OK" >
+                            </td>
+                            <td>All dials green zone</td>
+                            <td><input class="text-box" id="exitinguishers3" type="text" name="exitinguishers01"></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Check whether CCTV system is recording from all cameras </td>
+                            <td><input type="radio" id="CCTVcameras1" name="CCTVcameras" value="OK"></td>
+                            <td><input type="radio" id="CCTVcameras2" name="CCTVcameras" value="NOT OK"></td>
+                            <td>Clear recording From all cameras</td>
+                            <td><input class="text-box" id="CCTVcameras3" type="text" name="CCTVcameras01"></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Check functioning of emergancy lights</td>
+                            <td><input type="radio" id="femergancyLights1" name="femergancyLights" value="OK"></td>
+                            <td><input type="radio" id="femergancyLights2" name="femergancyLights" value="NOT OK"></td>
+                            <td>Fully charged and functional</td>
+                            <td><input class="text-box" type="text" id="femergancyLights3" name="femergancyLights01">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Check entry/exit locks</td>
+                            <td><input type="radio" id="entryExitLocks1" name="entryExitLocks" value="OK"></td>
+                            <td><input type="radio" id="entryExitLocks2" name="entryExitLocks" value="NOT OK"></td>
+                            <td>All Locks working properly</td>
+                            <td><input class="text-box" type="text" id="entryExitLocks3" name="entryExitLocks01"></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Check shutter operation (refer shop manager)</td>
+                            <td><input type="radio" id="shutterOperation1" name="shutterOperation" value="OK"></td>
+                            <td><input type="radio" id="shutterOperation2" name="shutterOperation" value="NOT OK"></td>
+                            <td>Smooth operation of shutter</td>
+                            <td><input class="text-box" type="text" id="shutterOperation3" name="shutterOperation01">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>UPS connected to CCTV/Emergancy light/ Cash tills etc.</td>
+                            <td><input type="radio" id="CCTVEmergancyLight1" name="CCTVEmergancyLight" value="OK"></td>
+                            <td><input type="radio" id="CCTVEmergancyLight2" name="CCTVEmergancyLight" value="NOT OK">
+                            </td>
+                            <td>Connected all the times</td>
+                            <td><input class="text-box" type="text" id="CCTVEmergancyLight3"
+                                    name="CCTVEmergancyLight01"></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Check on loose connection/hangig wires/ damaged electrical points</td>
+                            <td><input type="radio" id="connectionHangigWires1" name="connectionHangigWires" value="OK">
+                            </td>
+                            <td><input type="radio" id="connectionHangigWires2" name="connectionHangigWires"
+                                    value="NOT OK"></td>
+                            <td></td>
+                            <td><input class="text-box" type="text" id="connectionHangigWires3"
+                                    name="connectionHangigWires01"></td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </table>
+                    <!-- <div class="photo">
+                        <label for="sectionBPhoto">Upload Photo:</label>
+                        <input type="file" id="sectionBPhoto" accept="image/*" required><br><br>
+                    </div> -->
+                    <div class="backnext">
+                        <button class="back" type="button" onclick="showNextSection('sectionB', 'sectionA')"> &larr;
+                            Back </button>
+                        <button class="next" type="button" onclick="showNextSection('sectionB', 'sectionC')">Next &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Section C (Example) -->
+                <div class="form-section" id="sectionC">
+                    <h2>Section C: Main Shop Area</h2>
+                    <table>
+                        <tr>
+                            <th>Sec</th>
+                            <th>ITEM CHECKED</th>
+                            <th>OK</th>
+                            <th>NOT OK</th>
+                            <th>MINIMUM ACCEPTABLE STANDARD</th>
+                            <th>Reason</th>
+                        </tr>
+
+                        <tr>
+                            <td>1</td>
+                            <td>Check track lights and ceiling lights</td>
+                            <td><input type="radio" id="tracklightsceilinglights1" name="tracklightsceilinglights"value="OK"></td>
+                            <td><input type="radio" id="tracklightsceilinglights2" name="tracklightsceilinglights" value="NOT OK"></td>
+                            <td>All lights working</td>
+                            <td><input class="text-box" type="text" id="tracklightsceilinglights3"
+                                    name="tracklightsceilinglights01"></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Check all the floors</td>
+                            <td><input type="radio" id="allFloors1" name="allFloors" value="OK" ></td>
+                            <td><input type="radio" id="allFloors2" name="allFloors" value="NOT OK" ></td>
+                            <td>No damaged tiles</td>
+                            <td><input class="text-box" id="allFloors3" type="text" name="allFloors01"></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Check the false ceiling</td>
+                            <td><input type="radio" id="falseCeilling1" name="falseCeilling" value="OK"></td>
+                            <td><input type="radio" id="falseCeilling2" name="falseCeilling" value="NOT OK"></td>
+                            <td>No cracks or discoloration</td>
+                            <td><input class="text-box" type="text" id="falseCeilling301" name="falseCeilling01"></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Check all the display units</td>
+                            <td><input type="radio" id="displayUnits1" name="displayUnits" value="OK"></td>
+                            <td><input type="radio" id="displayUnits2" name="displayUnits" value="NOT OK"></td>
+                            <td>No cracks, blemishes or discoloration</td>
+                            <td><input class="text-box" type="text" id="displayUnits3" name="displayUnits01"></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Check display unit lights</td>
+                            <td><input type="radio" id="unitLights1" name="unitLights" value="OK"></td>
+                            <td><input type="radio" id="unitLights2" name="unitLights" value="NOT OK"></td>
+                            <td>All lights working</td>
+                            <td><input class="text-box" type="text" id="unitLights3" name="unitLights01"></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Check air conditioning </td>
+                            <td><input type="radio" id="airConditioning1" name="airConditioning" value="OK"></td>
+                            <td><input type="radio" id="airConditioning2" name="airConditioning" value="NOT OK"></td>
+                            <td>Interior ambient within 24 degrees Centigrade</td>
+                            <td><input class="text-box" type="text" id="airConditioning3" name="airConditioning01"></td>
+                        </tr>
+                        <!-- Add your rows for Section C here -->
+                    </table>
+                    <!-- <div class="photo">
+                        <label for="sectionCPhoto">Upload Photo:</label>
+                        <input type="file" id="sectionCPhoto" accept="image/*" required><br><br>
+                    </div> -->
+                    <div class="backnext">
+                        <button class="back" type="button" onclick="showNextSection('sectionC', 'sectionB')"> &larr;
+                            Back </button>
+                        <button class="next" type="button" onclick="showNextSection('sectionC', 'sectionD')">Next &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!--step 5 : Section D-->
+                <div class="form-section" id="sectionD">
+                    <h2>Section D: Trial Rooms</h2>
+                    <table>
+                        <tr>
+                            <th>Sec</th>
+                            <th>ITEM CHECKED</th>
+                            <th>OK</th>
+                            <th>NOT OK</th>
+                            <th>MINIMUM ACCEPTABLE STANDARD</th>
+                            <th>Reason</th>
+                        </tr>
+
+                        <tr>
+                            <td>1</td>
+                            <td>Check door latch</td>
+                            <td><input type="radio" id="doorLatch1" name="doorLatch" value="OK" ></td>
+                            <td><input type="radio" id="doorLatch2" name="doorLatch" value="NOT OK" ></td>
+                            <td>Working properly</td>
+                            <td><input class="text-box" type="text" id="doorLatch3" name="doorLatch01"></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Check mirrors</td>
+                            <td><input type="radio" id="mirrors1" name="mirrors" value="OK" ></td>
+                            <td><input type="radio" id="mirrors2" name="mirrors" value="NOT OK" ></td>
+                            <td>No cracks or blemishes</td>
+                            <td><input class="text-box" type="text" id="mirrors3" name="mirrors01"></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Check interior surface</td>
+                            <td><input type="radio" id="interiorSurface1" name="interiorSurface" value="OK" >
+                            </td>
+                            <td><input type="radio" id="interiorSurface2" name="interiorSurface" value="NOT OK"></td>
+                            <td>No cracks or blemishes</td>
+                            <td><input class="text-box" type="text" id="interiorSurface3" name="interiorSurface01"></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Check flooring </td>
+                            <td><input type="radio" id="flooring1" name="flooring" value="OK" ></td>
+                            <td><input type="radio" id="flooring2" name="flooring" value="NOT OK" ></td>
+                            <td>No stain no loose scraps</td>
+                            <td><input class="text-box" type="text" id="flooring3" name="flooring01"></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Check lighting system</td>
+                            <td><input type="radio" id="lightingSystem1" name="lightingSystem" value="OK" ></td>
+                            <td><input type="radio" id="lightingSystem2" name="lightingSystem" value="NOT OK">
+                            </td>
+                            <td>Fully functional in all modes</td>
+                            <td><input class="text-box" type="text" id="lightingSystem3" name="lightingSystem01"></td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </table>
+                    <!-- <div class="photo">
+                        <label for="sectionDPhoto">Upload Photo:</label>
+                        <input type="file" id="sectionDPhoto" accept="image/*" required><br><br>
+                    </div> -->
+                    <div class="backnext">
+                        <button class="back" type="button" onclick="showNextSection('sectionD', 'sectionC')"> &larr;
+                            Back </button>
+                        <button class="next" type="button" onclick="showNextSection('sectionD', 'sectionE')">Next &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Section E-->
+                <div class="form-section" id="sectionE">
+                    <h2>Section E: Washrooms(only High Strret)</h2>
+                    <table>
+                        <tr>
+                            <th>Sec</th>
+                            <th>ITEM CHECKED</th>
+                            <th>OK</th>
+                            <th>NOT OK</th>
+                            <th>MINIMUM ACCEPTABLE STANDARD</th>
+                            <th>Reason</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Check water downflow frequency(flush tank/urinal stand) </td>
+                            <td><input type="radio" id="downflowFrequency1" name="downflowFrequency" value="OK"></td>
+                            <td><input type="radio" id="downflowFrequency2" name="downflowFrequency" value="NOT OK"></td>
+                            <td>In proper opertoion with regular frequency</td>
+                            <td><input class="text-box" type="text" id="downflowFrequency3" name="downflowFrequency01">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Check mirror Condition</td>
+                            <td><input type="radio" id="mirrorCondition1" name="mirrorCondition" value="OK">
+                            </td>
+                            <td><input type="radio" id="mirrorCondition2" name="mirrorCondition" value="NOT OK"></td>
+                            <td>No cracks or blemishes</td>
+                            <td><input class="text-box" type="text" id="mirrorCondition3" name="mirrorCondition01"></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Check all fittings</td>
+                            <td><input type="radio" id="allFittings1" name="allFittings" value="OK"></td>
+                            <td><input type="radio" id="allFittings2" name="allFittings" value="NOT OK"></td>
+                            <td>No loose or leaking fittings</td>
+                            <td><input class="text-box" type="text" id="allFittings3" name="allFittings01"></td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </table>
+                    <!-- <div class="photo">
+                        <label for="sectionEPhoto">Upload Photo:</label>
+                        <input type="file" id="sectionEPhoto" accept="image/*" required><br><br>
+                    </div> -->
+                    <div class="backnext">
+                        <button class="back" type="button" onclick="showNextSection('sectionE', 'sectionD')"> &larr;
+                            Back </button>
+                        <button class="next" type="button" onclick="showNextSection('sectionE', 'sectionF')">Next &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- section F-->
+                <div class="form-section" id="sectionF">
+                    <h2>Section F: Electrical</h2>
+                    <table>
+                        <tr>
+                            <th>Sec</th>
+                            <th>ITEM CHECKED</th>
+                            <th>OK</th>
+                            <th>NOT OK</th>
+                            <th>MINIMUM ACCEPTABLE STANDARD</th>
+                            <th>Reason</th>
+                        </tr>
+
+                        <tr>
+                            <td>1</td>
+                            <td>Check whether meter reading has been noted</td>
+                            <td><input type="radio" id="meterReading1" name="meterReading" value="OK"></td>
+                            <td><input type="radio" id="meterReading2" name="meterReading" value="NOT OK"></td>
+                            <td>Meter reading done daily and register updated</td>
+                            <td><input class="text-box" type="text" id="meterReading3" name="meterReading01" style=>
+                            </td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Check the Power Factor</td>
+                            <td><input type="radio" id="powerFactor1" name="powerFactor" value="OK"></td>
+                            <td><input type="radio" id="powerFactor2" name="powerFactor" value="NOT OK"></td>
+                            <td>PF should be 0.97 or higher</td>
+                            <td><input class="text-box" type="text" id="powerFactor3" name="powerFactor01" style=></td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Check cleanliness of Meter Room and Panel Rooms</td>
+                            <td><input type="radio" id="meterRoom1" name="meterRoom" value="OK"></td>
+                            <td><input type="radio" id="meterRoom2" name="meterRoom" value="NOT OK"></td>
+                            <td>No material on or adjacent to panels.</td>
+                            <td><input class="text-box" type="text" id="meterRoom3" name="meterRoom01" style=></td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Check Output Voltage of Stabilizer </td>
+                            <td><input type="radio" id="outputVoltage1" name="outputVoltage" value="OK"></td>
+                            <td><input type="radio" id="outputVoltage2" name="outputVoltage" value="NOT OK">
+                            </td>
+                            <td>Output voltage should be 220 Volts.</td>
+                            <td><input class="text-box" type="text" id="outputVoltage3" name="outputVoltage01" style=>
+                            </td>
+                        </tr>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </table>
+                    <!-- <div class="photo">
+                        <label for="sectionFPhoto">Upload Photo:</label>
+                        <input type="file" id="sectionFPhoto" accept="image/*" required><br><br>
+                    </div> -->
+                    <div class="backnext">
+                        <button class="back" type="button" onclick="showNextSection('sectionF', 'sectionE')"> &larr;
+                            Back </button>
+                        <button class="next" type="button" onclick="showNextSection('sectionF', 'sectionG')">Next &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!--section G-->
+                <div class="form-section" id="sectionG">
+                    <h2>Section G: Disel Generator(only High Street)</h2>
+                    <table>
+                        <tr>
+                            <th>Sec</th>
+                            <th>ITEM CHECKED</th>
+                            <th>OK</th>
+                            <th>NOT OK</th>
+                            <th>MINIMUM ACCEPTABLE STANDARD</th>
+                            <th>Reason</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Check diesel fuel level indicator</td>
+                            <td><input type="radio" id="levelindicator1" name="levelindicator" value="OK"></td>
+                            <td><input type="radio" id="levelindicator2" name="levelindicator" value="NOT OK"></td>
+                            <td>Tank Should be minimum 50% full</td>
+                            <td><input class="text-box" type="text" id="levelindicator3" name="levelindicator01"></td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Check battery charge</td>
+                            <td><input type="radio" id="batteryCharge1" name="batteryCharge" value="OK"></td>
+                            <td><input type="radio" id="batteryCharge2" name="batteryCharge" value="NOT OK"></td>
+                            <td>Should be between 22 and 25 volts</td>
+                            <td><input class="text-box" type="text" id="batteryCharge3" name="batteryCharge01"></td>
+                        </tr>
+
+                        <!-- Add more rows as needed -->
+                    </table>
+                    <!-- <div class="photo">
+                        <label for="sectionGPhoto">Upload Photo:</label>
+                        <input type="file" id="sectionGPhoto" accept="image/*" required><br><br>
+                    </div> -->
+                    <div class="backnext">
+                        <button class="back" type="button" onclick="showNextSection('sectionG', 'sectionF')"> &larr;
+                            Back </button>
+                        <button class="next" type="button" onclick="showNextSection('sectionG', 'sectionH')">Next &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!--section H-->
+                <div class="form-section" id="sectionH">
+                    <h2>Section H: Pumbing and Sanitation(only High street)</h2>
+                    <table>
+                        <tr>
+                            <th>Sec</th>
+                            <th>ITEM CHECKED</th>
+                            <th>OK</th>
+                            <th>NOT OK</th>
+                            <th>MINIMUM ACCEPTABLE STANDARD</th>
+                            <th>Reason</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Check water level in tanks</td>
+                            <td><input type="radio" id="levelInTanks1" name="levelInTanks" value="OK"></td>
+                            <td><input type="radio" id="levelInTanks2" name="levelInTanks" value="NOT OK"></td>
+                            <td>Should be enough for 2 days cosumption</td>
+                            <td><input class="text-box" type="text" id="levelInTanks3" name="levelInTanks01"></td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Check all pumps</td>
+                            <td><input type="radio" id="allPumps1" name="allPumps" value="OK" ></td>
+                            <td><input type="radio" id="allPumps2" name="allPumps" value="NOT OK" ></td>
+                            <td>Should be in working condition</td>
+                            <td><input class="text-box" type="text" id="allPumps3" name="allPumps01"></td>
+                        </tr>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </table>
+                    <!-- <div class="photo">
+                        <label for="sectionHPhoto">Upload Photo:</label>
+                        <input type="file" id="sectionHPhoto" accept="image/*" required><br><br>
+                    </div> -->
+                    <div class="backnext">
+                        <button class="back" type="button" onclick="showNextSection('sectionH', 'sectionG')"> &larr;
+                            Back </button>
+                        <button class="next" id="previewButton" type="button"
+                            onclick="showNextSection('sectionH', 'previewSection')">Preview &rarr; </button>
+                    </div>
+                </div>
+
+
+                <!-- Step 10: Submit Section -->
+                <div class="form-section" id="previewSection">
+                    <h2 id="preview">Preview</h2>
+                    <h3>Company Information</h3>
+                    <p>Company Name&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<span id="previewCompanyName"></span></p>
+                    <p>Store Name:&nbsp; <span id="previewCompanyAddress"></span></p>
+                    <!-- <p>Zone :<span id="previewZone"></span></p>
+                    <p>State :<span id="previewState"></span></p>
+                    <p>Address:<span id="previewAdd"></span></p> -->
+                    <div id="previewTables"></div>
+                    <div class="backnext">
+                        <button class="back" type="button"
+                            onclick="showNextSection('previewSection', 'sectionH')">Previous</button>
+                        <button class="back" id="submitForm" class="sub-pre" type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+           
+              
+              
+        </form>
+    </div>
+    <script src="editMain.js"></script>
+</body>
+
+</html>

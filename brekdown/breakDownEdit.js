@@ -1,4 +1,4 @@
-api='http://localhost:8083/';
+api=getBaseUrl();
 token = localStorage.getItem('authToken');
 
 
@@ -28,7 +28,7 @@ function loadEditForm() {
         return;
     }
 
-    fetch(`${api}breakdown/${storeId}`,{headers: { 'Authorization': `${token}`}})
+    fetch(`${api}/breakdown/${storeId}`,{headers: { 'Authorization': `${token}`}})
         .then((response) => response.json())
         .then((data) => {
             populateForm(data);
@@ -134,7 +134,7 @@ function saveEdit() {
         
     };
 
-    fetch(`${api}breakdown/update/${storeId}`, {
+    fetch(`${api}/breakdown/update/${storeId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -163,4 +163,5 @@ function getQueryParam(param) {
     return urlParams.get(param);
 }
 document.getElementById('addRowButton').addEventListener('click', addNewRow);
+
 document.addEventListener("DOMContentLoaded", loadEditForm);

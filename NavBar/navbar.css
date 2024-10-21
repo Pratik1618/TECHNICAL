@@ -8,7 +8,11 @@
     padding: 10px 20px;
     border-bottom: 2px groove rgb(53, 43, 43);
   }
-  
+  #user-greeting {
+    font-weight: bold;
+    color: #007bff; /* Adjust color as needed */
+    margin-right: 15px; /* Adjust spacing as needed */
+}
   .brand-logo {
     margin-right: 20px;
     display: flex;
@@ -21,8 +25,13 @@
     width: auto;
   }
   
+  #logOut {
+    width: 30px;  /* Set the width to 30px */
+    height: 20px; /* Set the height to 20px */
+}
   /* Navigation link styles */
-  .navbar .nav-link {
+  
+  .navbar .nav-link  {
     flex: 1 1 auto;
     text-align: center;
     color: #004494;
