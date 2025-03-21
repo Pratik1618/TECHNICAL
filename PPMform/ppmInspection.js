@@ -405,3 +405,19 @@ function displaySuccess(message) {
   errorMessageElement.textContent = ""; // Clear error message
   successMessageElement.textContent = message;
 }
+
+function updateFormVisibility() {
+  const frequency = document.getElementById('frequency').value;
+  const allRows = document.querySelectorAll('tr[data-frequency]');
+  
+  allRows.forEach(row => {
+    const validFrequencies = row.dataset.frequency.split(' ');
+    row.style.display = validFrequencies.includes(frequency) ? 'table-row' : 'none';
+  });
+}
+
+// Event listener for frequency change
+document.getElementById('frequency').addEventListener('change', updateFormVisibility);
+
+// Initial call when page loads
+updateFormVisibility();

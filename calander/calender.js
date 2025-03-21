@@ -45,9 +45,9 @@ fetch(`${api}/schedule/`,{headers: { 'Authorization': `${token}`}})
         storeName: task.store.storeCode + " - " + task.store.storeName,
         type: task.scheduleFor,
         address: task.store.address,
-        technicianName: task.technicianName,
-        technicianNumber: task.mobNumber,
-        technicianEmail: task.technicianEmail,
+        technicianName: task.user.userName,
+        technicianNumber: task.user.mobileNumber,
+        technicianEmail: task.user.email,
         status: task.status
       }
     });

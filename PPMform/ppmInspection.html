@@ -42,8 +42,11 @@
               <label for="frequency">Frequency:</label>
               <select name="frequency" id="frequency" required>
                 <option value="quarterly">Quarterly</option>
-                <!-- <option value="monthly">Monthly</option>
-                            <option value="yearly">Yearly</option> -->
+                <option value="monthly">Monthly</option>
+                <option value="half-yearly">Half-Yearly</option>
+                            <option value="yearly">Yearly</option>
+                           
+                            
               </select>
             </div>
             <button class="next" type="button" id="next-company">
@@ -65,6 +68,9 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <tbody data-frequency="monthly" >
+
+                  </tbody>
                   <tr>
                     <td>Main Control Panel</td>
                     <td>Ensure cable terminations are proper</td>

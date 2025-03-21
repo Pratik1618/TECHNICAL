@@ -144,3 +144,7 @@ button[type="submit"]:hover {
     display: block; 
     margin-left: -10px; 
 } */
+
+tr[data-frequency] {
+    display: none;
+  }
