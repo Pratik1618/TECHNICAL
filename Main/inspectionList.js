@@ -1,6 +1,7 @@
 //insepectionlist 
 api=getBaseUrl();
 token = localStorage.getItem('authToken');
+console.log(token);
 approverId = localStorage.getItem('userId');
 userrole=localStorage.getItem("userRole");
 //to keep tab active
@@ -101,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 window.previewInspectionForm = function(id) {
     const url = `${api}/inspectionForm/${id}/excel`;
+    console.log(url)
 
     fetch(url,{ headers: {'Authorization': `${token}`}})
         .then(response => response.arrayBuffer()) // Get the file as an ArrayBuffer

@@ -240,17 +240,17 @@ document
       mainControlPanelParameter: parameters1,
       mainControlPanelValue: values1,
       mainControlPanelRemarks: resion1,
-      mainControlPanelPhotoId: document.getElementById("mainControlPanelPhotoId").value.trim(),
+      // mainControlPanelPhotoId: document.getElementById("mainControlPanelPhotoId").value.trim(),
 
       distributionBoards1Paramaters: parameters2,
       distributionBoards1Value: values2,
       distributionBoards1Remarks: resion2,
-      distributionBoards1PhotoId:document.getElementById("distributionBoards1PhotoId").value.trim(),
+      // distributionBoards1PhotoId:document.getElementById("distributionBoards1PhotoId").value.trim(),
 
       distributionBoards2Paramaters: parameters3,
       distributionBoards2Value: values3,
       distributionBoards2Remarks: resion3,
-      distributionBoards2PhotoId:document.getElementById("distributionBoards2PhotoId").value.trim(),
+      // distributionBoards2PhotoId:document.getElementById("distributionBoards2PhotoId").value.trim(),
 
       capacitorPanelParameter:parameters19,
       capacitorPanelValue:values19,
@@ -261,25 +261,25 @@ document
       busDuctParameters: parameters4,
       busDuctValue: values4,
       busDuctRemarks: resion4,
-      busDuctPhotoId:document.getElementById("busDuctPhotoId").value.trim(),
+      // busDuctPhotoId:document.getElementById("busDuctPhotoId").value.trim(),
 
 
       electricMotor1Parameter: parameters5,
       electricMotor1Value: values5,
       electricMotor1Remarks: resion5,
-      electricMotor1PhotoId:document.getElementById("electricMotor1PhotoId").value.trim(),
+      // electricMotor1PhotoId:document.getElementById("electricMotor1PhotoId").value.trim(),
 
 
       electricMotor2Parameter: parameters6,
       electricMotor2Value: values6,
       electricMotor2Remarks: resion6,
-      electricMotor2PhotoId:document.getElementById("electricMotor2PhotoId").value.trim(),
+      // electricMotor2PhotoId:document.getElementById("electricMotor2PhotoId").value.trim(),
 
 
       updDbParameter: parameters7,
       updDbValue: values7,
       updDbRemarks: resion7,
-      updDbPhotoId:document.getElementById("updDbPhotoId").value.trim(),
+      // updDbPhotoId:document.getElementById("updDbPhotoId").value.trim(),
 
 
       shutterMotorParameter: parameters8,
@@ -297,13 +297,13 @@ document
       stablizerPanelParameter: parameters10,
       stablizerPanelValue: values10,
       stablizerPanelRemarks: resion10,
-      stablizerPanelPhotoId:document.getElementById("stablizerPanelPhotoId").value.trim(),
+      // stablizerPanelPhotoId:document.getElementById("stablizerPanelPhotoId").value.trim(),
 
 
       dgChangoverSwitchParameter: parameters11,
       dgChangoverSwitchValue: values11,
       dgChangoverSwitchRemarks: resion11,
-      dgChangoverSwitchphotoId:document.getElementById("dgChangoverSwitchphotoId").value.trim(),
+      // dgChangoverSwitchphotoId:document.getElementById("dgChangoverSwitchphotoId").value.trim(),
 
 
       killSwitchParameter: parameters12,
@@ -315,13 +315,13 @@ document
       energyMeterParameter: parameters13,
       energyMeterValue: values13,
       energyMeterRemarks: resion13,
-      energyMeterPhotoId:document.getElementById("energyMeterPhotoId").value.trim(),
+      // energyMeterPhotoId:document.getElementById("energyMeterPhotoId").value.trim(),
 
 
       loadCheckingParameter: parameters14,
       loadCheckingValue: values14,
       loadCheckingRemarks: resion14,
-      loadCheckingPhotoId:document.getElementById("loadCheckingPhotoId").value.trim(),
+      // loadCheckingPhotoId:document.getElementById("loadCheckingPhotoId").value.trim(),
 
 
       leadScreenParameter: parameters15,
@@ -333,7 +333,7 @@ document
       hvacPanelParameter: parameters16,
       hvacPanelValue: values16,
       hvacPanelRemarks: resion16,
-      hvacPanelPhotoId:document.getElementById("hvacPanelPhotoId").value.trim(),
+      // hvacPanelPhotoId:document.getElementById("hvacPanelPhotoId").value.trim(),
 
 
       earthPitParameter: parameters17,
@@ -349,7 +349,7 @@ document
       waterPumpParameter: parameters18,
       waterPumpValue: values18,
       waterPumpRemarks: resion18,
-      waterPumpPhotoId:document.getElementById("waterPumpPhotoId").value.trim(),
+      // waterPumpPhotoId:document.getElementById("waterPumpPhotoId").value.trim(),
 
 
 

@@ -311,13 +311,16 @@ function populatePreview() {
       `
       if (cols.length > 6) {
         const photoInput = cols[6].querySelector('input[type="file"]');
+        console.log(photoInput)
         if (photoInput && photoInput.files.length > 0) {
           const photoCell = newRow.querySelector("td:last-child");
+          console.log(photoCell)
           const photoPreview = document.createElement("img");
+          console.log(photoPreview)
           photoPreview.src = URL.createObjectURL(photoInput.files[0]);
           photoPreview.alt = `Photo for ${itemChecked}`;
-          photoPreview.style.width = "50px";
-          photoPreview.style.height = "50px";
+          photoPreview.style.width = "100px";
+          photoPreview.style.height = "100x";
           photoCell.appendChild(photoPreview);
         }
       };
@@ -579,9 +582,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // section A ---->
         signageIllumation: A1Ok == "OK" ? true : false,
         signageIllumationRemarks: A1Reasion,
+        signageIllumationPhotoId:document.getElementById("illuminationPhotoID").value.trim(),
 
         signagePhysicalConditionChecked: A2Ok == "OK" ? true : false,
         signagePhysicalRemarks: A2Reasion,
+        signagePhysicalPhotoId: document.getElementById("SignAgePhotoID").value.trim(),
 
         signageDoorCloserCheckedOk: A3Ok == "OK" ? true : false,
         signageDoorCloserRemarks: A3Reasion,
@@ -597,12 +602,14 @@ document.addEventListener("DOMContentLoaded", function () {
         // section B ---->
         safetyFireAlarmCheckedOk: B1ok == "OK" ? true : false,
         safetyFireAlarmRemarks: B1Reasion,
+        safetyFireAlarmPhotoId: document.getElementById("fireAlarmPhotoID").value.trim(),
 
         safetySmokeDetectorCheckedOk: B2ok == "OK" ? true : false,
         safetySmokeDetectorRemarks: B2Reasion,
 
         safetyFireExtinguishersCheckedOk: B3ok == "OK" ? true : false,
         safetyFireExtinguishersRemarks: B3Reasion,
+        safetyFireExtinguishersphotoId: document.getElementById("FireExitinguishersPhotoID").value.trim(),
 
         safteyCCTVRecoding: B4ok == "OK" ? true : false, //no field for resion
         safteyCctvRecordingRemarks: B4Reasion,
@@ -627,6 +634,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //section C ----->
         shopTrackLightsCheckedOk: C1Ok == "OK" ? true : false,
         shopTrackLightsRemarks: C1Reasion,
+        shopTrackLightsPhotoId:document.getElementById("ceilingLightsPhotoID").value.trim(),
 
         shopAllFloorsCheckedOk: C2ok == "OK" ? true : false,
         shopAllFloorsRemarks: C2Reasion,
@@ -642,6 +650,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         shopACCheckedOk: C6ok == "OK" ? true : false,
         shopACRemarks: C6Reasion,
+        shopACPhotoId:document.getElementById("acPhotoID").value.trim(),
 
         mainShopPhotoId:document.getElementById("sectionCPhotoID").value.trim(),
 
@@ -686,6 +695,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         electricalPanelRoomCheckedOk: F3ok == "OK" ? true : false,
         electricalPanelRoomRemarks: F3Reasion,
+        electricalPanelRoomPhotoId:document.getElementById("meterRoomPhotoID").value.trim(),
 
         electricalStablizerCheckedOk: F4ok == "OK" ? true : false,
         electricalStablizerRemarks: F4Reasion,
@@ -695,9 +705,11 @@ document.addEventListener("DOMContentLoaded", function () {
         //section G --->
         deiselFuelIndicatorCheckedOk: G1Ok == "OK" ? true : false,
         deiselFuelIndicatorRemarks: G1Reasion,
+        deiselFuelIndicatorPhotoId:document.getElementById("fuelPhotoID").value.trim(),
 
         deiselBatteryChargesCheckedOk: G2ok == "OK" ? true : false,
         deiselBatteryChargesRemarks: G2Reasion,
+        deiselBatteryChargesPhotoId:document.getElementById("batteryPhotoID").value.trim(),
 
         deiselGeneratorPhotoId:document.getElementById("sectionGPhotoID").value.trim(),
 
