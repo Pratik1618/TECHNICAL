@@ -1,3 +1,4 @@
+//inspectionlist js
 api=getBaseUrl();
 token = localStorage.getItem('authToken');
 approverId = localStorage.getItem('userId');
