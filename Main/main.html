@@ -54,6 +54,7 @@
                             <th>NOT OK</th>
                             <th>MINIMUM ACCEPTABLE STANDARD</th>
                             <th>Reason</th>
+                            <th>Photo</th>  
                         </tr>
 
                         <tr>
@@ -63,6 +64,19 @@
                             <td><input type="radio" id="illumination2" name="illumination" value="Not OK" ></td>
                             <td>Fully illuminated with no dark spots</td>
                             <td><input class="text-box" type="text" id="illumination3" name="illuminationStandard"></td>
+                    
+            <td>
+                <div class="photo-upload">
+                    <input type="file" id="illuminationPhoto" name="illuminationPhoto" accept="image/*" 
+                           onchange="previewPhoto('illuminationPhoto', 'illuminationPreview')">
+                    <input type="hidden" name="illuminationPhotoID" id="illuminationPhotoID">
+                    <button type="button" 
+                            onclick="uploadPhoto('illuminationPhoto', 'file', 'illuminationPreview', 'illuminationPhotoID')">
+                        Upload
+                    </button>
+                    <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                </div>
+            </td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -71,6 +85,18 @@
                             <td><input type="radio" id="physicalCondition2"name="physicalCondition" value="Not OK" ></td>
                             <td>No cracks, sratches with no sound</td>
                             <td><input class="text-box" type="text" id="physicalCondition3"name="physicalConditionStandard"></td>
+                            <td>
+                                <div class="photo-upload">
+                                    <input type="file" id="SignAgePhoto" name="SignAgePhoto" accept="image/*" 
+                                           onchange="previewPhoto('SignAgePhoto', 'SignAgePreview')">
+                                    <input type="hidden" name="SignAgePhotoID" id="SignAgePhotoID">
+                                    <button type="button" 
+                                            onclick="uploadPhoto('SignAgePhoto', 'file', 'SignAgePreview', 'SignAgePhotoID')">
+                                        Upload
+                                    </button>
+                                    <img id="SignAgePreview" style="display: none; width: 50px; height: 50px;">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>3</td>
@@ -134,6 +160,7 @@
                             <th>NOT OK</th>
                             <th>MINIMUM ACCEPTABLE STANDARD</th>
                             <th>Reason</th>
+                            <th>Photo</th>
                         </tr>
 
                         <tr>
@@ -143,6 +170,18 @@
                             <td><input type="radio" id="fireAlarm2" name="fireAlarm" value="Not OK" ></td>
                             <td>System is Operational</td>
                             <td><input class="text-box" id="fireAlarm3" type="text" name="fireAlarmStandard"></td>
+                            <td>
+                                <div class="photo-upload">
+                                    <input type="file" id="illuminationPhoto" name="illuminationPhoto" accept="image/*" 
+                                           onchange="previewPhoto('illuminationPhoto', 'illuminationPreview')">
+                                    <input type="hidden" name="illuminationPhotoID" id="illuminationPhotoID">
+                                    <button type="button" 
+                                            onclick="uploadPhoto('illuminationPhoto', 'file', 'illuminationPreview', 'illuminationPhotoID')">
+                                        Upload
+                                    </button>
+                                    <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -162,6 +201,18 @@
                             </td>
                             <td>All dials green zone</td>
                             <td><input class="text-box" id="exitinguishers3" type="text" name="exitinguishers01"></td>
+                            <td>
+                                <div class="photo-upload">
+                                    <input type="file" id="FireExitinguishersPhoto" name="FireExitinguishersPhoto" accept="image/*" 
+                                           onchange="previewPhoto('FireExitinguishersPhoto', 'FireExitinguishersPreview')">
+                                    <input type="hidden" name="FireExitinguishersPhotoID" id="FireExitinguishersPhotoID">
+                                    <button type="button" 
+                                            onclick="uploadPhoto('FireExitinguishersPhoto', 'file', 'FireExitinguishersPreview', 'FireExitinguishersPhotoID')">
+                                        Upload
+                                    </button>
+                                    <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>4</td>
@@ -248,6 +299,7 @@
                             <th>NOT OK</th>
                             <th>MINIMUM ACCEPTABLE STANDARD</th>
                             <th>Reason</th>
+                            <th>Photo</th>
                         </tr>
 
                         <tr>
@@ -258,7 +310,19 @@
                             <td>All lights working</td>
                             <td><input class="text-box" type="text" id="tracklightsceilinglights3"
                                     name="tracklightsceilinglights01"></td>
-                        </tr>
+                                    <td>
+                                        <div class="photo-upload">
+                                            <input type="file" id="illuminationPhoto" name="illuminationPhoto" accept="image/*" 
+                                                   onchange="previewPhoto('illuminationPhoto', 'illuminationPreview')">
+                                            <input type="hidden" name="illuminationPhotoID" id="illuminationPhotoID">
+                                            <button type="button" 
+                                                    onclick="uploadPhoto('illuminationPhoto', 'file', 'illuminationPreview', 'illuminationPhotoID')">
+                                                Upload
+                                            </button>
+                                            <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                                        </div>
+                                    </td>
+                                </tr>
                         <tr>
                             <td>2</td>
                             <td>Check all the floors</td>
@@ -298,6 +362,18 @@
                             <td><input type="radio" id="airConditioning2" name="airConditioning" value="NOT OK"></td>
                             <td>Interior ambient within 24 degrees Centigrade</td>
                             <td><input class="text-box" type="text" id="airConditioning3" name="airConditioning01"></td>
+                            <td>
+                                <div class="photo-upload">
+                                    <input type="file" id="illuminationPhoto" name="illuminationPhoto" accept="image/*" 
+                                           onchange="previewPhoto('illuminationPhoto', 'illuminationPreview')">
+                                    <input type="hidden" name="illuminationPhotoID" id="illuminationPhotoID">
+                                    <button type="button" 
+                                            onclick="uploadPhoto('illuminationPhoto', 'file', 'illuminationPreview', 'illuminationPhotoID')">
+                                        Upload
+                                    </button>
+                                    <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                                </div>
+                            </td>
                         </tr>
                         <!-- Add your rows for Section C here -->
                     </table>
@@ -329,6 +405,7 @@
                             <th>NOT OK</th>
                             <th>MINIMUM ACCEPTABLE STANDARD</th>
                             <th>Reason</th>
+                            <th>Photo</th>
                         </tr>
 
                         <tr>
@@ -460,6 +537,7 @@
                             <th>NOT OK</th>
                             <th>MINIMUM ACCEPTABLE STANDARD</th>
                             <th>Reason</th>
+                            <th>Photo</th>
                         </tr>
 
                         <tr>
@@ -488,6 +566,18 @@
                             <td><input type="radio" id="meterRoom2" name="meterRoom" value="NOT OK"></td>
                             <td>No material on or adjacent to panels.</td>
                             <td><input class="text-box" type="text" id="meterRoom3" name="meterRoom01" style=></td>
+                            <td>
+                                <div class="photo-upload">
+                                    <input type="file" id="illuminationPhoto" name="illuminationPhoto" accept="image/*" 
+                                           onchange="previewPhoto('illuminationPhoto', 'illuminationPreview')">
+                                    <input type="hidden" name="illuminationPhotoID" id="illuminationPhotoID">
+                                    <button type="button" 
+                                            onclick="uploadPhoto('illuminationPhoto', 'file', 'illuminationPreview', 'illuminationPhotoID')">
+                                        Upload
+                                    </button>
+                                    <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                                </div>
+                            </td>
                         </tr>
                         </tr>
                         <tr>
@@ -531,6 +621,7 @@
                             <th>NOT OK</th>
                             <th>MINIMUM ACCEPTABLE STANDARD</th>
                             <th>Reason</th>
+                            <th>Photo</th>
                         </tr>
                         <tr>
                             <td>1</td>
@@ -539,6 +630,18 @@
                             <td><input type="radio" id="levelindicator2" name="levelindicator" value="NOT OK"></td>
                             <td>Tank Should be minimum 50% full</td>
                             <td><input class="text-box" type="text" id="levelindicator3" name="levelindicator01"></td>
+                            <td>
+                                <div class="photo-upload">
+                                    <input type="file" id="illuminationPhoto" name="illuminationPhoto" accept="image/*" 
+                                           onchange="previewPhoto('illuminationPhoto', 'illuminationPreview')">
+                                    <input type="hidden" name="illuminationPhotoID" id="illuminationPhotoID">
+                                    <button type="button" 
+                                            onclick="uploadPhoto('illuminationPhoto', 'file', 'illuminationPreview', 'illuminationPhotoID')">
+                                        Upload
+                                    </button>
+                                    <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                                </div>
+                            </td>
                         </tr>
                         </tr>
                         <tr>
@@ -548,6 +651,18 @@
                             <td><input type="radio" id="batteryCharge2" name="batteryCharge" value="NOT OK"></td>
                             <td>Should be between 22 and 25 volts</td>
                             <td><input class="text-box" type="text" id="batteryCharge3" name="batteryCharge01"></td>
+                            <td>
+                                <div class="photo-upload">
+                                    <input type="file" id="illuminationPhoto" name="illuminationPhoto" accept="image/*" 
+                                           onchange="previewPhoto('illuminationPhoto', 'illuminationPreview')">
+                                    <input type="hidden" name="illuminationPhotoID" id="illuminationPhotoID">
+                                    <button type="button" 
+                                            onclick="uploadPhoto('illuminationPhoto', 'file', 'illuminationPreview', 'illuminationPhotoID')">
+                                        Upload
+                                    </button>
+                                    <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                                </div>
+                            </td>
                         </tr>
 
                         <!-- Add more rows as needed -->

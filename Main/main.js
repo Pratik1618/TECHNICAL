@@ -1,8 +1,9 @@
+//main.js
 api=getBaseUrl();
 token = localStorage.getItem('authToken');
 
 
-//Photo
+//PhotoAD
 function previewPhoto(fileInputId, previewImgId) {
   const fileInput = document.getElementById(fileInputId);
   const previewImg = document.getElementById(previewImgId);
@@ -273,6 +274,7 @@ function populatePreview() {
                         <th>NOT OK</th>
                         <th>MINIMUM ACCEPTABLE STANDARD</th>
                         <th>Reason</th>
+                        <th>Photo</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -289,7 +291,13 @@ function populatePreview() {
       const notOk = cols[3].querySelector("input").checked ? "Not OK" : "";
       const standard = cols[4].textContent;
       const reason = cols[5].querySelector("input").value;
-
+      let photoId = '';
+      if (cols.length > 6) {
+        const hiddenInput = cols[6].querySelector('input[type="hidden"]');
+        photoId = hiddenInput ? hiddenInput.value : '';
+      }
+      const photoUrl = photoId ? `${api}/inspectionPhoto/${photoId}` : '';
+      console.log(photoUrl);
       const newRow = document.createElement("tr");
       newRow.innerHTML = `
                 <td>${cols[0].textContent}</td>
@@ -297,11 +305,26 @@ function populatePreview() {
                 <td>${ok}</td>
                 <td>${notOk}</td>
                 <td>${standard}</td>
-                <td>${reason}</td>`;
+                <td>${reason}</td>
+            <td></td>
+            
+      `
+      if (cols.length > 6) {
+        const photoInput = cols[6].querySelector('input[type="file"]');
+        if (photoInput && photoInput.files.length > 0) {
+          const photoCell = newRow.querySelector("td:last-child");
+          const photoPreview = document.createElement("img");
+          photoPreview.src = URL.createObjectURL(photoInput.files[0]);
+          photoPreview.alt = `Photo for ${itemChecked}`;
+          photoPreview.style.width = "50px";
+          photoPreview.style.height = "50px";
+          photoCell.appendChild(photoPreview);
+        }
+      };
 
       tableBody.appendChild(newRow);
     });
-
+   
     // Add photo to the section if uploaded
     const photoInput = document.getElementById(section.photoInputId);
     if (photoInput && photoInput.files.length > 0) {

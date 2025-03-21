@@ -107,6 +107,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const userName = document.getElementById("username").value;
       const phoneNumber = String(document.getElementById("phoneNumber").value);
       const password = document.getElementById("password").value;
+      const email = document.getElementById("email").value;
+      console.log(email)
       const roleName= document.getElementById("roleName").value;
       
       console.log(roleName)
@@ -125,6 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
           client: client !== null ? { id: client } : null,
           userName: userName,
           mobileNumber: phoneNumber,
+          email: email,
           password: password,
           store: store !== null ? { id: store } : null,
           zone: zone !== null ? { id: zone } : null,

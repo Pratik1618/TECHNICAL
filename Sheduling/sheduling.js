@@ -12,12 +12,7 @@ if (userrole!="ADMIN"){
   document.getElementById('shaduleContainerHide').style.display = 'none';
   document.getElementById('adminActionHide').style.display = 'none';
 }
-//phone number
-const phoneNumberInput = document.getElementById("phoneNumber");
 
-phoneNumberInput.addEventListener("input", function () {
-  this.value = this.value.replace(/\D/, ""); // Remove any non-numeric characters
-});
 
 //date from prasent to feature
 const today = new Date().toISOString().split("T")[0];
@@ -84,15 +79,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const client = parseInt(document.getElementById("clientName").value, 10);
     const storeName = parseInt(document.getElementById("storeName").value, 10);
-    const technicianName = document.getElementById("technicianName").value.trim();
-    const phoneNumber = document.getElementById("phoneNumber").value.trim();
-    const technicianEmail = document.getElementById("technicianEmail").value.trim();
+    technicianSelect = document.getElementById('stechnicianName')
+    const technicianId = parseInt( technicianSelect.options[technicianSelect.selectedIndex].dataset.id);
+    
+    const technicianName = technicianSelect.options[technicianSelect.selectedIndex].text;
+    const technicianEmail = technicianSelect.options[technicianSelect.selectedIndex].dataset.email; // Get technician email
+  const phoneNumber = technicianSelect.options[technicianSelect.selectedIndex].dataset.phone; // Get technician phone number
+    // const phoneNumber = document.getElementById("phoneNumber").value.trim();
+    // const technicianEmail = document.getElementById("technicianEmail").value.trim();
     const date = document.getElementById("date").value;
     const scheduleFor = document.getElementById("scheduleFor").value;
 
     const storeData = {
       client: { id: client },
       store: { id: storeName },
+      user: { id: technicianId,email:technicianEmail,mobileNumber:phoneNumber,userName:technicianName},
       scheduleFor: scheduleFor,
       technicianName: technicianName,
       mobNumber: phoneNumber,
@@ -214,9 +215,9 @@ document.addEventListener("DOMContentLoaded", function () {
             { data: "store.storeName" },
             {data:  "store.storeCode"},
             { data: "scheduleFor" },
-            { data: "technicianName" },
-            { data: "mobNumber" },
-            { data: "technicianEmail" },
+            { data: "user.userName" },
+            { data: "user.mobileNumber" },
+            { data: "user.email" },
             { data: "date" },
             {
               data: "status",
@@ -476,3 +477,53 @@ document
     });
 }
 
+function demo(){
+  const url = `${api}/user/`;
+  
+  fetch(url, {
+    method: 'GET',
+    headers: {
+      'Authorization': `${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    const technicians = data.filter(user => user.role === 'TECHNICIAN');
+console.log("technicians",technicians);
+    // Get the technician dropdown element
+    const technicianSelect = document.getElementById('stechnicianName');
+    
+    // Clear any existing options
+    technicianSelect.innerHTML = '';
+
+    // Add a default option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Select Technician';
+    technicianSelect.appendChild(defaultOption);
+
+    // Add technicians to the dropdown
+    technicians.forEach(technician => {
+        const option = document.createElement('option');
+        option.value = technician.id; // Store technician's ID as value
+        option.textContent = technician.userName; // Display technician's name
+        option.dataset.email = technician.email;  // Store technician's email as data attribute
+        option.dataset.phone = technician.mobNumber;  // Store technician's phone as data attribute
+        option.dataset.id = technician.id
+        technicianSelect.appendChild(option);
+      });
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
+}
+
+window.onload = function() {
+  demo();
+};
