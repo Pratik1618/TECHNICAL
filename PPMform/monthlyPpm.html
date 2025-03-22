@@ -91,12 +91,42 @@
 </head>
 <body>
     <div class="container">
+       
+            <form id="ppmForm">
+                <!-- Company Details Section -->
+                <div class="form-section active" id="companyDetails">
+                    <h2>Company Details</h2>
+                    <table>
+                        <tr>
+                            <td><label for="ticketNumber">Ticket Number:</label></td>
+                            <td><input type="text" id="ticketNumber" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="companyName">Company Name:</label></td>
+                            <td><select id="companyName" required>
+                                <option value="">Select Company</option>
+                                <!-- Add options dynamically -->
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td><label for="storeName">Store Name:</label></td>
+                            <td><select id="storeName" required>
+                                <option value="">Select Store</option>
+                                <!-- Add options dynamically -->
+                            </select></td>
+                        </tr>
+                    </table>
+                    <div class="button-group">
+                        
+                        <button type="button" onclick="showSection('companyDetails', 'monthlyPPM')">Next</button>
+                    </div>
+                </div>
         <form id="ppmForm">
             <!-- Company Details Section -->
          
 
             <!-- Monthly PPM Section -->
-            <div class="form-section active" id="monthlyPPM">
+            <div class="form-section " id="monthlyPPM">
                 <h2> ELECTRICAL PREVENTIVE MAINTENANCE CHECKLIST - MONTHLY</h2>
                 <table>
                     <thead>
@@ -209,8 +239,7 @@
             </div>
 
             <!-- Quarterly PPM Section -->
-          
-
+        
          
             <!-- Yearly PPM Section -->
            

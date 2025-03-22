@@ -358,6 +358,42 @@ document.getElementById("next-company").addEventListener("click", function () {
       "Please enter a Ticket Number,Company name,Store Name,zone,State & Address"
     );
   }
+  if (!navigator.geolocation) {
+    alert("Geolocation is not supported by your browser.");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      // Store coordinates in hidden inputs
+      document.getElementById("latitude").value = position.coords.latitude;
+      document.getElementById("longitude").value = position.coords.longitude;
+      // Proceed to next section
+      showNextSection("companyDetails", "sectionA");
+    },
+    (error) => {
+      let errorMessage;
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          errorMessage = "Please enable GPS permissions in your browser settings";
+          break;
+        case error.POSITION_UNAVAILABLE:
+          errorMessage = "Location information is unavailable";
+          break;
+        case error.TIMEOUT:
+          errorMessage = "The request to get location timed out";
+          break;
+        default:
+          errorMessage = "Error getting location";
+      }
+      alert(errorMessage);
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    }
+  );
 });
 // document.getElementById("submitForm").addEventListener("click", function () {
 //   showNextSection("previewSection", "companyDetails");
@@ -440,6 +476,13 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       // const zoneName = parseInt(document.getElementById("zoneName").value);
       // const stateName = parseInt(document.getElementById("stateName").value);
+      const latitude= document.getElementById("latitude").value;
+      const longitude = document.getElementById("longitude").value;
+      console.log(latitude,longitude);
+    
+      if(!latitude || !longitude){
+        alert("Please enable location permissions to proceed.");
+      }
       const storeName = parseInt(
         document.getElementById("companyAddress").value
       );
@@ -576,7 +619,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const H2ok = getRadioValue("allPumps");
       const H2Reasion = document.getElementById("allPumps3").value;
 
+   
       const storeData = {
+      
        
 
         // section A ---->
@@ -725,8 +770,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         tikitNumber: ticketNumber,
 
-        latitude: 0,
-        longitude: 0,
+        // latitude: latitude,
+        // lognitude: longitude,
         store: {
           id: storeName,
         },
