@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Preventive Maintenance Checklist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"], input[type="date"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .button-group {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .signature-section {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .photo-upload {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="ppmForm">
+            <!-- Company Details Section -->
+         
+
+            <!-- Monthly PPM Section -->
+            <div class="form-section active" id="monthlyPPM">
+                <h2> ELECTRICAL PREVENTIVE MAINTENANCE CHECKLIST - MONTHLY</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Equipment</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Add 5 sample rows - extend as needed -->
+                        <tr>
+                            <td>Main Control Panel</td>
+                            <td>Visual Inspection of Cable Joints</td>
+                       
+                            <td>
+                                <select>
+                                    <option value="ok">OK</option>
+                                    <option value="not-ok">Not OK</option>
+                                    <option value="na">N/A</option>
+                                </select>
+                            </td>
+                            <td><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td>Distribution Boards</td>
+                            <td>Visual Inspection of Cable Joints </td>
+                            <td>
+                                <select>
+                                    <option value="ok">OK</option>
+                                    <option value="not-ok">Not OK</option>
+                                    <option value="na">N/A</option>
+                            </td>
+                            <td><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td>Bus Duct</td>
+                            <td>Visual Inspection of Bus Joints </td>
+                            <td>
+                                <select>
+                                    <option value="ok">OK</option>
+                                    <option value="not-ok">Not OK</option>
+                                    <option value="na">N/A</option>
+                            </td>
+                            <td><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td>Capacitor Panel </td>
+                            <td>Check Power Factor Reading </td>
+                            <td>
+                                <select>
+                                    <option value="ok">OK</option>
+                                    <option value="not-ok">Not OK</option>
+                                    <option value="na">N/A</option>
+                            </td>
+                            <td><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td>Capacitor Panel </td>
+                            <td>Visual Inspection of Cable Joints</td>
+                            <td>
+                                <select>
+                                    <option value="ok">OK</option>
+                                    <option value="not-ok">Not OK</option>
+                                    <option value="na">N/A</option>
+                            </td>
+                            <td><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td>UPS</td>
+                            <td>Check and record voltage input & output</td>
+                            <td>
+                                <select>
+                                    <option value="ok">OK</option>
+                                    <option value="not-ok">Not OK</option>
+                                    <option value="na">N/A</option>
+                            </td>
+                            <td><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td>UPS</td>
+                            <td>Check electrical connections of all lights </td>
+                            <td>
+                                <select>
+                                    <option value="ok">OK</option>
+                                    <option value="not-ok">Not OK</option>
+                                    <option value="na">N/A</option>
+                            </td>
+                            <td><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td>Lights</td>
+                            <td>Check and record DC voltage value</td>
+                            <td>
+                                <select>
+                                    <option value="ok">OK</option>
+                                    <option value="not-ok">Not OK</option>
+                                    <option value="na">N/A</option>
+                            </td>
+                            <td><input type="text"></td>
+                        </tr>
+                        <!-- Add more monthly items here -->
+                    </tbody>
+                </table>
+                <div class="button-group">
+                    <button type="button" onclick="showSection('monthlyPPM', 'companyDetails')">Back</button>
+                    <button type="button" onclick="showSection('monthlyPPM', 'loadReadings')">Next</button>
+                </div>
+            </div>
+
+            <!-- Quarterly PPM Section -->
+          
+
+         
+            <!-- Yearly PPM Section -->
+           
+
+            <!-- Load Readings Section -->
+            <div class="form-section" id="loadReadings">
+                <h2>Load Readings</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Voltage</th>
+                            <th>Load Before</th>
+                            <th>Load After</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>RN R</td><td><input type="text"></td><td><input type="text"></td></tr>
+                        <tr><td>YN Y</td><td><input type="text"></td><td><input type="text"></td></tr>
+                        <tr><td>BN B</td><td><input type="text"></td><td><input type="text"></td></tr>
+                        <tr><td>RY UPS LOAD</td><td><input type="text"></td><td><input type="text"></td></tr>
+                        <tr><td>YB</td><td><input type="text"></td><td><input type="text"></td></tr>
+                        <tr><td>BR</td><td><input type="text"></td><td><input type="text"></td></tr>
+                    </tbody>
+                </table>
+                <div class="button-group">
+                    <button type="button" onclick="showSection('loadReadings', 'monthlyPPM')">Back</button>
+                    <button type="button" onclick="showSection('loadReadings', 'fireExtinguisher')">Next</button>
+                </div>
+            </div>
+
+            <!-- Fire Extinguisher Section -->
+            <div class="form-section" id="fireExtinguisher">
+                <h2>Fire Extinguisher Status</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sr.No.</th>
+                            <th>Extinguisher Type</th>
+                            <th>Capacity</th>
+                            <th>Refill Date</th>
+                            <th>Remark</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fireExtinguisherBody">
+                        <tr>
+                            <td>1</td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><input type="date"></td>
+                            <td><input type="text"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" onclick="addFireExtinguisherRow()">Add Row</button>
+                <div class="button-group">
+                    <button type="button" onclick="showSection('fireExtinguisher', 'loadReadings')">Back</button>
+                    <button type="button" onclick="showSection('fireExtinguisher', 'signatures')">Next</button>
+                </div>
+            </div>
+
+            <!-- Signatures Section -->
+            <div class="form-section" id="signatures">
+                <h2>Signatures</h2>
+                <div class="signature-section">
+                    <div>
+                        <h3>Technician Details</h3>
+                        <textarea placeholder="Technician's comments" rows="4"></textarea>
+                        <input type="text" placeholder="Technician Name">
+                        <input type="text" placeholder="Mobile Number">
+                        <input type="file" accept="image/*" class="photo-upload">
+                    </div>
+                    <div>
+                        <h3>Store Manager</h3>
+                        <input type="text" placeholder="Manager Name">
+                        <input type="text" placeholder="Mobile Number">
+                        <input type="file" accept="image/*" class="photo-upload">
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" onclick="showSection('signatures', 'fireExtinguisher')">Back</button>
+                    <button type="submit">Submit Form</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Section Navigation
+        function showSection(currentSection, nextSection) {
+            document.getElementById(currentSection).classList.remove('active');
+            document.getElementById(nextSection).classList.add('active');
+        }
+
+        // Fire Extinguisher Dynamic Rows
+        let fireExtinguisherCounter = 1;
+        function addFireExtinguisherRow() {
+            const tbody = document.getElementById('fireExtinguisherBody');
+            fireExtinguisherCounter++;
+            
+            const newRow = `
+                <tr>
+                    <td>${fireExtinguisherCounter}</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="date"></td>
+                    <td><input type="text"></td>
+                </tr>`;
+            
+            tbody.insertAdjacentHTML('beforeend', newRow);
+        }
+
+        // Form Submission
+        document.getElementById('ppmForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Add validation logic here
+            const formData = new FormData(this);
+            
+            // Process form data (Add your submission logic here)
+            console.log([...formData.entries()]);
+            
+            alert('Form submitted successfully!');
+            // Reset form or redirect as needed
+        });
+    </script>
+</body>
+</html>

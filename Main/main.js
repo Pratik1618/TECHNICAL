@@ -725,7 +725,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         tikitNumber: ticketNumber,
 
-        
+        latitude: 0,
+        longitude: 0,
         store: {
           id: storeName,
         },

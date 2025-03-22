@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Preventive Maintenance Checklist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.4;
+        }
+        
+        h1, h2, h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        h2 {
+            font-size: 18px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
+        
+        h3 {
+            font-size: 16px;
+        }
+        
+        .header-fields {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .header-field {
+            width: 45%;
+        }
+        
+        .header-field input {
+            width: calc(100% - 120px);
+            padding: 5px;
+            margin-left: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        table, th, td {
+            border: 1px solid #333;
+        }
+        
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .status-dropdown {
+            width: 100%;
+            padding: 5px;
+        }
+        
+        .comments-input {
+            width: 95%;
+            padding: 5px;
+        }
+        
+        .load-table {
+            margin-bottom: 5px;
+        }
+        
+        .signatures {
+            margin-top: 30px;
+        }
+        
+        .signature-field {
+            margin-bottom: 20px;
+        }
+        
+        .signature-field p {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .signature-lines {
+            border-bottom: 1px solid #333;
+            height: 30px;
+            margin-bottom: 5px;
+        }
+        
+        .print-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        
+        .print-button:hover {
+            background-color: #45a049;
+        }
+        
+        @media print {
+            .no-print {
+                display: none;
+            }
+            
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            
+            table {
+                page-break-inside: avoid;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>ELECTRICAL PREVENTIVE MAINTENANCE CHECKLIST</h1>
+    
+    <div class="header-fields">
+        <div class="header-field">
+            <label for="storeLocation"><b>Store Location:</b></label>
+            <input type="text" id="storeLocation" name="storeLocation">
+        </div>
+        <div class="header-field">
+            <label for="date"><b>Date:</b></label>
+            <input type="date" id="date" name="date">
+        </div>
+    </div>
+    
+    <h2>Equipment Description</h2>
+    
+    <h3>Monthly PPM</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Equipment</th>
+                <th>Task</th>
+                <th>Frequency</th>
+                <th>Status</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Main Control Panel</td>
+                <td>Visual Inspection of Cable Joints</td>
+                <td>Monthly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Distribution Boards</td>
+                <td>Visual Inspection of Cable Joints</td>
+                <td>Monthly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Bus Duct</td>
+                <td>Visual Inspection of Bus Joints</td>
+                <td>Monthly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Capacitor Panel</td>
+                <td>Check Power Factor Reading</td>
+                <td>Monthly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Capacitor Panel</td>
+                <td>Visual Inspection of Cable Joints</td>
+                <td>Monthly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>UPS</td>
+                <td>Check and record voltage input & output</td>
+                <td>Monthly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>UPS</td>
+                <td>Check and record DC voltage value</td>
+                <td>Monthly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Lights</td>
+                <td>Check electrical connections of all lights</td>
+                <td>Monthly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>Quarterly PPM</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Equipment</th>
+                <th>Task</th>
+                <th>Frequency</th>
+                <th>Status</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Main Control Panel</td>
+                <td>Ensure cable terminations are proper</td>
+                <td>Quarterly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Distribution Boards</td>
+                <td>Ensure cable terminations are proper</td>
+                <td>Quarterly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Distribution Boards</td>
+                <td>Check tightness of the connections</td>
+                <td>Quarterly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Bus Duct</td>
+                <td>Ensure bus terminations are proper</td>
+                <td>Quarterly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Earth Pits</td>
+                <td>Watering and cleaning of Earth Pits</td>
+                <td>Quarterly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Earth Pits</td>
+                <td>Ensure cable terminations are proper</td>
+                <td>Quarterly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Capacitor Panel</td>
+                <td>Ensure cable terminations are proper</td>
+                <td>Quarterly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Electric Motors / pumps</td>
+                <td>Ensure all electrical connections are clean and tight</td>
+                <td>Quarterly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Electric Motors / pumps</td>
+                <td>Ensure no vibration or overheating</td>
+                <td>Quarterly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="page-break"></div>
+    
+    <h3>Half Yearly PPM</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Equipment</th>
+                <th>Task</th>
+                <th>Frequency</th>
+                <th>Status</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Main Control Panel</td>
+                <td>Clean the panels</td>
+                <td>Half Yearly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Main Control Panel</td>
+                <td>Oiling of Circuit Breaker moving parts</td>
+                <td>Half Yearly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Distribution Boards</td>
+                <td>Clean the panels</td>
+                <td>Half Yearly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Bus Duct</td>
+                <td>Clean the ducts</td>
+                <td>Half Yearly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Capacitor Panel</td>
+                <td>Clean the panels</td>
+                <td>Half Yearly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Capacitor Panel</td>
+                <td>Oiling of Circuit Breaker moving parts</td>
+                <td>Half Yearly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Electric Motors / pumps</td>
+                <td>Clean and Oil all moving parts</td>
+                <td>Half Yearly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>Yearly PPM</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Equipment</th>
+                <th>Task</th>
+                <th>Frequency</th>
+                <th>Status</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Main Control Panel</td>
+                <td>Ensure tightness of the bus</td>
+                <td>Yearly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Bus Duct</td>
+                <td>Ensure tightness of the bus</td>
+                <td>Yearly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Earth Pits</td>
+                <td>Perform ER Test and submit Report</td>
+                <td>Yearly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Earth Pits</td>
+                <td>Ensure the tightness of bolts & nuts</td>
+                <td>Yearly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>Capacitor Panel</td>
+                <td>Ensure tightness of the bus</td>
+                <td>Yearly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td>General</td>
+                <td>Perform IR Test and submit report</td>
+                <td>Yearly</td>
+                <td>
+                    <select class="status-dropdown">
+                        <option value=""></option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="NA">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h2>Load Measurements</h2>
+    
+    <table class="load-table">
+        <tbody>
+            <tr>
+                <td></td>
+                <td><b>Before</b></td>
+                <td><b>After</b></td>
+            </tr>
+            <tr>
+                <td><b>Voltage</b></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table class="load-table">
+        <tbody>
+            <tr>
+                <td><b>Load</b></td>
+                <td><b>RN</b></td>
+                <td><b>R</b></td>
+                <td><b>RN</b></td>
+                <td><b>R</b></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table class="load-table">
+        <tbody>
+            <tr>
+                <td></td>
+                <td><b>YN</b></td>
+                <td><b>Y</b></td>
+                <td><b>YN</b></td>
+                <td><b>Y</b></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table class="load-table">
+        <tbody>
+            <tr>
+                <td></td>
+                <td><b>BN</b></td>
+                <td><b>B</b></td>
+                <td><b>BN</b></td>
+                <td><b>B</b></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table class="load-table">
+        <tbody>
+            <tr>
+                <td></td>
+                <td><b>RY</b></td>
+                <td><b>UPS LOAD</b></td>
+                <td><b>RY</b></td>
+                <td><b>UPS LOAD</b></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table class="load-table">
+        <tbody>
+            <tr>
+                <td></td>
+                <td><b>YB</b></td>
+                <td></td>
+                <td><b>YB</b></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table class="load-table">
+        <tbody>
+            <tr>
+                <td></td>
+                <td><b>BR</b></td>
+                <td></td>
+                <td><b>BR</b></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h2>Fire Extinguisher status</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Sr.No.</th>
+                <th>Extinguisher Type</th>
+                <th>Capacity</th>
+                <th>Refill Date</th>
+                <th>Remark if any</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" class="comments-input" style="width: 90%;"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="date" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td><input type="text" class="comments-input" style="width: 90%;"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="date" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+            <tr>
+                <td><input type="text" class="comments-input" style="width: 90%;"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="date" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="signatures">
+        <div class="signature-field">
+            <p>Technician's Comments, Name, Mobile no. & Sign:</p>
+            <div class="signature-lines"></div>
+            <div class="signature-lines"></div>
+        </div>
+        
+        <div class="signature-field">
+            <p>Store Manager's Name, Sign, Mobile:</p>
+            <div class="signature-lines"></div>
+            <div class="signature-lines"></div>
+        </div>
+    </div>
+    
+    <button class="print-button no-print" onclick="printChecklist()">Print Checklist</button>
+    
+    <script>
+        // Auto-populate the current date in the date field
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const formattedDate = today.toISOString().slice(0, 10);
+            document.getElementById('date').value = formattedDate;
+        });
+        
+        // Function to print the checklist
+        function printChecklist() {
+            window.print();
+        }
+        
+        // Add more rows to Fire Extinguisher table if needed
+        function addFireExtinguisherRow() {
+            const table = document.querySelector('h2:contains("Fire Extinguisher status")').nextElementSibling.querySelector('tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" class="comments-input" style="width: 90%;"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+                <td><input type="date" class="comments-input"></td>
+                <td><input type="text" class="comments-input"></td>
+            `;
+            table.appendChild(newRow);
+        }
+    </script>
+</body>
+</html>
