@@ -93,7 +93,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const storeData = {
       client: { id: client },
       store: { id: storeName },
-      user: { id: technicianId,email:technicianEmail,mobileNumber:phoneNumber,userName:technicianName},
+      user: { id: technicianId,
+        email:technicianEmail,
+        mobileNumber:phoneNumber,userName:technicianName},
       scheduleFor: scheduleFor,
       technicianName: technicianName,
       mobNumber: phoneNumber,
