@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css" />
+
+    <!-- DataTables CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+    />
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="../Navbar/navbar.css" />
+  </head>
+  <header></header>
+  <body>
+    <div id="navbar-placeholder"></div>
+   
+    <div class="dashboard-container">
+        <h1> Management Dashboard</h1>
+        
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+          <div class="card">
+            <h3>Total East Zone Schedules</h3>
+            <p class="count">20</p>
+          </div>
+          <div class="card">
+            <h3>Total  West  Zone Schedules</h3>
+            <p class="count">10</p>
+          </div>
+          <div class="card">
+            <h3>Total  North  Zone Schedules</h3>
+            <p class="count">30</p>
+          </div>
+          <div class="card">
+            <h3>Total  South  Zone Schedules</h3>
+            <p class="count">10</p>
+          </div>
+          <div class="card">
+            <h3>Open Ticket</h3>
+            <p class="count">100</p>
+          </div>
+          <div class="card">
+            <h3>Closed Ticket</h3>
+            <p class="count">230</p>
+          </div>
+          <div class="card">
+            <h3>Pending SM Approval</h3>
+            <p class="count">10</p>
+          </div>
+          <div class="card">
+            <h3>Pending ZM Approval</h3>
+            <p class="count">10</p>
+          </div>
+        </div>
+  
+        <!-- Data Table -->
+        <table id="requestsTable" class="display">
+          <thead>
+            <tr>
+              <th>Zone</th>
+              <th>Store Manager</th>
+              <th>Zonal Manager</th>
+              <th>Schedule  Type</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Sample Data -->
+            <tr>
+              <td>East</td>
+              <td>John Doe</td>
+              <td>Jane Smith</td>
+              <td>PPM monthly</td>
+              <td class="status-pending">Pending SM Approval</td>
+              <td>2025-08-15</td>
+            </tr>
+            <tr>
+              <td>South</td>
+              <td>Mike Johnson</td>
+              <td>Sarah Wilson</td>
+              <td>INSPECTION-1</td>
+              <td class="status-approved">Approved</td>
+              <td>2025-08-14</td>
+            </tr>
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
+      </div>
+    <script src="../globals/global.js"></script>
+    <script src="sheduling.js"></script>
+    <script src="../Navbar/navbar.js" defer></script>
+  </body>
+</html>

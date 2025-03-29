@@ -2,6 +2,7 @@
     <a href="#" class="brand-logo">
         <img src="../logo/logo_1-removebg-preview.png" alt="Brand Logo">
     </a>
+    <a  href="../dashboard/dashboard.html" class="nav-link" id="tab-dashboard">DASHBOARD</a>
     <a href="../Sheduling/sheduling.html" class="nav-link" id="tab-schedule">SCHEDULE INSPECTION</a>
     <a href="../Main/inspectionList.html" class="nav-link" id="tab-inspection">INSPECTION FORM</a>
     <a href="../PPMform/ppminscpectionList.html" class="nav-link" id="tab-ppm">PPM FORM</a>
@@ -29,6 +30,7 @@
     function updateNav() {
         if (userRole === 'TECHNICIAN') {
             // Change inner text for admin
+            
             document.getElementById('tab-schedule').style.display = 'none';
             document.getElementById('tab-zone').style.display = 'none';
             document.getElementById('tab-state').style.display = 'none';
