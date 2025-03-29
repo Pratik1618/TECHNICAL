@@ -1,157 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Schedule Form</title>
-  <link rel="stylesheet" href="sheduling.css" />
- 
-  <!-- DataTables CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-  <!-- jQuery library -->
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <!-- DataTables JS -->
-  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-  <link rel="stylesheet" href="../Navbar/navbar.css">
- 
-</head>
-<header>
-</header>
-<body>
-  <div id="navbar-placeholder"></div>
-  <div class="whole-container">
-    <div class="container" id="containerHide">
-      <h2>Upload Excel File<button id="format">Download Excel Format</button></h2>
-      <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required />
-        <label for="excelFile" id="customFileButton">Choose File</label>
-        <span id="fileName">No file chosen</span> <!-- Display file name here -->
-        <button type="submit" id="uploadButton">Upload</button>
-    </form>
-    
-      <div id="upload-error-message" class="error"></div>
-        <div id="upload-success-message" class="success"></div>
-   </div>
-  <div class="container" id="shaduleContainerHide">
-    <h1>SCHEDULE INSPECTION</h1>
-    <form id="storeForm">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="clientName">Client Name:</label>
-          <select id="clientName" name="clientId" required>
-            <option value="">Select a client</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="storeName">Store Name:</label>
-          <select id="storeName" name="storeName" required>
-            <option value="">Select a Store</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="scheduleFor">Schedule for:</label>
-          <select id="scheduleFor" name="scheduleFor" required>
-            <option value="">Select Schedule for</option>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Schedule Form</title>
+    <link rel="stylesheet" href="sheduling.css" />
 
-      <option value="INSPECTION">INSPECTION</option>
-      <option value="PPM">PPM</option>
-            <option value="INSPECTION-1">INSPECTION 1</option>
-            <option value="INSPECTION-2">INSPECTION 2</option>
-            <option value="PPM-Monthly">PPM MONTHLY</option>
-            <option value="PPM-Quarterly">PPM QUARTERLY</option>
-            <option value="PPM-Half Yearly">PPM HALF YEARLY</option>
-            <option value="BREAKDOWN">BREAKDOWN</option>
-            <option value="MST">MST</option>
-          </select>
+    <!-- DataTables CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+    />
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="../Navbar/navbar.css" />
+  </head>
+  <header></header>
+  <body>
+    <div id="navbar-placeholder"></div>
+    <div class="whole-container">
+      <div class="container" id="containerHide">
+        <h2>
+          Upload Excel File<button id="format">Download Excel Format</button>
+        </h2>
+        <form id="uploadForm" enctype="multipart/form-data">
+          <input
+            type="file"
+            id="excelFile"
+            name="excelFile"
+            accept=".xlsx, .xls"
+            required
+          />
+          <label for="excelFile" id="customFileButton">Choose File</label>
+          <span id="fileName">No file chosen</span>
+          <!-- Display file name here -->
+          <button type="submit" id="uploadButton">Upload</button>
+        </form>
+
+        <div id="upload-error-message" class="error"></div>
+        <div id="upload-success-message" class="success"></div>
+      </div>
+      <div class="container" id="shaduleContainerHide">
+        <h1>SCHEDULE INSPECTION</h1>
+        <form id="storeForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="clientName">Client Name:</label>
+              <select id="clientName" name="clientId" required>
+                <option value="">Select a client</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="storeName">Store Name:</label>
+              <select id="storeName" name="storeName" required>
+                <option value="">Select a Store</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="scheduleFor">Schedule for:</label>
+              <select id="scheduleFor" name="scheduleFor" required>
+                <option value="">Select Schedule for</option>
+
+                <option value="INSPECTION">INSPECTION</option>
+                <option value="PPM">PPM</option>
+                <option value="INSPECTION-1">INSPECTION 1</option>
+                <option value="INSPECTION-2">INSPECTION 2</option>
+                <option value="PPM-Monthly">PPM MONTHLY</option>
+                <option value="PPM-Quarterly">PPM QUARTERLY</option>
+                <option value="PPM-Half Yearly">PPM HALF YEARLY</option>
+                <option value="BREAKDOWN">BREAKDOWN</option>
+                <option value="MST">MST</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="stechnicianName">Technician Name:</label>
+              <select id="stechnicianName" name="stechnicianName" required>
+                <option value="">Select Technician</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date">Date:</label>
+              <input type="date" id="date" name="date" required />
+            </div>
+          </div>
+          <!-- Error message container -->
+          <div id="error-message" class="error"></div>
+          <!-- Success message container -->
+          <div id="success-message" class="success"></div>
+          <button type="submit" id="submit">Submit</button>
+        </form>
+      </div>
+
+      <div class="container">
+        <h2>SCHEDULED INSPECTIONS</h2>
+        <!-- <div class="filter-container"> -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="filter-client">Client Name:</label>
+            <input
+              type="text"
+              id="filter-client"
+              placeholder="Filter by Client Name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="filter-store">Store Name:</label>
+            <input
+              type="text"
+              id="filter-store"
+              placeholder="Filter by Store Name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="filter-shadule">Schedule:</label>
+            <input
+              type="text"
+              id="filter-shadule"
+              placeholder="Filter by Schedule Type"
+            />
+          </div>
+          <div class="form-group">
+            <label for="filter-zone">Zone:</label>
+            <select id="filter-status">
+              <option value="">Filter by Zone</option>
+              <option value="TICKET CLOSE">East</option>
+              <option value="TICKET OPEN">West</option>
+              <option value="TICKET CLOSE">North</option>
+              <option value="TICKET OPEN">South</option>
+            </select>
+           </div>
         </div>
-        <div class="form-group">
-          <label for="stechnicianName">Technician Name:</label>
-          <select id ="stechnicianName" name="stechnicianName" required>
-            <option value="">Select Technician</option>
-          </select>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="filter-technician">Technician:</label>
+            <input
+              type="text"
+              id="filter-technician"
+              placeholder="Filter by Technician Name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="filter-status">Status:</label>
+            <select id="filter-status">
+              <option value="">Filter by Status</option>
+              <option value="TICKET CLOSE">TICKET CLOSE</option>
+              <option value="TICKET OPEN">TICKET OPEN</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filter-from-date">From:</label>
+            <input type="date" id="filter-from-date" placeholder="From Date" />
+          </div>
+          <div class="form-group">
+            <label for="filter-to-date">To:</label>
+            <input type="date" id="filter-to-date" placeholder="To Date" />
+          </div>
         </div>
-        
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="date">Date:</label>
-          <input type="date" id="date" name="date" required />
+        <!-- </div> -->
+        <div class="table-container">
+          <button id="exportButton">Export to Excel</button>
+          <table id="scheduleTable" class="display">
+            <thead>
+              <tr>
+                <th>Ticket No.</th>
+                <th>Client Name</th>
+                <th>Store Name</th>
+                <th>Store Code</th>
+                <th>Schedule for</th>
+                <th>Technician Name</th>
+                <th>Phone Number</th>
+                <th>Technician Email</th>
+                <th>Visit on Date</th>
+                <th>Status</th>
+                <th id="adminActionHide">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Table data will be populated here -->
+            </tbody>
+          </table>
         </div>
       </div>
-      <!-- Error message container -->
-      <div id="error-message" class="error"></div>
-      <!-- Success message container -->
-      <div id="success-message" class="success"></div>
-      <button type="submit" id="submit">Submit</button>
-    </form>
-  </div>
-   
-  <div class="container">
-    <h2>SCHEDULED INSPECTIONS</h2>
-    <!-- <div class="filter-container"> -->
-      <div class="form-row">
-      <div class="form-group">
-        <label for="filter-client">Client Name:</label>
-        <input type="text" id="filter-client" placeholder="Filter by Client Name">
-      </div>
-      <div class="form-group">
-        <label for="filter-store">Store Name:</label>
-        <input type="text" id="filter-store" placeholder="Filter by Store Name">
-      </div>
-      <div class="form-group">
-        <label for="filter-shadule">Schedule:</label>
-        <input type="text" id="filter-shadule" placeholder="Filter by Schedule Type">
-      </div>
-      </div>
-      <div class="form-row">
-       <div class="form-group">
-        <label for="filter-technician">Technician:</label>
-        <input type="text" id="filter-technician" placeholder="Filter by Technician Name">
-       </div>
-       <div class="form-group">
-        <label for="filter-status">Status:</label>
-        <select id="filter-status">
-          <option value="">Filter by Status</option>
-          <option value="TICKET CLOSE">TICKET CLOSE</option>
-          <option value="TICKET OPEN">TICKET OPEN</option>
-        </select>
-       </div>
-       <div class="form-group">
-        <label for="filter-from-date">From:</label>
-        <input type="date" id="filter-from-date" placeholder="From Date">
-       </div>
-       <div class="form-group">
-        <label for="filter-to-date">To:</label>
-        <input type="date" id="filter-to-date" placeholder="To Date">
-       </div>
-      </div>
-    <!-- </div> -->
-    <div class="table-container">
-      <button id="exportButton">Export to Excel</button>
-      <table id="scheduleTable" class="display">
-        <thead>
-          <tr>
-            <th>Ticket No.</th>
-            <th>Client Name</th>
-            <th>Store Name</th>
-            <th>Store Code</th>
-            <th>Schedule for</th>
-            <th>Technician Name</th>
-            <th>Phone Number</th>
-            <th>Technician Email</th>
-            <th>Visit on Date</th>
-            <th>Status</th>
-            <th id ="adminActionHide">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Table data will be populated here -->
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <!-- <footer class="footer">
+      <!-- <footer class="footer">
     <div class="footer-content">
      
       <div class="section">
@@ -190,9 +227,9 @@
       &copy;<a class ="footerlink"href="https://ismartfacitech.com/">iSmart Facitech Pvt Limited 2024</a> All rights reserved.
     </div>
   </footer> -->
-  </div>
-  <script src="../globals/global.js"></script>
-  <script src="sheduling.js"></script>
-  <script src="../Navbar/navbar.js" defer></script>
-</body>
+    </div>
+    <script src="../globals/global.js"></script>
+    <script src="sheduling.js"></script>
+    <script src="../Navbar/navbar.js" defer></script>
+  </body>
 </html>

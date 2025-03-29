@@ -96,7 +96,7 @@
          
 
             <!-- Monthly PPM Section -->
-            <div class="form-section active" id="quaterlyPPM">
+            <div class="form-section active" id="halfyearlyPpm">
                 <h2> ELECTRICAL PREVENTIVE MAINTENANCE CHECKLIST - HALF-YEARLY</h2>
                 <table>
                     <thead>
@@ -105,6 +105,7 @@
                             <th>Description</th>
                             <th>Status</th>
                             <th>Comments</th>
+                            <th>Photo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -143,6 +144,18 @@
                                     <option value="na">N/A</option>
                             </td>
                             <td><input type="text"></td>
+                            <td>
+                                <div class="photo-upload">
+                                    <input type="file" id="illuminationPhoto" name="illuminationPhoto" accept="image/*" 
+                                           onchange="previewPhoto('illuminationPhoto', 'illuminationPreview')">
+                                    <input type="hidden" name="illuminationPhotoID" id="illuminationPhotoID">
+                                    <button type="button" 
+                                            onclick="uploadPhoto('illuminationPhoto', 'file', 'illuminationPreview', 'illuminationPhotoID')">
+                                        Upload
+                                    </button>
+                                    <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>Bus Duct</td>
@@ -165,6 +178,18 @@
                                     <option value="na">N/A</option>
                             </td>
                             <td><input type="text"></td>
+                            <td>
+                                <div class="photo-upload">
+                                    <input type="file" id="illuminationPhoto" name="illuminationPhoto" accept="image/*" 
+                                           onchange="previewPhoto('illuminationPhoto', 'illuminationPreview')">
+                                    <input type="hidden" name="illuminationPhotoID" id="illuminationPhotoID">
+                                    <button type="button" 
+                                            onclick="uploadPhoto('illuminationPhoto', 'file', 'illuminationPreview', 'illuminationPhotoID')">
+                                        Upload
+                                    </button>
+                                    <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>Capacitor Panel </td>
@@ -176,6 +201,18 @@
                                     <option value="na">N/A</option>
                             </td>
                             <td><input type="text"></td>
+                            <td>
+                                <div class="photo-upload">
+                                    <input type="file" id="illuminationPhoto" name="illuminationPhoto" accept="image/*" 
+                                           onchange="previewPhoto('illuminationPhoto', 'illuminationPreview')">
+                                    <input type="hidden" name="illuminationPhotoID" id="illuminationPhotoID">
+                                    <button type="button" 
+                                            onclick="uploadPhoto('illuminationPhoto', 'file', 'illuminationPreview', 'illuminationPhotoID')">
+                                        Upload
+                                    </button>
+                                    <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>Electric Motors / pumps</td>
@@ -194,7 +231,7 @@
                 </table>
                 <div class="button-group">
                     <button type="button" onclick="showSection('monthlyPPM', 'companyDetails')">Back</button>
-                    <button type="button" onclick="showSection('monthlyPPM', 'loadReadings')">Next</button>
+                    <button type="button" onclick="showSection('halfyearlyPpm', 'fireExtinguisher')">Next</button>
                 </div>
             </div>
 
@@ -206,30 +243,7 @@
            
 
             <!-- Load Readings Section -->
-            <div class="form-section" id="loadReadings">
-                <h2>Load Readings</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Voltage</th>
-                            <th>Load Before</th>
-                            <th>Load After</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>RN R</td><td><input type="text"></td><td><input type="text"></td></tr>
-                        <tr><td>YN Y</td><td><input type="text"></td><td><input type="text"></td></tr>
-                        <tr><td>BN B</td><td><input type="text"></td><td><input type="text"></td></tr>
-                        <tr><td>RY UPS LOAD</td><td><input type="text"></td><td><input type="text"></td></tr>
-                        <tr><td>YB</td><td><input type="text"></td><td><input type="text"></td></tr>
-                        <tr><td>BR</td><td><input type="text"></td><td><input type="text"></td></tr>
-                    </tbody>
-                </table>
-                <div class="button-group">
-                    <button type="button" onclick="showSection('loadReadings', 'monthlyPPM')">Back</button>
-                    <button type="button" onclick="showSection('loadReadings', 'fireExtinguisher')">Next</button>
-                </div>
-            </div>
+           
 
             <!-- Fire Extinguisher Section -->
             <div class="form-section" id="fireExtinguisher">
@@ -256,7 +270,7 @@
                 </table>
                 <button type="button" onclick="addFireExtinguisherRow()">Add Row</button>
                 <div class="button-group">
-                    <button type="button" onclick="showSection('fireExtinguisher', 'loadReadings')">Back</button>
+                    <button type="button" onclick="showSection('fireExtinguisher', 'halfyearlyPpm')">Back</button>
                     <button type="button" onclick="showSection('fireExtinguisher', 'signatures')">Next</button>
                 </div>
             </div>
