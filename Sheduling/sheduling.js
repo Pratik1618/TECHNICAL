@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
           data.forEach((store) => {
             const option = document.createElement("option");
             option.value = store.id;
-            option.textContent = store.storeCode + " - " + store.storeName;
+            option.textContent = store.storeCode + " - " + store.storeName + "-" + store.address;
             storeSelect.appendChild(option);
           });
         })

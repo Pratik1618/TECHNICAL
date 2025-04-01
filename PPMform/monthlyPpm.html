@@ -4,90 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electrical Preventive Maintenance Checklist</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        .form-section {
-            display: none;
-        }
-
-        .form-section.active {
-            display: block;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        input[type="text"], input[type="date"], select, textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        .button-group {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .signature-section {
-            margin-top: 30px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .photo-upload {
-            margin: 10px 0;
-        }
-    </style>
+    <link rel="stylesheet" href="../PPMform/monthyPpm.css">
 </head>
 <body>
     <div class="container">
@@ -145,6 +62,8 @@
                        
                             <td>
                                 <select>
+                                    <option disabled selected>Choose</option>
+
                                     <option value="ok">OK</option>
                                     <option value="not-ok">Not OK</option>
                                     <option value="na">N/A</option>
@@ -168,30 +87,34 @@
                             <td>Distribution Boards</td>
                             <td>Visual Inspection of Cable Joints </td>
                             <td>
-                                <select>
+                                <select id="visualInspectionofCableJoints">
+                                    <option disabled selected>Choose</option>
+                                    
                                     <option value="ok">OK</option>
                                     <option value="not-ok">Not OK</option>
                                     <option value="na">N/A</option>
                             </td>
-                            <td><input type="text"></td>
+                            <td><input id="busDuctComment" name="busDuctComment" type="text"></td>
                             <td>
                                 <div class="photo-upload">
-                                    <input type="file" id="illuminationPhoto" name="illuminationPhoto" accept="image/*" 
-                                           onchange="previewPhoto('illuminationPhoto', 'illuminationPreview')">
-                                    <input type="hidden" name="illuminationPhotoID" id="illuminationPhotoID">
+                                    <input type="file" id="visualInspectionofCableJointsPhoto" name="visualInspectionofCableJointsPhoto" accept="image/*" 
+                                           onchange="previewPhoto('visualInspectionofCableJointsPhoto', 'visualInspectionofCableJointsPreview')">
+                                    <input type="hidden" name="visualInspectionofCableJointsPhotoID" id="visualInspectionofCableJointsPhotoID">
                                     <button type="button" 
-                                            onclick="uploadPhoto('illuminationPhoto', 'file', 'illuminationPreview', 'illuminationPhotoID')">
+                                            onclick="uploadPhoto('visualInspectionofCableJointsPhoto', 'file', 'visualInspectionofCableJointsPreview', 'visualInspectionofCableJointsPhotoID')">
                                         Upload
                                     </button>
-                                    <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                                    <img id="visualInspectionofCableJointsPreview" style="display: none; width: 50px; height: 50px;">
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>Bus Duct</td>
                             <td>Visual Inspection of Bus Joints </td>
-                            <td>
-                                <select>
+                            <td> 
+                                <select id="busDuct" name="busDuct">
+                                    <option disabled selected>Choose</option>
+                                 
                                     <option value="ok">OK</option>
                                     <option value="not-ok">Not OK</option>
                                     <option value="na">N/A</option>
@@ -202,22 +125,24 @@
                             <td>Capacitor Panel </td>
                             <td>Check Power Factor Reading </td>
                             <td>
-                                <select>
+                                <select id="CapacitorPanel">
+                                    <option disabled selected>Choose</option>
+
                                     <option value="ok">OK</option>
                                     <option value="not-ok">Not OK</option>
                                     <option value="na">N/A</option>
                             </td>
-                            <td><input type="text"></td>
+                            <td><input type="text" id="CapacitorPanelComment"></td>
                             <td>
                                 <div class="photo-upload">
-                                    <input type="file" id="illuminationPhoto" name="illuminationPhoto" accept="image/*" 
-                                           onchange="previewPhoto('illuminationPhoto', 'illuminationPreview')">
-                                    <input type="hidden" name="illuminationPhotoID" id="illuminationPhotoID">
+                                    <input type="file" id="CapacitorPanelPhoto" name="CapacitorPanelPhoto" accept="image/*" 
+                                           onchange="previewPhoto('CapacitorPanelPhoto', 'CapacitorPanelPreview')">
+                                    <input type="hidden" name="CapacitorPanelPhotoID" id="CapacitorPanelPhotoID">
                                     <button type="button" 
-                                            onclick="uploadPhoto('illuminationPhoto', 'file', 'illuminationPreview', 'illuminationPhotoID')">
+                                            onclick="uploadPhoto('CapacitorPanelPhoto', 'file', 'CapacitorPanelPreview', 'CapacitorPanelPhotoID')">
                                         Upload
                                     </button>
-                                    <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                                    <img id="CapacitorPanelPreview" style="display: none; width: 50px; height: 50px;">
                                 </div>
                             </td>
                         </tr>
@@ -225,22 +150,24 @@
                             <td>Capacitor Panel </td>
                             <td>Visual Inspection of Cable Joints</td>
                             <td>
-                                <select>
+                                <select id="CapacitorPanel2">
+                                    <option disabled selected>Choose</option>
+
                                     <option value="ok">OK</option>
                                     <option value="not-ok">Not OK</option>
                                     <option value="na">N/A</option>
                             </td>
-                            <td><input type="text"></td>
+                            <td><input type="text" id="CapacitorPanel2Comment"></td>
                             <td>
                                 <div class="photo-upload">
-                                    <input type="file" id="illuminationPhoto" name="illuminationPhoto" accept="image/*" 
-                                           onchange="previewPhoto('illuminationPhoto', 'illuminationPreview')">
-                                    <input type="hidden" name="illuminationPhotoID" id="illuminationPhotoID">
+                                    <input type="file" id="CapacitorPanel2Photo" name="CapacitorPanel2Photo" accept="image/*" 
+                                           onchange="previewPhoto('CapacitorPanel2Photo', 'CapacitorPanel2Preview')">
+                                    <input type="hidden" name="CapacitorPanel2PhotoID" id="CapacitorPanel2PhotoID">
                                     <button type="button" 
-                                            onclick="uploadPhoto('illuminationPhoto', 'file', 'illuminationPreview', 'illuminationPhotoID')">
+                                            onclick="uploadPhoto('CapacitorPanel2Photo', 'file', 'CapacitorPanel2Preview', 'CapacitorPanel2PhotoID')">
                                         Upload
                                     </button>
-                                    <img id="illuminationPreview" style="display: none; width: 50px; height: 50px;">
+                                    <img id="CapacitorPanel2Preview" style="display: none; width: 50px; height: 50px;">
                                 </div>
                             </td>
                         </tr>
@@ -248,34 +175,39 @@
                             <td>UPS</td>
                             <td>Check and record voltage input & output</td>
                             <td>
-                                <select>
+                                <select id="ups">
+                                    <option disabled selected>Choose</option>
+
                                     <option value="ok">OK</option>
                                     <option value="not-ok">Not OK</option>
                                     <option value="na">N/A</option>
                             </td>
-                            <td><input type="text"></td>
+                            <td><input type="text" id="upsComment"></td>
                         </tr>
                         <tr>
                             <td>UPS</td>
                             <td>Check electrical connections of all lights </td>
                             <td>
-                                <select>
+                                <select id="ups2">
+                                    <option disabled selected>Choose</option>
+
                                     <option value="ok">OK</option>
                                     <option value="not-ok">Not OK</option>
                                     <option value="na">N/A</option>
                             </td>
-                            <td><input type="text"></td>
+                            <td><input type="text" id="ups2Comment"></td>
                         </tr>
                         <tr>
                             <td>Lights</td>
                             <td>Check and record DC voltage value</td>
                             <td>
-                                <select>
+                                <select id="lights">
+                                    <option disabled selected>Choose</option>
                                     <option value="ok">OK</option>
                                     <option value="not-ok">Not OK</option>
                                     <option value="na">N/A</option>
                             </td>
-                            <td><input type="text"></td>
+                            <td><input type="text" id="lightsComment"></td>
                         </tr>
                         <!-- Add more monthly items here -->
                     </tbody>
@@ -298,18 +230,53 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Voltage</th>
-                            <th>Load Before</th>
-                            <th>Load After</th>
+                            <th colspan="2">Load Before</th>
+                            <th colspan="2">Load After</th>
+                        </tr>
+                        <tr>
+                            <th class="voltage-header">Voltage</th>
+                            <th class="load-header">Load</th>
+                            <th class="voltage-header">Voltage</th>
+                            <th class="load-header">Load</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>RN R</td><td><input type="text"></td><td><input type="text"></td></tr>
-                        <tr><td>YN Y</td><td><input type="text"></td><td><input type="text"></td></tr>
-                        <tr><td>BN B</td><td><input type="text"></td><td><input type="text"></td></tr>
-                        <tr><td>RY UPS LOAD</td><td><input type="text"></td><td><input type="text"></td></tr>
-                        <tr><td>YB</td><td><input type="text"></td><td><input type="text"></td></tr>
-                        <tr><td>BR</td><td><input type="text"></td><td><input type="text"></td></tr>
+                        <tr>
+                            <td ><div>RN <input type="text" ></div></td>
+                            <td><div>R<input type="text" ></div></td>
+                            <td><div>RN <input type="text" ></div></td>
+                            <td><div>R<input type="text" ></div></td>
+                        </tr>
+                        <tr>
+                            <td><div>YN<input type="text" ></div></td>
+                            <td><div>Y<input type="text" ></div></td>
+                            <td><div>YN<input type="text" ></div></td>
+                            <td><div>Y<input type="text" ></div></td>
+                        </tr>
+                        <tr>
+                            <td><div>BN<input type="text" ></div></td>
+                            <td><div>B<input type="text" ></div></td>
+                            <td><div>BN<input type="text" ></div></td>
+                            <td><div>B<input type="text" ></div></td>
+                        </tr>
+                        <tr>
+                            <td><div>RY<input type="text" ></div></td>
+                            <td><div>UPS LOAD<input type="text" ></div></td>
+                            <td><div>RY<input type="text" ></div></td>
+                            <td><div>UPS LOAD<input type="text" ></div></td>
+                        </tr>
+                        <tr>
+                            <td><div>YB<input type="text" ></div></td>
+                            <td></td>
+                            <td><div>YB<input type="text" ></div></td>
+                        
+                        </tr>
+                        <tr>
+                            <td><div>BR<input type="text" ></div></td>
+                            <td></td>
+                            <td><div>BR<input type="text" ></div></td>
+                            <td>    </td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="button-group">
@@ -334,22 +301,59 @@
                     <tbody id="fireExtinguisherBody">
                         <tr>
                             <td>1</td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="date"></td>
-                            <td><input type="text"></td>
+                            <td><input id="extinguisherType1" type="text"></td>
+                            <td><input  id="extinguisherCapacity1" type="text"></td>
+                            <td><input id="extinguisherRefillDate1" type="date"></td>
+                            <td><input  id="extinguisherRemark1" type="text"></td>
                         </tr>
                     </tbody>
                 </table>
                 <button type="button" onclick="addFireExtinguisherRow()">Add Row</button>
                 <div class="button-group">
                     <button type="button" onclick="showSection('fireExtinguisher', 'loadReadings')">Back</button>
-                    <button type="button" onclick="showSection('fireExtinguisher', 'signatures')">Next</button>
+                    <button type="button" onclick="showSection('fireExtinguisher', 'selfieSection')">Next</button>
                 </div>
             </div>
 
+            <!-- Add this section before the Preview Section -->
+<div class="form-section" id="selfieSection">
+    <h2>Technician Selfie with Timestamp</h2>
+    <div class="selfie-upload">
+        <input type="file" id="selfieInput" accept="image/*" capture="user" 
+               onchange="captureSelfieWithTimestamp(event)">
+        <label for="selfieInput" class="selfie-label">
+            <span>📸 Take Selfie</span>
+        </label>
+        <div id="selfiePreviewContainer">
+            <canvas id="selfieCanvas" style="display: none;"></canvas>
+            <img id="selfiePreview" style="max-width: 300px; display: none;">
+            <input type="hidden" id="selfieData" name="selfieData">
+        </div>
+    </div>
+    <div class="button-group">
+        <button type="button" onclick="showSection('selfieSection', 'fireExtinguisher')">Back</button>
+        <button type="button" onclick="showSection('selfieSection', 'previewSection')">Next</button>
+    </div>
+</div>
+ <!-- Preview Section -->
+ <div class="form-section" id="previewSection">
+    <h2 id="preview">Preview</h2>
+    <h3>Company Information</h3>
+    <p>Company Name&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<span id="previewCompanyName"></span></p>
+    <p>Store Name:&nbsp; <span id="previewCompanyAddress"></span></p>
+    
+    <div id="previewTables"></div>
+    <div id="success-message"></div>
+    <div id="error-message"></div>
+    <div class="backnext">
+        <button class="back" type="button"
+            onclick="showSection('previewSection', 'fireExtinguisher')">Previous</button>
+        <button class="back" id="submitForm" class="sub-pre" type="submit">Submit</button>
+    </div>
+</div>
+
             <!-- Signatures Section -->
-            <div class="form-section" id="signatures">
+            <!-- <div class="form-section" id="signatures">
                 <h2>Signatures</h2>
                 <div class="signature-section">
                     <div>
@@ -370,48 +374,14 @@
                     <button type="button" onclick="showSection('signatures', 'fireExtinguisher')">Back</button>
                     <button type="submit">Submit Form</button>
                 </div>
-            </div>
+            </div> -->
         </form>
     </div>
+    <script src="../globals/global.js"></script>
 
-    <script>
+    <script src="monthlyPPm.js"> 
         // Section Navigation
-        function showSection(currentSection, nextSection) {
-            document.getElementById(currentSection).classList.remove('active');
-            document.getElementById(nextSection).classList.add('active');
-        }
-
-        // Fire Extinguisher Dynamic Rows
-        let fireExtinguisherCounter = 1;
-        function addFireExtinguisherRow() {
-            const tbody = document.getElementById('fireExtinguisherBody');
-            fireExtinguisherCounter++;
-            
-            const newRow = `
-                <tr>
-                    <td>${fireExtinguisherCounter}</td>
-                    <td><input type="text"></td>
-                    <td><input type="text"></td>
-                    <td><input type="date"></td>
-                    <td><input type="text"></td>
-                </tr>`;
-            
-            tbody.insertAdjacentHTML('beforeend', newRow);
-        }
-
-        // Form Submission
-        document.getElementById('ppmForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Add validation logic here
-            const formData = new FormData(this);
-            
-            // Process form data (Add your submission logic here)
-            console.log([...formData.entries()]);
-            
-            alert('Form submitted successfully!');
-            // Reset form or redirect as needed
-        });
+  
     </script>
 </body>
 </html>
