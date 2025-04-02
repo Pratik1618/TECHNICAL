@@ -111,3 +111,39 @@
             border: 2px solid #ddd;
             border-radius: 5px;
         }
+
+
+        .selfie-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .camera-preview {
+            margin: 10px 0;
+            position: relative;
+        }
+        
+        #video {
+            background-color: #666;
+            border-radius: 5px;
+        }
+        
+        /* button {
+            margin: 10px 0;
+            background-color: #007bff;
+        } */
+        
+        .camera-container {
+            margin: 20px 0;
+            position: relative;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        #video {
+            width: 100%;
+            height: auto;
+        }

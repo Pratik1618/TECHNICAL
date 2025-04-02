@@ -1,19 +1,19 @@
-api=getBaseUrl();
+api = getBaseUrl();
 token = localStorage.getItem('authToken');
 function showSection(currentSection, nextSection) {
     // Stop camera when leaving selfie section
     if (currentSection === 'selfieSection') {
         stopCamera();
     }
-    
+
     document.getElementById(currentSection).classList.remove('active');
     document.getElementById(nextSection).classList.add('active');
-    
+
     // Initialize camera when entering selfie section
     if (nextSection === 'selfieSection') {
         initializeCamera();
     }
-    
+
     if (nextSection === 'previewSection') {
         updatePreview();
     }
@@ -21,15 +21,15 @@ function showSection(currentSection, nextSection) {
 
 
 // Form Submission
-document.getElementById('yearlyppmForm').addEventListener('submit', function(e) {
+document.getElementById('yearlyppmForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    
+
     // Add validation logic here
     const formData = new FormData(this);
-    
+
     // Process form data (Add your submission logic here)
     console.log([...formData.entries()]);
-    
+
     alert('Form submitted successfully!');
     // Reset form or redirect as needed
 });
@@ -58,7 +58,7 @@ async function applyValueToID(id, value) {
 // Function to upload the photo
 async function uploadPhoto(photoInputIdOrFile, backendName, previewImgId, dtoKeyId = '') {
     let file;
-    
+
     // Handle both input ID string and File object
     if (typeof photoInputIdOrFile === 'string') {
         const photoInput = document.getElementById(photoInputIdOrFile);
@@ -92,7 +92,7 @@ async function uploadPhoto(photoInputIdOrFile, backendName, previewImgId, dtoKey
 
         const data = await response.json();
         console.log('Upload successful:', data);
-        
+
         // Update preview
         const preview = document.getElementById(previewImgId);
         if (preview) {
@@ -106,7 +106,7 @@ async function uploadPhoto(photoInputIdOrFile, backendName, previewImgId, dtoKey
         }
 
         return data.id;
-        
+
     } catch (error) {
         console.error('Upload error:', error);
         alert('Error: ' + error.message);
@@ -171,21 +171,21 @@ function updatePreview() {
             ${Array.from(document.querySelectorAll('#loadReadings tbody tr')).map(row => `
                 <tr>
                     ${Array.from(row.querySelectorAll('td')).map(td => {
-                        const div = td.querySelector('div');
-                        if (!div) return '<td></td>';
-                        
-                        // Get both label text and input value
-                        const label = div.childNodes[0].textContent.trim();
-                        const input = div.querySelector('input');
-                        return `<td>${label}${input?.value ? ': ' + input.value : ''}</td>`;
-                    }).join('')}
+        const div = td.querySelector('div');
+        if (!div) return '<td></td>';
+
+        // Get both label text and input value
+        const label = div.childNodes[0].textContent.trim();
+        const input = div.querySelector('input');
+        return `<td>${label}${input?.value ? ': ' + input.value : ''}</td>`;
+    }).join('')}
                 </tr>
             `).join('')}
         </tbody>
     `;
 
     // Fire Extinguisher Table (keep existing implementation)
-   
+
 
     // Clear and update preview
     const previewTables = document.getElementById('previewTables');
@@ -209,7 +209,7 @@ function updatePreview() {
     }
 
     addSection('Quaterly PPM Checklist', quaterlyTable);
-  
+
 }
 
 
@@ -226,52 +226,52 @@ function displayError(message) {
 
     successMessageElement.textContent = ""; // Clear success message
     errorMessageElement.textContent = message;
-  }
+}
 
 
-  // Function to display success messages
-  function displaySuccess(message) {
+// Function to display success messages
+function displaySuccess(message) {
     const successMessageElement = document.getElementById("success-message");
     const errorMessageElement = document.getElementById("error-message");
 
     errorMessageElement.textContent = ""; // Clear error message
     successMessageElement.textContent = message;
-  }
+}
 
-  document.getElementById('yearlyppmForm').addEventListener('submit', async (e) => {
+document.getElementById('yearlyppmForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    
-    const storeData ={
-        mainControlPanel:document.getElementById("mainControlPanel").value,
+
+    const storeData = {
+        mainControlPanel: document.getElementById("mainControlPanel").value,
         mainControlPanelComment: document.getElementById("mainControlPanelComment").value,
-    
-        busDuct:document.getElementById("busDuct").value,
+
+        busDuct: document.getElementById("busDuct").value,
         busDuctComment: document.getElementById("busDuctComment").value,
-    
-        earthPits:document.getElementById("EarthPits").value,
-        earthPitsComment:document.getElementById("EarthPitsComment").value,
-        earthPitsPhotoID:document.getElementById("EarthPitsPhotoID").value,
-    
-        earthPits2:document.getElementById("EarthPits2").value,
-        earthPits2Comment:document.getElementById("EarthPits2Comment").value,
-    
-        capacitorPanel:document.getElementById("CapacitorPanel").value,
-        capacitorPanelComment:document.getElementById("CapacitorPanelComment").value,
-    
-        general:document.getElementById("General").value,
-        generalComment:document.getElementById("GeneralComment").value,
-        generalPhotoID:document.getElementById("GeneralPhotoID").value
+
+        earthPits: document.getElementById("EarthPits").value,
+        earthPitsComment: document.getElementById("EarthPitsComment").value,
+        earthPitsPhotoID: document.getElementById("EarthPitsPhotoID").value,
+
+        earthPits2: document.getElementById("EarthPits2").value,
+        earthPits2Comment: document.getElementById("EarthPits2Comment").value,
+
+        capacitorPanel: document.getElementById("CapacitorPanel").value,
+        capacitorPanelComment: document.getElementById("CapacitorPanelComment").value,
+
+        general: document.getElementById("General").value,
+        generalComment: document.getElementById("GeneralComment").value,
+        generalPhotoID: document.getElementById("GeneralPhotoID").value
     };
-    console.log('formData',storeData)
-    
+    console.log('formData', storeData)
+
     try {
         // Here you would typically send the data to your backend
         console.log('Form Data:', storeData);
-        
+
         // Show success message
-        document.getElementById('success-message').innerHTML = 
+        document.getElementById('success-message').innerHTML =
             '<p style="color: green;">Form submitted successfully!</p>';
-        
+
         // Optionally reset the form
         setTimeout(() => {
             document.getElementById('yearlyppmForm').reset();
@@ -279,7 +279,7 @@ function displayError(message) {
         }, 2000);
     } catch (error) {
         console.error('Error:', error);
-        document.getElementById('error-message').innerHTML = 
+        document.getElementById('error-message').innerHTML =
             '<p style="color: red;">Error submitting form. Please try again.</p>';
     }
 });
@@ -292,7 +292,7 @@ const ctx = canvasElement.getContext('2d');
 // Initialize camera when entering selfie section
 async function initializeCamera() {
     try {
-        videoStream = await navigator.mediaDevices.getUserMedia({ 
+        videoStream = await navigator.mediaDevices.getUserMedia({
             video: { facingMode: "user" } // Front camera
         });
         videoElement.srcObject = videoStream;
@@ -318,16 +318,16 @@ async function captureSelfie() {
     // Set canvas dimensions
     canvasElement.width = videoElement.videoWidth;
     canvasElement.height = videoElement.videoHeight;
-    
+
     // Draw current video frame
     ctx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
-    
+
     // Add timestamp
     const now = new Date();
     ctx.fillStyle = 'red';
     ctx.font = '40px Arial';
     ctx.fillText(now.toLocaleString(), 10, canvasElement.height - 10);
-    
+
     // Convert to blob
     canvasElement.toBlob(async (blob) => {
         const file = new File([blob], `selfie_${Date.now()}.jpg`, {
@@ -342,7 +342,7 @@ async function captureSelfie() {
                 'selfiePreview', // previewImgId
                 'selfiePhotoID'  // dtoKeyId
             );
-            
+
         } catch (error) {
             console.error('Selfie upload failed:', error);
         }

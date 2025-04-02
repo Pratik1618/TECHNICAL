@@ -213,9 +213,25 @@
                 </table>
                 <div class="button-group">
                     <button type="button" onclick="showSection('quaterlyPPM', 'companyDetails')">Back</button>
-                    <button type="button" onclick="showSection('quaterlyPPM', 'previewSection')">Next</button>
+                    <button type="button" onclick="showSection('quaterlyPPM', 'selfieSection')">Next</button>
                 </div>
             </div>  
+            <div class="form-section" id="selfieSection">
+                <h2>Capture Selfie with Timestamp</h2>
+                <div class="camera-container">
+                    <video id="video" width="320" height="240" autoplay></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                </div>
+                <div class="button-group">
+                    <button type="button" onclick="showSection('selfieSection', 'quaterlyPPM')">Back</button>
+                    <button type="button" onclick="captureSelfie()">Capture Selfie</button>
+                    <button type="button" onclick="showSection('selfieSection', 'previewSection')">Next</button>
+                </div>
+                <div class="photo-upload">
+                    <input type="hidden" name="selfiePhotoID" id="selfiePhotoID">
+                    <img id="selfiePreview" style="display: none; width: 200px; height: 150px;">
+                </div>
+            </div>
             <div class="form-section" id="previewSection">
                 <h2 id="preview">Preview</h2>
                 <h3>Company Information</h3>
@@ -227,7 +243,7 @@
                 <div id="error-message"></div>
                 <div class="backnext">
                     <button class="back" type="button"
-                        onclick="showSection('previewSection', 'quaterlyPPM')">Previous</button>
+                        onclick="showSection('previewSection', 'previewSection')">Previous</button>
                     <button class="back" id="submitForm" class="sub-pre" type="submit">Submit</button>
                 </div>
             </div>
