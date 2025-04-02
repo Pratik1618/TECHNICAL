@@ -324,8 +324,8 @@ async function captureSelfie() {
     
     // Add timestamp
     const now = new Date();
-    ctx.fillStyle = 'white';
-    ctx.font = '20px Arial';
+    ctx.fillStyle = 'red';
+    ctx.font = '40px Arial';
     ctx.fillText(now.toLocaleString(), 10, canvasElement.height - 10);
     
     // Convert to blob
