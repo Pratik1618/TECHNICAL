@@ -201,6 +201,16 @@ function updatePreview() {
         previewTables.appendChild(header);
         previewTables.appendChild(table);
     };
+    const selfiePreview = document.getElementById('selfiePreview');
+    if (selfiePreview.src) {
+        const selfieSection = document.createElement('div');
+        selfieSection.innerHTML = `
+            <h3>Selfie with Timestamp</h3>
+            <img src="${selfiePreview.src}" style="max-width: 300px;">
+        `;
+        previewTables.appendChild(selfieSection);
+    }
+
 
     addSection('Quaterly PPM Checklist', quaterlyTable);
   
