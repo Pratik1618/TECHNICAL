@@ -1,12 +1,24 @@
 api=getBaseUrl();
 token = localStorage.getItem('authToken');
 function showSection(currentSection, nextSection) {
+    // Stop camera when leaving selfie section
+    if (currentSection === 'selfieSection') {
+        stopCamera();
+    }
+
     document.getElementById(currentSection).classList.remove('active');
     document.getElementById(nextSection).classList.add('active');
+
+    // Initialize camera when entering selfie section
+    if (nextSection === 'selfieSection') {
+        initializeCamera();
+    }
+
     if (nextSection === 'previewSection') {
         updatePreview();
     }
 }
+
 
 
 // Form Submission
@@ -45,9 +57,18 @@ async function applyValueToID(id, value) {
     document.getElementById(id).value = value;
 }
 // Function to upload the photo
-async function uploadPhoto(photoInputId, backendName, previewImgId, dtoKeyId = '') {
-    const photoInput = document.getElementById(photoInputId);
-    const file = photoInput.files[0];
+async function uploadPhoto(photoInputIdOrFile, backendName, previewImgId, dtoKeyId = '') {
+    let file;
+
+    // Handle both input ID string and File object
+    if (typeof photoInputIdOrFile === 'string') {
+        const photoInput = document.getElementById(photoInputIdOrFile);
+        file = photoInput.files[0];
+    } else if (photoInputIdOrFile instanceof File) {
+        file = photoInputIdOrFile;
+    } else {
+        throw new Error('Invalid input type for uploadPhoto');
+    }
 
     if (!file) {
         alert('Please select a photo to upload.');
@@ -64,22 +85,33 @@ async function uploadPhoto(photoInputId, backendName, previewImgId, dtoKeyId = '
                 'Authorization': `${token}`
             },
             body: formData
-
         });
 
         if (!response.ok) {
             throw new Error('Photo upload failed');
-        } else {
-            alert("Photo Upload Sucessfully")
         }
 
         const data = await response.json();
-        console.log(data);
+        console.log('Upload successful:', data);
 
-        await applyValueToID(dtoKeyId, data.id);
+        // Update preview
+        const preview = document.getElementById(previewImgId);
+        if (preview) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        }
+
+        // Set photo ID in hidden field
+        if (dtoKeyId) {
+            document.getElementById(dtoKeyId).value = data.id;
+        }
+
+        return data.id;
 
     } catch (error) {
+        console.error('Upload error:', error);
         alert('Error: ' + error.message);
+        throw error;
     }
 }
 
@@ -131,7 +163,81 @@ function updatePreview() {
         previewTables.appendChild(header);
         previewTables.appendChild(table);
     };
+    const selfiePreview = document.getElementById('selfiePreview');
+    if (selfiePreview.src) {
+        const selfieSection = document.createElement('div');
+        selfieSection.innerHTML = `
+            <h3>Selfie with Timestamp</h3>
+            <img src="${selfiePreview.src}" style="max-width: 300px;">
+        `;
+        previewTables.appendChild(selfieSection);
+    }
 
     addSection('Quaterly PPM Checklist', quaterlyTable);
   
+}
+
+let videoStream = null;
+const videoElement = document.getElementById('video');
+const canvasElement = document.getElementById('canvas');
+const ctx = canvasElement.getContext('2d');
+
+// Initialize camera when entering selfie section
+async function initializeCamera() {
+    try {
+        videoStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "user" } // Front camera
+        });
+        videoElement.srcObject = videoStream;
+    } catch (err) {
+        console.error('Error accessing camera:', err);
+        alert('Camera access denied. Please enable camera permissions to continue.');
+    }
+}
+
+function stopCamera() {
+    if (videoStream) {
+        videoStream.getTracks().forEach(track => track.stop());
+        videoElement.srcObject = null;
+    }
+}
+
+async function captureSelfie() {
+    if (!videoStream) {
+        alert('Camera not initialized. Please allow camera access.');
+        return;
+    }
+
+    // Set canvas dimensions
+    canvasElement.width = videoElement.videoWidth;
+    canvasElement.height = videoElement.videoHeight;
+
+    // Draw current video frame
+    ctx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+
+    // Add timestamp
+    const now = new Date();
+    ctx.fillStyle = 'red';
+    ctx.font = '40px Arial';
+    ctx.fillText(now.toLocaleString(), 10, canvasElement.height - 10);
+
+    // Convert to blob
+    canvasElement.toBlob(async (blob) => {
+        const file = new File([blob], `selfie_${Date.now()}.jpg`, {
+            type: 'image/jpeg'
+        });
+
+        try {
+            // Use modified uploadPhoto with File object
+            await uploadPhoto(
+                file,          // File object
+                'file',        // backendName
+                'selfiePreview', // previewImgId
+                'selfiePhotoID'  // dtoKeyId
+            );
+
+        } catch (error) {
+            console.error('Selfie upload failed:', error);
+        }
+    }, 'image/jpeg');
 }

@@ -732,10 +732,25 @@
                         <button class="back" type="button" onclick="showNextSection('sectionH', 'sectionG')"> &larr;
                             Back </button>
                         <button class="next" id="previewButton" type="button"
-                            onclick="showNextSection('sectionH', 'previewSection')">Preview &rarr; </button>
+                            onclick="showNextSection('sectionH', 'selfieSection')">Next &rarr; </button>
                     </div>
                 </div>
-
+                <div class="form-section" id="selfieSection">
+                    <h2>Capture Selfie with Timestamp</h2>
+                    <div class="camera-container">
+                        <video id="video" width="320" height="240" autoplay></video>
+                        <canvas id="canvas" style="display: none;"></canvas>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" onclick="showNextSection('selfieSection', 'sectionH')">Back</button>
+                        <button type="button" onclick="captureSelfie()">Capture Selfie</button>
+                        <button type="button" onclick="showNextSection('selfieSection', 'previewSection')">Next</button>
+                    </div>
+                    <div class="photo-upload">
+                        <input type="hidden" name="selfiePhotoID" id="selfiePhotoID">
+                        <img id="selfiePreview" style="display: none; width: 200px; height: 150px;">
+                    </div>
+                </div>
 
                 <!-- Step 10: Submit Section -->
                 <div class="form-section" id="previewSection">

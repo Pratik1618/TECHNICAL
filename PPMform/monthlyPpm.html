@@ -316,23 +316,21 @@
             </div>
 
             <!-- Add this section before the Preview Section -->
+
 <div class="form-section" id="selfieSection">
-    <h2>Technician Selfie with Timestamp</h2>
-    <div class="selfie-upload">
-        <input type="file" id="selfieInput" accept="image/*" capture="user" 
-               onchange="captureSelfieWithTimestamp(event)">
-        <label for="selfieInput" class="selfie-label">
-            <span>📸 Take Selfie</span>
-        </label>
-        <div id="selfiePreviewContainer">
-            <canvas id="selfieCanvas" style="display: none;"></canvas>
-            <img id="selfiePreview" style="max-width: 300px; display: none;">
-            <input type="hidden" id="selfieData" name="selfieData">
-        </div>
+    <h2>Capture Selfie with Timestamp</h2>
+    <div class="camera-container">
+        <video id="video" width="100%" height="auto" autoplay></video>
+        <canvas id="canvas" style="display: none;"></canvas>
     </div>
     <div class="button-group">
         <button type="button" onclick="showSection('selfieSection', 'fireExtinguisher')">Back</button>
+        <button type="button" onclick="captureSelfie()">Capture Selfie</button>
         <button type="button" onclick="showSection('selfieSection', 'previewSection')">Next</button>
+    </div>
+    <div class="photo-upload">
+        <input type="hidden" name="selfiePhotoID" id="selfiePhotoID">
+        <img id="selfiePreview" style="display: none; max-width: 100%; height: auto;">
     </div>
 </div>
  <!-- Preview Section -->
@@ -352,29 +350,7 @@
     </div>
 </div>
 
-            <!-- Signatures Section -->
-            <!-- <div class="form-section" id="signatures">
-                <h2>Signatures</h2>
-                <div class="signature-section">
-                    <div>
-                        <h3>Technician Details</h3>
-                        <textarea placeholder="Technician's comments" rows="4"></textarea>
-                        <input type="text" placeholder="Technician Name">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="file" accept="image/*" class="photo-upload">
-                    </div>
-                    <div>
-                        <h3>Store Manager</h3>
-                        <input type="text" placeholder="Manager Name">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="file" accept="image/*" class="photo-upload">
-                    </div>
-                </div>
-                <div class="button-group">
-                    <button type="button" onclick="showSection('signatures', 'fireExtinguisher')">Back</button>
-                    <button type="submit">Submit Form</button>
-                </div>
-            </div> -->
+           
         </form>
     </div>
     <script src="../globals/global.js"></script>
