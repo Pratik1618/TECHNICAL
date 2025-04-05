@@ -88,7 +88,9 @@ async function uploadPhoto(photoInputIdOrFile, backendName, previewImgId, dtoKey
         if (!response.ok) {
             throw new Error('Photo upload failed');
         }
-
+        else {
+            alert('Photo Upload Successfully')
+        }
         const data = await response.json();
         console.log('Upload successful:', data);
 
@@ -169,14 +171,14 @@ function updatePreview() {
             ${Array.from(document.querySelectorAll('#loadReadings tbody tr')).map(row => `
                 <tr>
                     ${Array.from(row.querySelectorAll('td')).map(td => {
-                        const div = td.querySelector('div');
-                        if (!div) return '<td></td>';
-                        
-                        // Get both label text and input value
-                        const label = div.childNodes[0].textContent.trim();
-                        const input = div.querySelector('input');
-                        return `<td>${label}${input?.value ? ': ' + input.value : ''}</td>`;
-                    }).join('')}
+        const div = td.querySelector('div');
+        if (!div) return '<td></td>';
+
+        // Get both label text and input value
+        const label = div.childNodes[0].textContent.trim();
+        const input = div.querySelector('input');
+        return `<td>${label}${input?.value ? ': ' + input.value : ''}</td>`;
+    }).join('')}
                 </tr>
             `).join('')}
         </tbody>

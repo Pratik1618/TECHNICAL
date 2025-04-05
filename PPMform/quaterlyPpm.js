@@ -93,7 +93,9 @@ async function uploadPhoto(photoInputIdOrFile, backendName, previewImgId, dtoKey
         if (!response.ok) {
             throw new Error('Photo upload failed');
         }
-
+        else{
+            alert('Photo Upload Successfully')
+          }
         const data = await response.json();
         console.log('Upload successful:', data);
 
