@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electrical Preventive Maintenance Checklist</title>
-  <link rel="stylesheet" href="monthyPpm.css" >
+  <link rel="stylesheet" href="ppmform.css" >
    
 </head>
 <body>
     <div class="container">
-        <form id="ppmForm">
+        <form id="halfyearlyppmForm">
             <!-- Company Details Section -->
          
             <div class="form-section active" id="companyDetails">
                 <h2>Company Details</h2>
+                <div class="table-container">
                 <table>
                     <tr>
                         <td><label for="ticketNumber">Ticket Number:</label></td>
@@ -34,6 +35,7 @@
                         </select></td>
                     </tr>
                 </table>
+            </div>
                 <div class="button-group">
                     
                     <button type="button" onclick="showSection('companyDetails', 'halfyearlyPpm')">Next</button>
@@ -42,6 +44,10 @@
             <!-- Monthly PPM Section -->
             <div class="form-section " id="halfyearlyPpm">
                 <h2> ELECTRICAL PREVENTIVE MAINTENANCE CHECKLIST - HALF-YEARLY</h2>
+               <div class="mobile-helper">
+                For best viewing on mobile devices, please rotate your device to landscape mode.
+               </div>
+               <div class="table-container">
                 <table>
                     <thead>
                         <tr>
@@ -129,11 +135,11 @@
                             <td><input type="text" id="CapacitorPanelComment"></td>
                             <td>
                                 <div class="photo-upload">
-                                    <input type="file" id="CapacitorPanel" name="CapacitorPanel" accept="image/*" 
-                                           onchange="previewPhoto('CapacitorPanel', 'CapacitorPanelPreview')">
-                                    <input type="hidden" name="CapacitorPanelPhotoID" id="CapacitorPanelID">
+                                    <input type="file" id="CapacitorPanelPhoto" name="CapacitorPanelPhoto" accept="image/*" 
+                                           onchange="previewPhoto('CapacitorPanelPhoto', 'CapacitorPanelPreview')">
+                                    <input type="hidden" name="CapacitorPanelPhotoID" id="CapacitorPanelPhotoID">
                                     <button type="button" 
-                                            onclick="uploadPhoto('CapacitorPanel', 'file', 'CapacitorPanelPreview', 'CapacitorPanelID')">
+                                            onclick="uploadPhoto('CapacitorPanelPhoto', 'file', 'CapacitorPanelPreview', 'CapacitorPanelPhotoID')">
                                         Upload
                                     </button>
                                     <img id="CapacitorPanelPreview" style="display: none; width: 50px; height: 50px;">
@@ -180,13 +186,14 @@
                         <!-- Add more monthly items here -->
                     </tbody>
                 </table>
+            </div>
                 <div class="button-group">
                     <button type="button" onclick="showSection('halfyearlyPpm', 'companyDetails')">Back</button>
                     <button type="button" onclick="showSection('halfyearlyPpm', 'selfieSection')">Next</button>
                 </div>
             </div>
 
-            <div class="form-section" id="selfieSection">
+            <div class="table-container form-section" id="selfieSection">
                 <h2>Capture Selfie with Timestamp</h2>
                 <div class="camera-container">
                     <video id="video" width="320" height="240" autoplay></video>
@@ -224,5 +231,6 @@
     <script src="../globals/global.js"></script>
 
 <script src="halfyearlyPpm.js"></script>
+<script src="ppmResponsive.js"></script>
 </body>
 </html>

@@ -213,6 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         columns: [
             { data: "tikitNumber" },
+            {data:"store.zone.zoneName"},
             { data: "client.clientName" },
             { data: "store.storeName" },
             {data:  "store.storeCode"},

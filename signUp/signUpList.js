@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
       {data:"store.storeCode"},
       { data:"zone.zoneName"},
       { data:"role"},
+      {data:"email"},
       {
         data: null,
         render: function (data, type, row) {

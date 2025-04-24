@@ -1,0 +1,201 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  font-size: 14px; /* Base font size reduced */
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+h2 {
+  font-size: 1.3rem;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+.form-section {
+  display: none;
+}
+
+.form-section.active {
+  display: block;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+  min-width: 650px; /* Ensure minimum width for landscape view */
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 6px;
+  text-align: left;
+  font-size: 0.9rem; /* Smaller font for table cells */
+}
+
+th {
+  background-color: #4caf50;
+  color: white;
+  font-size: 0.85rem; /* Even smaller font for headers */
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 0.85rem; /* Smaller font for inputs */
+}
+
+.button-group {
+  margin-top: 15px;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  font-size: 0.85rem; /* Smaller font for buttons */
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.signature-section {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.photo-upload {
+  margin: 8px 0;
+  font-size: 0.85rem; /* Smaller font */
+}
+
+.selfie-section {
+  margin: 12px 0;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.camera-container {
+  margin: 12px 0;
+  position: relative;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+#video {
+  width: 100%;
+  height: auto;
+  background-color: #666;
+}
+
+#canvas {
+  display: none;
+}
+
+#selfiePreview {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mobile-specific styles */
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 12px; /* Even smaller base font for mobile */
+  }
+
+  .container {
+    padding: 8px;
+    margin: 8px;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  h3 {
+    font-size: 0.95rem;
+  }
+
+  /* Table scrolling for mobile in landscape mode */
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  th,
+  td {
+    padding: 4px;
+    font-size: 0.75rem; /* Even smaller for mobile */
+  }
+
+  input[type="text"],
+  input[type="date"],
+  select,
+  textarea {
+    padding: 4px;
+    font-size: 0.75rem;
+  }
+
+  button {
+    padding: 6px 10px;
+    min-width: 70px;
+    font-size: 0.75rem;
+  }
+
+  input[type="file"] {
+    width: 100%;
+    font-size: 0.75rem;
+  }
+
+  /* Add a helper text for mobile users */
+  .mobile-helper {
+    display: block;
+    text-align: center;
+    color: #666;
+    margin: 8px 0;
+    font-style: italic;
+    font-size: 0.8rem;
+  }
+}
