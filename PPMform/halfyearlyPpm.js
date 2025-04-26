@@ -1,5 +1,9 @@
 api=getBaseUrl();
 token = localStorage.getItem('authToken');
+let videoStream = null;
+const videoElement = document.getElementById('video');
+const canvasElement = document.getElementById('canvas');
+const ctx = canvasElement.getContext('2d');
 function showSection(currentSection, nextSection) {
     // Stop camera when leaving selfie section
     if (currentSection === 'selfieSection') {
@@ -179,10 +183,8 @@ function updatePreview() {
   
 }
 
-let videoStream = null;
-const videoElement = document.getElementById('video');
-const canvasElement = document.getElementById('canvas');
-const ctx = canvasElement.getContext('2d');
+
+
 
 // Initialize camera when entering selfie section
 async function initializeCamera() {

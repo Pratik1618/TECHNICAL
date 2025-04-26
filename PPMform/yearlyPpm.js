@@ -1,5 +1,9 @@
 api = getBaseUrl();
 token = localStorage.getItem('authToken');
+let videoStream = null;
+const videoElement = document.getElementById('video');
+const canvasElement = document.getElementById('canvas');
+const ctx = canvasElement.getContext('2d');
 function showSection(currentSection, nextSection) {
     // Stop camera when leaving selfie section
     if (currentSection === 'selfieSection') {
@@ -286,10 +290,7 @@ document.getElementById('yearlyppmForm').addEventListener('submit', async (e) =>
     }
 });
 
-let videoStream = null;
-const videoElement = document.getElementById('video');
-const canvasElement = document.getElementById('canvas');
-const ctx = canvasElement.getContext('2d');
+
 
 // Initialize camera when entering selfie section
 async function initializeCamera() {
@@ -301,6 +302,7 @@ async function initializeCamera() {
     } catch (err) {
         console.error('Error accessing camera:', err);
         alert('Camera access denied. Please enable camera permissions to continue.');
+        alert(err);
     }
 }
 
