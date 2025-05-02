@@ -300,3 +300,26 @@ overflow-x: auto;
 }
 
 
+#ppmContainerHide {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+#ppmContainerHide a button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+ 
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect */
+#ppmContainerHide a button:hover {
+  background-color: #0056b3;
+}

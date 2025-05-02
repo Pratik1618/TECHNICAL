@@ -40,7 +40,7 @@ function setupLogoutHandler() {
   $('#logout-link').on('click', function(event) {
       event.preventDefault();
      
-      confirm('You have been logged out.');
+      alert('You have been logged out.');
 
    
       localStorage.removeItem('authToken'); 
