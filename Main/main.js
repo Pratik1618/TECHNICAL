@@ -1,5 +1,5 @@
 //main.js
-api=getBaseUrl();
+api = getBaseUrl();
 token = localStorage.getItem('authToken');
 
 
@@ -8,18 +8,18 @@ function previewPhoto(fileInputId, previewImgId) {
   const fileInput = document.getElementById(fileInputId);
   const previewImg = document.getElementById(previewImgId);
   const file = fileInput.files[0];
-  
+
   if (file) {
-      const reader = new FileReader();
-      
-      reader.onload = function(e) {
-          previewImg.src = e.target.result;
-          previewImg.style.display = 'block';
-      }
-      
-      reader.readAsDataURL(file);
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      previewImg.src = e.target.result;
+      previewImg.style.display = 'block';
+    }
+
+    reader.readAsDataURL(file);
   } else {
-      previewImg.style.display = 'none';
+    previewImg.style.display = 'none';
   }
 }
 
@@ -32,58 +32,58 @@ async function uploadPhoto(photoInputIdOrFile, backendName, previewImgId, dtoKey
 
   // Handle both input ID string and File object
   if (typeof photoInputIdOrFile === 'string') {
-      const photoInput = document.getElementById(photoInputIdOrFile);
-      file = photoInput.files[0];
+    const photoInput = document.getElementById(photoInputIdOrFile);
+    file = photoInput.files[0];
   } else if (photoInputIdOrFile instanceof File) {
-      file = photoInputIdOrFile;
+    file = photoInputIdOrFile;
   } else {
-      throw new Error('Invalid input type for uploadPhoto');
+    throw new Error('Invalid input type for uploadPhoto');
   }
 
   if (!file) {
-      alert('Please select a photo to upload.');
-      return;
+    alert('Please select a photo to upload.');
+    return;
   }
 
   const formData = new FormData();
   formData.append(backendName, file);
 
   try {
-      const response = await fetch(`${api}/inspectionPhoto/create`, {
-          method: 'POST',
-          headers: {
-              'Authorization': `${token}`
-          },
-          body: formData
-      });
+    const response = await fetch(`${api}/inspectionPhoto/create`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `${token}`
+      },
+      body: formData
+    });
 
-      if (!response.ok) {
-          throw new Error('Photo upload failed');
-      }else{
-        alert('Photo Upload Successfully')
-      }
+    if (!response.ok) {
+      throw new Error('Photo upload failed');
+    } else {
+      alert('Photo Upload Successfully')
+    }
 
-      const data = await response.json();
-      console.log('Upload successful:', data);
+    const data = await response.json();
+    console.log('Upload successful:', data);
 
-      // Update preview
-      const preview = document.getElementById(previewImgId);
-      if (preview) {
-          preview.src = URL.createObjectURL(file);
-          preview.style.display = 'block';
-      }
+    // Update preview
+    const preview = document.getElementById(previewImgId);
+    if (preview) {
+      preview.src = URL.createObjectURL(file);
+      preview.style.display = 'block';
+    }
 
-      // Set photo ID in hidden field
-      if (dtoKeyId) {
-          document.getElementById(dtoKeyId).value = data.id;
-      }
+    // Set photo ID in hidden field
+    if (dtoKeyId) {
+      document.getElementById(dtoKeyId).value = data.id;
+    }
 
-      return data.id;
+    return data.id;
 
   } catch (error) {
-      console.error('Upload error:', error);
-      alert('Error: ' + error.message);
-      throw error;
+    console.error('Upload error:', error);
+    alert('Error: ' + error.message);
+    throw error;
   }
 }
 
@@ -95,7 +95,7 @@ function previewPhoto(inputId, previewImgId) {
 
   if (file) {
     const reader = new FileReader();
-    reader.onload = function(event) {
+    reader.onload = function (event) {
       preview.src = event.target.result;
       preview.style.display = 'block';
     };
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function showNextSection(currentSectionId, nextSectionId) {
   // Stop camera when leaving selfie section
   if (currentSectionId === 'selfieSection') {
-      stopCamera();
+    stopCamera();
   }
 
   document.getElementById(currentSectionId).classList.remove('active');
@@ -156,11 +156,11 @@ function showNextSection(currentSectionId, nextSectionId) {
 
   // Initialize camera when entering selfie section
   if (nextSectionId === 'selfieSection') {
-      initializeCamera();
+    initializeCamera();
   }
 
   if (nextSectionId === 'previewSection') {
-      populatePreview();
+    populatePreview();
   }
 }
 function validateAndNext(currentSectionId, nextSectionId, photoInputId) {
@@ -297,12 +297,12 @@ function populatePreview() {
   ];
   const selfiePreview = document.getElementById('selfiePreview');
   if (selfiePreview.src) {
-      const selfieSection = document.createElement('div');
-      selfieSection.innerHTML = `
+    const selfieSection = document.createElement('div');
+    selfieSection.innerHTML = `
           <h3>Selfie with Timestamp</h3>
           <img src="${selfiePreview.src}" style="max-width: 300px;">
       `;
-      previewTables.appendChild(selfieSection);
+    previewTables.appendChild(selfieSection);
   }
   sections.forEach((section) => {
     const sectionElement = document.createElement("div");
@@ -369,8 +369,8 @@ function populatePreview() {
 
       tableBody.appendChild(newRow);
     });
-   
-   
+
+
 
     // Add photo to the section if uploaded
     const photoInput = document.getElementById(section.photoInputId);
@@ -417,7 +417,7 @@ document.getElementById("next-company").addEventListener("click", function () {
     },
     (error) => {
       let errorMessage;
-      switch(error.code) {
+      switch (error.code) {
         case error.PERMISSION_DENIED:
           errorMessage = "Please enable GPS permissions in your browser settings";
           break;
@@ -458,7 +458,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to fetch client and store data based on the ticket number
   function fetchDataByTicketNumber(ticketInput) {
     // Fetch data for the ticket
-    fetch(`${api}/schedule/ticket/${ticketInput}`,{ headers: {'Authorization': `${token}`}}) // Update URL as necessary
+    fetch(`${api}/schedule/ticket/${ticketInput}`, { headers: { 'Authorization': `${token}` } }) // Update URL as necessary
       .then((response) => response.json())
       .then((data) => {
         console.log("Ticket data:", data); // Log data for debugging
@@ -480,7 +480,7 @@ document.addEventListener("DOMContentLoaded", function () {
               storeSelect.innerHTML =
                 '<option value="">Select a Store</option>';
             }
-          }else{
+          } else {
             console.log("not valid schdeule type");
           }
         } else {
@@ -520,11 +520,11 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       // const zoneName = parseInt(document.getElementById("zoneName").value);
       // const stateName = parseInt(document.getElementById("stateName").value);
-      const latitude= document.getElementById("latitude").value;
+      const latitude = document.getElementById("latitude").value;
       const longitude = document.getElementById("longitude").value;
-      console.log(latitude,longitude);
-    
-      if(!latitude || !longitude){
+      console.log(latitude, longitude);
+
+      if (!latitude || !longitude) {
         alert("Please enable location permissions to proceed.");
       }
       const storeName = parseInt(
@@ -663,15 +663,15 @@ document.addEventListener("DOMContentLoaded", function () {
       const H2ok = getRadioValue("allPumps");
       const H2Reasion = document.getElementById("allPumps3").value;
 
-   
+
       const storeData = {
-      
-       
+
+
 
         // section A ---->
         signageIllumation: A1Ok == "OK" ? true : false,
         signageIllumationRemarks: A1Reasion,
-        signageIllumationPhotoId:document.getElementById("illuminationPhotoID").value.trim(),
+        signageIllumationPhotoId: document.getElementById("illuminationPhotoID").value.trim(),
 
         signagePhysicalConditionChecked: A2Ok == "OK" ? true : false,
         signagePhysicalRemarks: A2Reasion,
@@ -686,7 +686,7 @@ document.addEventListener("DOMContentLoaded", function () {
         signageShopFrantageCheckedOk: A5Ok == "OK" ? true : false,
         signageShopFrantageRemarks: A5Reasion,
 
-        signageAndFrontagePhotoId:document.getElementById("sectionAPhotoID").value.trim(),
+        signageAndFrontagePhotoId: document.getElementById("sectionAPhotoID").value.trim(),
 
         // section B ---->
         safetyFireAlarmCheckedOk: B1ok == "OK" ? true : false,
@@ -718,12 +718,12 @@ document.addEventListener("DOMContentLoaded", function () {
         safetyLooseConnectionCheckedOk: B9ok == "OK" ? true : false,
         safetyLooseConnectionRemarks: B9Reasion,
 
-        safteyAndSecurityPhotoId:document.getElementById("sectionBPhotoID").value.trim(),
+        safteyAndSecurityPhotoId: document.getElementById("sectionBPhotoID").value.trim(),
 
         //section C ----->
         shopTrackLightsCheckedOk: C1Ok == "OK" ? true : false,
         shopTrackLightsRemarks: C1Reasion,
-        shopTrackLightsPhotoId:document.getElementById("ceilingLightsPhotoID").value.trim(),
+        shopTrackLightsPhotoId: document.getElementById("ceilingLightsPhotoID").value.trim(),
 
         shopAllFloorsCheckedOk: C2ok == "OK" ? true : false,
         shopAllFloorsRemarks: C2Reasion,
@@ -739,9 +739,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         shopACCheckedOk: C6ok == "OK" ? true : false,
         shopACRemarks: C6Reasion,
-        shopACPhotoId:document.getElementById("acPhotoID").value.trim(),
+        shopACPhotoId: document.getElementById("acPhotoID").value.trim(),
 
-        mainShopPhotoId:document.getElementById("sectionCPhotoID").value.trim(),
+        mainShopPhotoId: document.getElementById("sectionCPhotoID").value.trim(),
 
 
         //section D ------>
@@ -760,7 +760,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trailRoomLightingSystemCheckedOk: D5ok == "OK" ? true : false,
         trailRoomLightingSystemRemarks: D5Reasion,
 
-        trailRoomPhotoId:document.getElementById("sectionDPhotoID").value.trim(),
+        trailRoomPhotoId: document.getElementById("sectionDPhotoID").value.trim(),
 
         //section E --->
         washroomWaterFlowCheckedOk: E1Ok == "OK" ? true : false,
@@ -772,7 +772,7 @@ document.addEventListener("DOMContentLoaded", function () {
         washroomFittingCheckedOk: E3ok == "OK" ? true : false,
         washroomFittingRemarks: E3Reasion,
 
-        washroomPhotoId:document.getElementById("sectionEPhotoID").value.trim(),
+        washroomPhotoId: document.getElementById("sectionEPhotoID").value.trim(),
 
 
         //section F --->
@@ -784,23 +784,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         electricalPanelRoomCheckedOk: F3ok == "OK" ? true : false,
         electricalPanelRoomRemarks: F3Reasion,
-        electricalPanelRoomPhotoId:document.getElementById("meterRoomPhotoID").value.trim(),
+        electricalPanelRoomPhotoId: document.getElementById("meterRoomPhotoID").value.trim(),
 
         electricalStablizerCheckedOk: F4ok == "OK" ? true : false,
         electricalStablizerRemarks: F4Reasion,
 
-        electricalPhotoId:document.getElementById("sectionFPhotoID").value.trim(),
+        electricalPhotoId: document.getElementById("sectionFPhotoID").value.trim(),
 
         //section G --->
         deiselFuelIndicatorCheckedOk: G1Ok == "OK" ? true : false,
         deiselFuelIndicatorRemarks: G1Reasion,
-        deiselFuelIndicatorPhotoId:document.getElementById("fuelPhotoID").value.trim(),
+        deiselFuelIndicatorPhotoId: document.getElementById("fuelPhotoID").value.trim(),
 
         deiselBatteryChargesCheckedOk: G2ok == "OK" ? true : false,
         deiselBatteryChargesRemarks: G2Reasion,
-        deiselBatteryChargesPhotoId:document.getElementById("batteryPhotoID").value.trim(),
+        deiselBatteryChargesPhotoId: document.getElementById("batteryPhotoID").value.trim(),
 
-        deiselGeneratorPhotoId:document.getElementById("sectionGPhotoID").value.trim(),
+        deiselGeneratorPhotoId: document.getElementById("sectionGPhotoID").value.trim(),
 
 
         //section H --->
@@ -810,7 +810,7 @@ document.addEventListener("DOMContentLoaded", function () {
         pumbingAllPumpsCheckedOk: H2ok == "OK" ? true : false,
         pumbingAllPumpsRemarks: H2Reasion,
 
-        pumbingAndsanitationPhotoId:document.getElementById("sectionHPhotoID").value.trim(),
+        pumbingAndsanitationPhotoId: document.getElementById("sectionHPhotoID").value.trim(),
 
         tikitNumber: ticketNumber,
 
@@ -819,7 +819,7 @@ document.addEventListener("DOMContentLoaded", function () {
         store: {
           id: storeName,
         },
-        
+
         client: {
           id: client,
         },
@@ -831,8 +831,8 @@ document.addEventListener("DOMContentLoaded", function () {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-         
-            'Authorization': `${token}`
+
+          'Authorization': `${token}`
         },
         body: JSON.stringify(storeData),
       })
@@ -842,7 +842,7 @@ document.addEventListener("DOMContentLoaded", function () {
           console.log("Success:", result);
           displaySuccess("Data saved successfully!");
           document.getElementById("multiStepForm").reset();
-          window.location.href="inspectionList.html";
+          window.location.href = "inspectionList.html";
         })
         .catch((error) => {
           console.error("Error submitting form:", error);
@@ -876,60 +876,60 @@ const ctx = canvasElement.getContext('2d');
 
 // Initialize camera when entering selfie section
 async function initializeCamera() {
-    try {
-        videoStream = await navigator.mediaDevices.getUserMedia({
-            video: { facingMode: "user" } // Front camera
-        });
-        videoElement.srcObject = videoStream;
-    } catch (err) {
-        console.error('Error accessing camera:', err);
-        alert('Camera access denied. Please enable camera permissions to continue.');
-    }
+  try {
+    videoStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "user" } // Front camera
+    });
+    videoElement.srcObject = videoStream;
+  } catch (err) {
+    console.error('Error accessing camera:', err);
+    alert('Camera access denied. Please enable camera permissions to continue.');
+  }
 }
 
 function stopCamera() {
-    if (videoStream) {
-        videoStream.getTracks().forEach(track => track.stop());
-        videoElement.srcObject = null;
-    }
+  if (videoStream) {
+    videoStream.getTracks().forEach(track => track.stop());
+    videoElement.srcObject = null;
+  }
 }
 
 async function captureSelfie() {
-    if (!videoStream) {
-        alert('Camera not initialized. Please allow camera access.');
-        return;
+  if (!videoStream) {
+    alert('Camera not initialized. Please allow camera access.');
+    return;
+  }
+
+  // Set canvas dimensions
+  canvasElement.width = videoElement.videoWidth;
+  canvasElement.height = videoElement.videoHeight;
+
+  // Draw current video frame
+  ctx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+
+  // Add timestamp
+  const now = new Date();
+  ctx.fillStyle = 'red';
+  ctx.font = '40px Arial';
+  ctx.fillText(now.toLocaleString(), 10, canvasElement.height - 10);
+
+  // Convert to blob
+  canvasElement.toBlob(async (blob) => {
+    const file = new File([blob], `selfie_${Date.now()}.jpg`, {
+      type: 'image/jpeg'
+    });
+
+    try {
+      // Use modified uploadPhoto with File object
+      await uploadPhoto(
+        file,          // File object
+        'file',        // backendName
+        'selfiePreview', // previewImgId
+        'selfiePhotoID'  // dtoKeyId
+      );
+
+    } catch (error) {
+      console.error('Selfie upload failed:', error);
     }
-
-    // Set canvas dimensions
-    canvasElement.width = videoElement.videoWidth;
-    canvasElement.height = videoElement.videoHeight;
-
-    // Draw current video frame
-    ctx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
-
-    // Add timestamp
-    const now = new Date();
-    ctx.fillStyle = 'red';
-    ctx.font = '40px Arial';
-    ctx.fillText(now.toLocaleString(), 10, canvasElement.height - 10);
-
-    // Convert to blob
-    canvasElement.toBlob(async (blob) => {
-        const file = new File([blob], `selfie_${Date.now()}.jpg`, {
-            type: 'image/jpeg'
-        });
-
-        try {
-            // Use modified uploadPhoto with File object
-            await uploadPhoto(
-                file,          // File object
-                'file',        // backendName
-                'selfiePreview', // previewImgId
-                'selfiePhotoID'  // dtoKeyId
-            );
-
-        } catch (error) {
-            console.error('Selfie upload failed:', error);
-        }
-    }, 'image/jpeg');
+  }, 'image/jpeg');
 }

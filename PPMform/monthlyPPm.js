@@ -117,10 +117,19 @@ async function uploadPhoto(photoInputIdOrFile, backendName, previewImgId, dtoKey
 // Update Preview Section
 function updatePreview() {
     // Company Details
+    const clientSelect = document.getElementById('companyName');
+    const storeSelect = document.getElementById('storeName');
+
     document.getElementById('previewCompanyName').textContent =
-        document.getElementById('companyName').value;
+        clientSelect.options[clientSelect.selectedIndex]?.text || '';
+
     document.getElementById('previewCompanyAddress').textContent =
-        document.getElementById('storeName').value;
+        storeSelect.options[storeSelect.selectedIndex]?.text || '';
+
+    // document.getElementById('previewCompanyName').textContent =
+    //     document.getElementById('companyName').value;
+    // document.getElementById('previewCompanyAddress').textContent =
+    //     document.getElementById('storeName').value;
 
     // Monthly PPM Table
     const monthlyTable = document.createElement('table');
@@ -233,9 +242,49 @@ function updatePreview() {
     addSection('Fire Extinguisher Status', fireTable);
 }
 
+function validateCompanyDetails() {
+    let isValid = true;
+    
+    // Get values
+    const ticketNumber = document.getElementById('ticketNumber').value;
+    const companyName = document.getElementById('companyName').value;
+    const storeName = document.getElementById('storeName').value;
+
+
+    // Clear previous errors
+    document.querySelectorAll('.error').forEach(el => el.textContent = '');
+
+    // Validate each field
+    if (!ticketNumber) {
+        document.getElementById('ticketNumberError').textContent = 'Ticket number is required';
+        isValid = false;
+    }
+    
+    if (!companyName) {
+        document.getElementById('companyNameError').textContent = 'Company name is required';
+        isValid = false;
+    }
+    
+    if (!storeName) {
+        document.getElementById('storeNameError').textContent = 'Store name is required';
+        isValid = false;
+    }
+    
+    
+
+    return isValid;
+}
+
 
 // Update the showSection function to include preview update
 function showSection(currentSection, nextSection) {
+
+    if (currentSection === 'companyDetails' && nextSection === 'monthlyPPM') {
+        if (!validateCompanyDetails()) {
+            return;
+        }
+    }
+
     // Stop camera when leaving selfie section
     if (currentSection === 'selfieSection') {
         stopCamera();
@@ -320,3 +369,71 @@ async function captureSelfie() {
         }
     }, 'image/jpeg');
 }
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const clientSelect = document.getElementById("companyName");
+    const storeSelect = document.getElementById("storeName");
+    const ticketInput = document.getElementById("ticketNumber");
+    const frequencySelect = document.getElementById("frequency");
+
+    // Function to fetch client and store data based on the ticket number
+    function fetchDataByTicketNumber(ticketInput) {
+        // Fetch data for the ticket
+        fetch(`${api}/schedule/ticket/${ticketInput}`, { headers: { 'Authorization': `${token}` } }) // Update URL as necessary
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Ticket data:", data); // Log data for debugging
+
+                if (data) {
+                    if (data.scheduleFor === "PPM-Monthly") {
+                        // Update the client dropdown
+                        if (data.client && data.client.id && data.client.clientName) {
+                            clientSelect.innerHTML = `<option value="${data.client.id}">${data.client.clientName}</option>`;
+                        } else {
+                            clientSelect.innerHTML =
+                                '<option value="">Select a client</option>';
+                        }
+
+                        // Update the store dropdown
+                        if (data.store && data.store.id && data.store.storeName) {
+                            storeSelect.innerHTML = `<option value="${data.store.id}">${data.store.storeCode} - ${data.store.storeName}</option>`;
+                        } else {
+                            storeSelect.innerHTML =
+                                '<option value="">Select a Store</option>';
+                        }
+                        if (data.scheduleFor) {
+                            frequencySelect.innerHTML = `<option value="${data.store.id}">${data.scheduleFor}</option>`;
+                        } else {
+                            frequencySelect.innerHTML =
+                                '<option value="">Select a frequency</option>';
+                        }
+                    } else {
+                        console.log("not valid schdeule type");
+                    }
+                } else {
+                    // Handle cases where no data is returned
+                    clientSelect.innerHTML = '<option value="">Select a client</option>';
+                    storeSelect.innerHTML = '<option value="">Select a Store</option>';
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching ticket data:", error);
+                displayError("Failed to load ticket data. Please try again later.");
+            });
+    }
+
+    // Event listener for changes in the ticket number input
+    ticketInput.addEventListener("change", function () {
+        const ticketNumber = this.value;
+
+        if (ticketNumber) {
+            fetchDataByTicketNumber(ticketNumber);
+        } else {
+            // Reset dropdowns if no ticket number is entered
+            clientSelect.innerHTML = '<option value="">Select a client</option>';
+            storeSelect.innerHTML = '<option value="">Select a Store</option>';
+        }
+    });
+});

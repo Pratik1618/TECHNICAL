@@ -1,236 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Electrical Preventive Maintenance Checklist</title>
-  <link rel="stylesheet" href="ppmform.css" >
-   
-</head>
-<body>
+ <link rel="stylesheet" href="halfyearly.css" />
+  </head>
+  <body>
     <div class="container">
-        <form id="halfyearlyppmForm">
-            <!-- Company Details Section -->
-         
-            <div class="form-section active" id="companyDetails">
-                <h2>Company Details</h2>
-                <div class="table-container">
-                <table>
-                    <tr>
-                        <td><label for="ticketNumber">Ticket Number:</label></td>
-                        <td><input type="text" id="ticketNumber" required></td>
-                    </tr>
-                    <tr>
-                        <td><label for="companyName">Company Name:</label></td>
-                        <td><select id="companyName" required>
-                            <option value="">Select Company</option>
-                            <!-- Add options dynamically -->
-                        </select></td>
-                    </tr>
-                    <tr>
-                        <td><label for="storeName">Store Name:</label></td>
-                        <td><select id="storeName" required>
-                            <option value="">Select Store</option>
-                            <!-- Add options dynamically -->
-                        </select></td>
-                    </tr>
-                </table>
-            </div>
-                <div class="button-group">
-                    
-                    <button type="button" onclick="showSection('companyDetails', 'halfyearlyPpm')">Next</button>
-                </div>
-            </div>
-            <!-- Monthly PPM Section -->
-            <div class="form-section " id="halfyearlyPpm">
-                <h2> ELECTRICAL PREVENTIVE MAINTENANCE CHECKLIST - HALF-YEARLY</h2>
-               <div class="mobile-helper">
-                For best viewing on mobile devices, please rotate your device to landscape mode.
-               </div>
-               <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Equipment</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Comments</th>
-                            <th>Photo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Add 5 sample rows - extend as needed -->
-                        <tr>
-                            <td>Main Control Panel</td>
-                            <td>Clean the panels</td>
-                       
-                            <td>
-                                <select id="mainControlPanel">
-                                    <option disabled selected>Choose</option>
-                                    <option value="ok">OK</option>
-                                    <option value="not-ok">Not OK</option>
-                                    <option value="na">N/A</option>
-                                </select>
-                            </td>
-                            <td><input type="text" id="mainControlPanelComment"></td>
-                        </tr>
-                        <tr>
-                            <td>Main Control Panel</td>
-                            <td>Oiling of Circuit Breaker moving parts</td>
-                            <td>
-                                <select id="mainControlPanel2">
-                                    <option disabled selected>Choose</option>
-                                    <option value="ok">OK</option>
-                                    <option value="not-ok">Not OK</option>
-                                    <option value="na">N/A</option>
-                            </td>
-                            <td><input type="text" id="mainControlPanel2"></td>
-                        </tr>
-                        <tr>
-                            <td>Distribution Boards</td>
-                            <td>Clean the panels</td>
-                            <td>
-                                <select id="distributionBoards">
-                                    <option disabled selected>Choose</option>
-                                    <option value="ok">OK</option>
-                                    <option value="not-ok">Not OK</option>
-                                    <option value="na">N/A</option>
-                            </td>
-                            <td><input type="text" id="distributionBoardsComment"></td>
-                            <td>
-                                <div class="photo-upload">
-                                    <input type="file" id="distributionBoardsPhoto" name="distributionBoardsPhoto" accept="image/*" 
-                                           onchange="previewPhoto('distributionBoardsPhoto', 'distributionBoardsPreview')">
-                                    <input type="hidden" name="distributionBoardsPhotoID" id="distributionBoardsPhotoID">
-                                    <button type="button" 
-                                            onclick="uploadPhoto('distributionBoardsPhoto', 'file', 'distributionBoardsPreview', 'distributionBoardsPhotoID')">
-                                        Upload
-                                    </button>
-                                    <img id="distributionBoardsPreview" style="display: none; width: 50px; height: 50px;">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Bus Duct</td>
-                            <td>Clean the ducts</td>
-                            <td>
-                                <select id="busDuct">
-                                    <option disabled selected>Choose</option>
-                                    <option value="ok">OK</option>
-                                    <option value="not-ok">Not OK</option>
-                                    <option value="na">N/A</option>
-                            </td>
-                            <td><input type="text" id="busDuctComment"></td>
-                        </tr>
-                        <tr>
-                            <td>Capacitor Panel </td>
-                            <td>Clean the panels</td>
-                            <td>
-                                <select id="CapacitorPanel">
-                                    <option disabled selected>Choose</option>
-                                    <option value="ok">OK</option>
-                                    <option value="not-ok">Not OK</option>
-                                    <option value="na">N/A</option>
-                            </td>
-                            <td><input type="text" id="CapacitorPanelComment"></td>
-                            <td>
-                                <div class="photo-upload">
-                                    <input type="file" id="CapacitorPanelPhoto" name="CapacitorPanelPhoto" accept="image/*" 
-                                           onchange="previewPhoto('CapacitorPanelPhoto', 'CapacitorPanelPreview')">
-                                    <input type="hidden" name="CapacitorPanelPhotoID" id="CapacitorPanelPhotoID">
-                                    <button type="button" 
-                                            onclick="uploadPhoto('CapacitorPanelPhoto', 'file', 'CapacitorPanelPreview', 'CapacitorPanelPhotoID')">
-                                        Upload
-                                    </button>
-                                    <img id="CapacitorPanelPreview" style="display: none; width: 50px; height: 50px;">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Capacitor Panel </td>
-                            <td>Oiling of Circuit Breaker moving parts </td>
-                            <td>
-                                <select id="CapacitorPanel2">
-                                    <option value="ok">OK</option>
-                                    <option disabled selected>Choose</option>
-                                    <option value="not-ok">Not OK</option>
-                                    <option value="na">N/A</option>
-                            </td>
-                            <td><input type="text" id="CapacitorPanel2Comment"></td>
-                            <td>
-                                <div class="photo-upload">
-                                    <input type="file" id="CapacitorPanel2Photo" name="CapacitorPanel2Photo" accept="image/*" 
-                                           onchange="previewPhoto('CapacitorPanel2Photo', 'CapacitorPanel2Preview')">
-                                    <input type="hidden" name="CapacitorPanel2PhotoID" id="CapacitorPanel2PhotoID">
-                                    <button type="button" 
-                                            onclick="uploadPhoto('CapacitorPanel2Photo', 'file', 'CapacitorPanel2Preview', 'CapacitorPanel2PhotoID')">
-                                        Upload
-                                    </button>
-                                    <img id="CapacitorPanel2Preview" style="display: none; width: 50px; height: 50px;">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Electric Motors / pumps</td>
-                            <td>Clean and Oil all moving parts </td>
-                            <td>
-                                <select id="electricMotors">
-                                    <option disabled selected>Choose</option>
-                                    <option value="ok">OK</option>
-                                    <option value="not-ok">Not OK</option>
-                                    <option value="na">N/A</option>
-                            </td>
-                            <td><input type="text" id="electricMotorsComment"></td>
-                        </tr>
-                      
-                        <!-- Add more monthly items here -->
-                    </tbody>
-                </table>
-            </div>
-                <div class="button-group">
-                    <button type="button" onclick="showSection('halfyearlyPpm', 'companyDetails')">Back</button>
-                    <button type="button" onclick="showSection('halfyearlyPpm', 'selfieSection')">Next</button>
-                </div>
-            </div>
+      <form id="halfyearlyppmForm">
+        <!-- Company Details Section -->
+        <div class="form-section active" id="companyDetails">
+          <h2>Company Details</h2>
+          <div class="table-container">
+            <table>
+              <tr>
+                <td width="30%">
+                  <label for="ticketNumber">Ticket Number:</label>
+                </td>
+                <td><input type="text" id="ticketNumber" required /></td>
+              </tr>
+              <tr>
+                <td><label for="companyName">Company Name:</label></td>
+                <td>
+                  <select id="companyName" required>
+                    <option value="">Select Company</option>
+                    <option value="company1">Company 1</option>
+                    <option value="company2">Company 2</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label for="storeName">Store Name:</label></td>
+                <td>
+                  <select id="storeName" required>
+                    <option value="">Select Store</option>
+                    <option value="store1">Store 1</option>
+                    <option value="store2">Store 2</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="button-group">
+            <button type="button" class="secondary" disabled>Back</button>
+            <button
+              type="button"
+              class="primary"
+              onclick="validateCompanyDetails()"
+            >
+              Next
+            </button>
+          </div>
+        </div>
 
-            <div class="table-container form-section" id="selfieSection">
-                <h2>Capture Selfie with Timestamp</h2>
-                <div class="camera-container">
-                    <video id="video" width="320" height="240" autoplay></video>
-                    <canvas id="canvas" style="display: none;"></canvas>
-                </div>
-                <div class="button-group">
-                    <button type="button" onclick="showSection('selfieSection', 'halfyearlyPpm')">Back</button>
-                    <button type="button" onclick="captureSelfie()">Capture Selfie</button>
-                    <button type="button" onclick="showSection('selfieSection', 'previewSection')">Next</button>
-                </div>
-                <div class="photo-upload">
-                    <input type="hidden" name="selfiePhotoID" id="selfiePhotoID">
-                    <img id="selfiePreview" style="display: none; width: 200px; height: 150px;">
-                </div>
-            </div>
-            <div class="form-section" id="previewSection">
-                <h2 id="preview">Preview</h2>
-                <h3>Company Information</h3>
-                <p>Company Name&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<span id="previewCompanyName"></span></p>
-                <p>Store Name:&nbsp; <span id="previewCompanyAddress"></span></p>
-                
-                <div id="previewTables"></div>
-                <div id="success-message"></div>
-                <div id="error-message"></div>
-                <div class="backnext">
-                    <button class="back" type="button"
-                        onclick="showSection('previewSection', 'halfyearlyPpm')">Previous</button>
-                    <button class="back" id="submitForm" class="sub-pre" type="submit">Submit</button>
-                </div>
-            </div>
+        <!-- Half-Yearly PPM Section -->
+        <div class="form-section" id="halfyearlyPpm">
+          <h2>ELECTRICAL PREVENTIVE MAINTENANCE CHECKLIST - HALF-YEARLY</h2>
+          <div class="mobile-helper">
+            For best viewing on mobile devices, please rotate your device to
+            landscape mode.
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th width="20%">Equipment</th>
+                  <th width="30%">Description</th>
+                  <th width="15%">Status</th>
+                  <th width="20%">Comments</th>
+                  <th width="15%">Photo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Main Control Panel</td>
+                  <td>Clean the panels</td>
+                  <td>
+                    <select id="mainControlPanelStatus" class="status-select">
+                      <option disabled selected value="">Choose</option>
+                      <option value="ok">OK</option>
+                      <option value="not-ok">Not OK</option>
+                      <option value="na">N/A</option>
+                    </select>
+                  </td>
+                  <td><input type="text" id="mainControlPanelComment" /></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Main Control Panel</td>
+                  <td>Oiling of Circuit Breaker moving parts</td>
+                  <td>
+                    <select id="mainControlPanel2Status" class="status-select">
+                      <option disabled selected value="">Choose</option>
+                      <option value="ok">OK</option>
+                      <option value="not-ok">Not OK</option>
+                      <option value="na">N/A</option>
+                    </select>
+                  </td>
+                  <td><input type="text" id="mainControlPanel2Comment" /></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Distribution Boards</td>
+                  <td>Clean the panels</td>
+                  <td>
+                    <select id="distributionBoardsStatus" class="status-select">
+                      <option disabled selected value="">Choose</option>
+                      <option value="ok">OK</option>
+                      <option value="not-ok">Not OK</option>
+                      <option value="na">N/A</option>
+                    </select>
+                  </td>
+                  <td><input type="text" id="distributionBoardsComment" /></td>
+                  <td>
+                    <div class="photo-upload">
+                      <input
+                        type="file"
+                        id="distributionBoardsPhoto"
+                        accept="image/*"
+                        style="display: none"
+                      />
+                      <button
+                        type="button"
+                        class="upload-btn"
+                        onclick="document.getElementById('distributionBoardsPhoto').click()"
+                      >
+                        Upload Photo
+                      </button>
+                      <img
+                        id="distributionBoardsPreview"
+                        class="photo-preview"
+                        style="display: none"
+                      />
+                    </div>
+                    <input type="hidden" id="distributionBoardsPhotoId">
+                  </td>
+                </tr>
+                <tr>
+                  <td>Bus Duct</td>
+                  <td>Clean the ducts</td>
+                  <td>
+                    <select id="busDuctStatus" class="status-select">
+                      <option disabled selected value="">Choose</option>
+                      <option value="ok">OK</option>
+                      <option value="not-ok">Not OK</option>
+                      <option value="na">N/A</option>
+                    </select>
+                  </td>
+                  <td><input type="text" id="busDuctComment" /></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Capacitor Panel</td>
+                  <td>Clean the panels</td>
+                  <td>
+                    <select id="CapacitorPanelStatus" class="status-select">
+                      <option disabled selected value="">Choose</option>
+                      <option value="ok">OK</option>
+                      <option value="not-ok">Not OK</option>
+                      <option value="na">N/A</option>
+                    </select>
+                  </td>
+                  <td><input type="text" id="CapacitorPanelComment" /></td>
+                  <td>
+                    <div class="photo-upload">
+                        <input type="hidden" id="CapacitorPanelPhotoId">
+                      <input
+                        type="file"
+                        id="CapacitorPanelPhoto"
+                        accept="image/*"
+                        style="display: none"
+                      />
+                      <button
+                        type="button"
+                        class="upload-btn"
+                        onclick="document.getElementById('CapacitorPanelPhoto').click()"
+                      >
+                        Upload Photo
+                      </button>
+                      <img
+                        id="CapacitorPanelPreview"
+                        class="photo-preview"
+                        style="display: none"
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Capacitor Panel</td>
+                  <td>Oiling of Circuit Breaker moving parts</td>
+                  <td>
+                    <select id="CapacitorPanel2Status" class="status-select">
+                      <option disabled selected value="">Choose</option>
+                      <option value="ok">OK</option>
+                      <option value="not-ok">Not OK</option>
+                      <option value="na">N/A</option>
+                    </select>
+                  </td>
+                  <td><input type="text" id="CapacitorPanel2Comment" /></td>
+                  <td>
+                    <div class="photo-upload">
+                        <input type="hidden" id="CapacitorPanel2PhotoId">
+                      <input
+                        type="file"
+                        id="CapacitorPanel2Photo"
+                        accept="image/*"
+                        style="display: none"
+                      />
+                      <button
+                        type="button"
+                        class="upload-btn"
+                        onclick="document.getElementById('CapacitorPanel2Photo').click()"
+                      >
+                        Upload Photo
+                      </button>
+                      <img
+                        id="CapacitorPanel2Preview"
+                        class="photo-preview"
+                        style="display: none"
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Electric Motors / pumps</td>
+                  <td>Clean and Oil all moving parts</td>
+                  <td>
+                    <select id="electricMotorsStatus" class="status-select">
+                      <option disabled selected value="">Choose</option>
+                      <option value="ok">OK</option>
+                      <option value="not-ok">Not OK</option>
+                      <option value="na">N/A</option>
+                    </select>
+                  </td>
+                  <td><input type="text" id="electricMotorsComment" /></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="button-group">
+            <button
+              type="button"
+              class="secondary"
+              onclick="showSection('halfyearlyPpm', 'companyDetails')"
+            >
+              Back
+            </button>
+            <button type="button" class="primary" onclick="validateChecklist()">
+              Next
+            </button>
+          </div>
+        </div>
 
-       
-        </form>
+        <!-- Selfie Section -->
+        <div class="form-section" id="selfieSection">
+          <h2>Verification</h2>
+          <p>Please capture a timestamped photo with the completed work.</p>
+
+          <div class="camera-container">
+            <video id="video" autoplay></video>
+            <canvas id="canvas" style="display: none"></canvas>
+          </div>
+
+          <div class="camera-controls">
+            <button
+              type="button"
+              class="secondary"
+              onclick="showSection('selfieSection', 'halfyearlyPpm')"
+            >
+              Back
+            </button>
+            <button type="button" class="primary" onclick="captureSelfie()">
+              Capture Photo
+            </button>
+          </div>
+          <input type="hidden" id="CapacitorPanel2PhotoId">
+          <div id="selfieResult" style="margin-top: 20px; text-align: center">
+            <img
+              id="selfiePreview"
+              class="photo-preview"
+              style="display: none; margin: 0 auto"
+
+            />
+            <p
+              id="selfieError"
+              style="color: var(--error-color); display: none"
+            >
+              Please capture a verification photo before proceeding.
+            </p>
+          </div>
+
+          <div class="button-group" style="margin-top: 30px">
+            <button
+              type="button"
+              class="secondary"
+              onclick="showSection('selfieSection', 'halfyearlyPpm')"
+            >
+              Back
+            </button>
+            <button type="button" class="primary" onclick="validateSelfie()">
+              Next
+            </button>
+          </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="form-section" id="previewSection">
+          <h2>Preview Submission</h2>
+
+          <h3>Company Information</h3>
+          <div class="table-container">
+            <table>
+              <tr>
+                <td width="30%"><strong>Ticket Number:</strong></td>
+                <td id="previewTicketNumber"></td>
+              </tr>
+              <tr>
+                <td><strong>Company Name:</strong></td>
+                <td id="previewCompanyName"></td>
+              </tr>
+              <tr>
+                <td><strong>Store Name:</strong></td>
+                <td id="previewStoreName"></td>
+              </tr>
+            </table>
+          </div>
+
+          <h3>Checklist Summary</h3>
+          <div class="table-container">
+            <table id="previewChecklistTable">
+              <thead>
+                <tr>
+                  <th>Equipment</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Comments</th>
+                  <th>Photo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Filled by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Verification Photo</h3>
+          <div style="text-align: center; margin: 20px 0">
+            <img
+              id="previewSelfie"
+              class="photo-preview"
+              style="width: 300px; height: auto; display: none"
+            />
+          </div>
+
+          <div id="submitMessages">
+            <div
+              id="error-message"
+              style="color: var(--error-color); display: none"
+            ></div>
+            <div
+              id="success-message"
+              style="color: var(--primary-color); display: none"
+            ></div>
+          </div>
+
+          <div class="button-group">
+            <button
+              type="button"
+              class="secondary"
+              onclick="showSection('previewSection', 'selfieSection')"
+            >
+              Back
+            </button>
+            <button type="submit" class="primary" id="submitForm">
+              Submit Checklist
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-    <script src="../globals/global.js"></script>
 
-<script src="halfyearlyPpm.js"></script>
-<script src="ppmResponsive.js"></script>
-</body>
+    <!-- Photo Preview Modal -->
+    <div id="imageModal" class="modal-preview">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <img class="modal-content" id="modalImage" />
+    </div>
+
+   <script src="halfyearlyPpm.js"></script>
+  </body>
 </html>

@@ -1,247 +1,433 @@
-api=getBaseUrl();
-token = localStorage.getItem('authToken');
-let videoStream = null;
-const videoElement = document.getElementById('video');
-const canvasElement = document.getElementById('canvas');
-const ctx = canvasElement.getContext('2d');
-function showSection(currentSection, nextSection) {
-    // Stop camera when leaving selfie section
-    if (currentSection === 'selfieSection') {
-        stopCamera();
+const api = "http://localhost:5000";
+const token = localStorage.getItem("token");
+// Global variables
+let currentSection = "companyDetails";
+let cameraStream = null;
+
+
+async function uploadPhoto(
+  photoInputIdOrFile,
+
+  previewImgId,
+  dtoKeyId = ""
+) {
+  let file;
+
+  // Handle both input ID string and File object
+  if (typeof photoInputIdOrFile === "string") {
+    const photoInput = document.getElementById(photoInputIdOrFile);
+    file = photoInput.files[0];
+  } else if (photoInputIdOrFile instanceof File) {
+    file = photoInputIdOrFile;
+  } else {
+    throw new Error("Invalid input type for uploadPhoto");
+  }
+
+  if (!file) {
+    alert("Please select a photo to upload.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const response = await fetch(`${api}/inspectionPhoto/create`, {
+      method: "POST",
+      headers: {
+        Authorization: token,
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("Photo upload failed");
     }
 
-    document.getElementById(currentSection).classList.remove('active');
-    document.getElementById(nextSection).classList.add('active');
+    const data = await response.json();
+    console.log("Upload successful:", data);
 
-    // Initialize camera when entering selfie section
-    if (nextSection === 'selfieSection') {
-        initializeCamera();
+    // Update preview
+    const preview = document.getElementById(previewImgId);
+    if (preview) {
+      preview.src = URL.createObjectURL(file);
+      preview.style.display = "block";
     }
 
-    if (nextSection === 'previewSection') {
-        updatePreview();
+    // Set photo ID in hidden field
+    if (dtoKeyId) {
+      document.getElementById(dtoKeyId).value = data.id;
     }
+
+    return data.id;
+  } catch (error) {
+    console.error("Upload error:", error);
+    alert("Error: " + error.message);
+    throw error;
+  }
 }
+// Initialize form
+document.addEventListener("DOMContentLoaded", function () {
+  // Set up event listeners for photo uploads
+  setupPhotoUpload('distributionBoardsPhoto', 'distributionBoardsPreview', 'distributionBoardsPhotoId');
+setupPhotoUpload('CapacitorPanelPhoto', 'CapacitorPanelPreview', 'CapacitorPanelPhotoId');
+setupPhotoUpload('CapacitorPanel2Photo', 'CapacitorPanel2Preview', 'CapacitorPanel2PhotoId');
+  // Initialize camera when selfie section is shown
+  document
+    .getElementById("selfieSection")
+    .addEventListener("show", initCamera);
+  document
+    .getElementById("selfieSection")
+    .addEventListener("hide", stopCamera);
 
-
-
-// Form Submission
-document.getElementById('ppmForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Add validation logic here
-    const formData = new FormData(this);
-    
-    // Process form data (Add your submission logic here)
-    console.log([...formData.entries()]);
-    
-    alert('Form submitted successfully!');
-    // Reset form or redirect as needed
+  // Form submission
+  document
+    .getElementById("halfyearlyppmForm")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+      submitForm();
+    });
 });
 
-function previewPhoto(inputId, previewImgId) {
-    const input = document.getElementById(inputId);
-    const preview = document.getElementById(previewImgId);
-    const file = input.files[0];
+// Section navigation
+function showSection(from, to) {
+  document.getElementById(from).classList.remove("active");
+  document.getElementById(to).classList.add("active");
 
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            preview.src = event.target.result;
-            preview.style.display = 'block';
-        };
-        reader.readAsDataURL(file);
+  // Trigger custom events
+  document.getElementById(from).dispatchEvent(new Event("hide"));
+  document.getElementById(to).dispatchEvent(new Event("show"));
+
+  currentSection = to;
+}
+
+// Validation functions
+function validateCompanyDetails() {
+  const ticketNumber = document
+    .getElementById("ticketNumber")
+    .value.trim();
+  const companyName = document.getElementById("companyName").value;
+  const storeName = document.getElementById("storeName").value;
+
+  if (!ticketNumber || !companyName || !storeName) {
+    alert("Please fill in all company details before proceeding.");
+    return;
+  }
+
+  showSection("companyDetails", "halfyearlyPpm");
+}
+
+function validateChecklist() {
+  // Check if all required fields are filled
+  let isValid = true;
+  document.querySelectorAll(".status-select").forEach((select) => {
+    if (!select.value) {
+      select.classList.add("error-field");
+      isValid = false;
     } else {
-        preview.src = '';
-        preview.style.display = 'none';
+      select.classList.remove("error-field");
     }
+  });
+
+  if (!isValid) {
+    alert("Please select a status for all checklist items.");
+    return;
+  }
+
+  showSection("halfyearlyPpm", "selfieSection");
 }
 
-async function applyValueToID(id, value) {
-    document.getElementById(id).value = value;
-}
-// Function to upload the photo
-async function uploadPhoto(photoInputIdOrFile, backendName, previewImgId, dtoKeyId = '') {
-    let file;
+function validateSelfie() {
+  const selfiePreview = document.getElementById("selfiePreview");
 
-    // Handle both input ID string and File object
-    if (typeof photoInputIdOrFile === 'string') {
-        const photoInput = document.getElementById(photoInputIdOrFile);
-        file = photoInput.files[0];
-    } else if (photoInputIdOrFile instanceof File) {
-        file = photoInputIdOrFile;
-    } else {
-        throw new Error('Invalid input type for uploadPhoto');
-    }
+  if (selfiePreview.style.display === "none") {
+    document.getElementById("selfieError").style.display = "block";
+    return;
+  }
 
-    if (!file) {
-        alert('Please select a photo to upload.');
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append(backendName, file);
-
-    try {
-        const response = await fetch(`${api}/inspectionPhoto/create`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `${token}`
-            },
-            body: formData
-        });
-
-        if (!response.ok) {
-            throw new Error('Photo upload failed');
-        }else{
-            alert('Photo Upload Successfully')
-          }
-
-        const data = await response.json();
-        console.log('Upload successful:', data);
-
-        // Update preview
-        const preview = document.getElementById(previewImgId);
-        if (preview) {
-            preview.src = URL.createObjectURL(file);
-            preview.style.display = 'block';
-        }
-
-        // Set photo ID in hidden field
-        if (dtoKeyId) {
-            document.getElementById(dtoKeyId).value = data.id;
-        }
-
-        return data.id;
-
-    } catch (error) {
-        console.error('Upload error:', error);
-        alert('Error: ' + error.message);
-        throw error;
-    }
+  document.getElementById("selfieError").style.display = "none";
+  updatePreview();
+  showSection("selfieSection", "previewSection");
 }
 
-function updatePreview() {
-    // Company Details
-    document.getElementById('previewCompanyName').textContent =
-        document.getElementById('companyName').value;
-    document.getElementById('previewCompanyAddress').textContent =
-        document.getElementById('storeName').value;
+// Photo upload handling
+function setupPhotoUpload(inputId, previewId, photoIdField) {
+const input = document.getElementById(inputId);
+const preview = document.getElementById(previewId);
 
-    // Monthly PPM Table
-    const quaterlyTable = document.createElement('table');
-    quaterlyTable.innerHTML = `
-        <thead>
-            <tr>
-                <th>Equipment</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Comments</th>
-                <th>Photo</th>
-            </tr>
-        </thead>
-        <tbody>
-            ${Array.from(document.querySelectorAll('#halfyearlyPpm tbody tr')).map(row => {
-        const cells = row.querySelectorAll('td');
-        return `
-                    <tr>
-                        <td>${cells[0].textContent}</td>
-                        <td>${cells[1].textContent}</td>
-                        <td>${cells[2].querySelector('select')?.value || ''}</td>
-                        <td>${cells[3].querySelector('input')?.value || ''}</td>
-                        <td>${cells[4]?.querySelector('img')?.src ?
-                '<img src="' + cells[4].querySelector('img').src + '" style="width:50px">' : ''}
-                        </td>
-                    </tr>
-                `;
-    }).join('')}
-        </tbody>
-    `;
-
-   
-    const previewTables = document.getElementById('previewTables');
-    previewTables.innerHTML = '';
-
-    // Add sections with proper headers
-    const addSection = (title, table) => {
-        const header = document.createElement('h3');
-        header.textContent = title;
-        previewTables.appendChild(header);
-        previewTables.appendChild(table);
-    };
-    const selfiePreview = document.getElementById('selfiePreview');
-    if (selfiePreview.src) {
-        const selfieSection = document.createElement('div');
-        selfieSection.innerHTML = `
-            <h3>Selfie with Timestamp</h3>
-            <img src="${selfiePreview.src}" style="max-width: 300px;">
-        `;
-        previewTables.appendChild(selfieSection);
-    }
-
-    addSection('Quaterly PPM Checklist', quaterlyTable);
-  
+input.addEventListener('change', async function() {
+  if (this.files && this.files[0]) {
+      try {
+          // Show loading state
+          preview.src = '';
+          preview.style.display = 'block';
+          preview.alt = 'Uploading...';
+          
+          // Call uploadPhoto function
+          await uploadPhoto(inputId, previewId, photoIdField);
+          
+          // Make preview clickable
+          preview.onclick = function() {
+              showImageModal(preview.src);
+          };
+      } catch (error) {
+          preview.style.display = 'none';
+          input.value = ''; // Reset input
+      }
+  }
+});
 }
 
-
-
-
-// Initialize camera when entering selfie section
-async function initializeCamera() {
-    try {
-        videoStream = await navigator.mediaDevices.getUserMedia({
-            video: { facingMode: "user" } // Front camera
-        });
-        videoElement.srcObject = videoStream;
-    } catch (err) {
-        console.error('Error accessing camera:', err);
-        alert('Camera access denied. Please enable camera permissions to continue.');
-    }
+// Camera functions
+function initCamera() {
+  navigator.mediaDevices
+    .getUserMedia({ video: true, audio: false })
+    .then(function (stream) {
+      const video = document.getElementById("video");
+      video.srcObject = stream;
+      cameraStream = stream;
+    })
+    .catch(function (err) {
+      console.error("Camera error: ", err);
+      alert(
+        "Could not access the camera. Please ensure you've granted camera permissions."
+      );
+    });
 }
 
 function stopCamera() {
-    if (videoStream) {
-        videoStream.getTracks().forEach(track => track.stop());
-        videoElement.srcObject = null;
-    }
+  if (cameraStream) {
+    cameraStream.getTracks().forEach((track) => track.stop());
+    cameraStream = null;
+  }
 }
 
-async function captureSelfie() {
-    if (!videoStream) {
-        alert('Camera not initialized. Please allow camera access.');
-        return;
-    }
+function captureSelfie() {
+  const video = document.getElementById("video");
+  const canvas = document.getElementById("canvas");
+  const preview = document.getElementById("selfiePreview");
+  const selfiePhotoId = document.getElementById('selfiePhotoId');
+  // Set canvas size to video size
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
 
-    // Set canvas dimensions
-    canvasElement.width = videoElement.videoWidth;
-    canvasElement.height = videoElement.videoHeight;
+  // Draw current video frame to canvas
+  const context = canvas.getContext("2d");
+  context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // Draw current video frame
-    ctx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+  // Add timestamp
+  context.font = "20px Arial";
+  context.fillStyle = "white";
+  context.strokeStyle = "black";
+  context.lineWidth = 2;
+  const timestamp = new Date().toLocaleString();
 
-    // Add timestamp
-    const now = new Date();
-    ctx.fillStyle = 'red';
-    ctx.font = '40px Arial';
-    ctx.fillText(now.toLocaleString(), 10, canvasElement.height - 10);
+  // Measure text width for background
+  const textWidth = context.measureText(timestamp).width;
 
-    // Convert to blob
-    canvasElement.toBlob(async (blob) => {
-        const file = new File([blob], `selfie_${Date.now()}.jpg`, {
-            type: 'image/jpeg'
-        });
+  // Draw background for text
+  context.fillStyle = "rgba(0, 0, 0, 0.5)";
+  context.fillRect(10, canvas.height - 40, textWidth + 20, 30);
 
-        try {
-            // Use modified uploadPhoto with File object
-            await uploadPhoto(
-                file,          // File object
-                'file',        // backendName
-                'selfiePreview', // previewImgId
-                'selfiePhotoID'  // dtoKeyId
-            );
+  // Draw text
+  context.fillStyle = "white";
+  context.fillText(timestamp, 20, canvas.height - 20);
 
-        } catch (error) {
-            console.error('Selfie upload failed:', error);
+  // Convert to data URL and display preview
+  const imageData = canvas.toDataURL("image/jpeg");
+  preview.src = imageData;
+  preview.style.display = "block";
+  preview.onclick = function () {
+    showImageModal(imageData);
+  };
+
+  // Hide error message if shown
+  document.getElementById("selfieError").style.display = "none";
+
+  canvas.toBlob(async function(blob) {
+  const file = new File([blob], 'selfie.jpg', { type: 'image/jpeg' });
+  
+  try {
+      const photoId = await uploadPhoto(file, 'selfie', 'selfiePreview', 'selfiePhotoId');
+      document.getElementById('selfieError').style.display = 'none';
+  } catch (error) {
+      document.getElementById('selfieError').style.display = 'block';
+      preview.style.display = 'none';
+      selfiePhotoId.value = ''; // Clear photo ID on error
+  }
+}, 'image/jpeg');
+}
+
+
+// Preview generation
+function updatePreview() {
+  // Company info
+  document.getElementById("previewTicketNumber").textContent =
+    document.getElementById("ticketNumber").value;
+  document.getElementById("previewCompanyName").textContent =
+    document.getElementById("companyName").options[
+      document.getElementById("companyName").selectedIndex
+    ].text;
+  document.getElementById("previewStoreName").textContent =
+    document.getElementById("storeName").options[
+      document.getElementById("storeName").selectedIndex
+    ].text;
+
+  // Checklist items
+  const previewTable = document
+    .getElementById("previewChecklistTable")
+    .getElementsByTagName("tbody")[0];
+  previewTable.innerHTML = "";
+
+  // Add each checklist item to the preview
+  const items = [
+    { id: "mainControlPanel", desc: "Clean the panels", hasPhoto: false },
+    {
+      id: "mainControlPanel2",
+      desc: "Oiling of Circuit Breaker moving parts",
+      hasPhoto: false,
+    },
+    {
+      id: "distributionBoards",
+      desc: "Clean the panels",
+      hasPhoto: true,
+      previewId: "distributionBoardsPreview",
+    },
+    { id: "busDuct", desc: "Clean the ducts", hasPhoto: false },
+    {
+      id: "CapacitorPanel",
+      desc: "Clean the panels",
+      hasPhoto: true,
+      previewId: "CapacitorPanelPreview",
+    },
+    {
+      id: "CapacitorPanel2",
+      desc: "Oiling of Circuit Breaker moving parts",
+      hasPhoto: true,
+      previewId: "CapacitorPanel2Preview",
+    },
+    {
+      id: "electricMotors",
+      desc: "Clean and Oil all moving parts",
+      hasPhoto: false,
+    },
+  ];
+
+  items.forEach((item) => {
+    const statusSelect = document.getElementById(`${item.id}Status`);
+    const comment = document.getElementById(`${item.id}Comment`).value;
+
+    if (statusSelect) {
+      const row = previewTable.insertRow();
+
+      // Equipment
+      const cell1 = row.insertCell(0);
+      cell1.textContent = statusSelect.id
+        .replace("Status", "")
+        .replace(/([A-Z])/g, " $1")
+        .trim();
+
+      // Description
+      const cell2 = row.insertCell(1);
+      cell2.textContent = item.desc;
+
+      // Status
+      const cell3 = row.insertCell(2);
+      const statusText =
+        statusSelect.options[statusSelect.selectedIndex].text;
+      const statusClass =
+        statusSelect.value === "ok"
+          ? "status-ok"
+          : statusSelect.value === "not-ok"
+          ? "status-not-ok"
+          : "status-na";
+
+      cell3.innerHTML = `<span class="status-indicator ${statusClass}"></span>${statusText}`;
+
+      // Comments
+      const cell4 = row.insertCell(3);
+      cell4.textContent = comment || "N/A";
+
+      // Photo
+      const cell5 = row.insertCell(4);
+      if (item.hasPhoto) {
+        const preview = document.getElementById(item.previewId);
+        if (preview && preview.style.display !== "none") {
+          const img = document.createElement("img");
+          img.src = preview.src;
+          img.className = "photo-preview";
+          img.onclick = function () {
+            showImageModal(preview.src);
+          };
+          cell5.appendChild(img);
+        } else {
+          cell5.textContent = "No photo";
         }
-    }, 'image/jpeg');
+      } else {
+        cell5.textContent = "N/A";
+      }
+    }
+  });
+
+  // Selfie preview
+  const selfiePreview = document.getElementById("selfiePreview");
+  if (selfiePreview.style.display !== "none") {
+    const previewSelfie = document.getElementById("previewSelfie");
+    previewSelfie.src = selfiePreview.src;
+    previewSelfie.style.display = "block";
+    previewSelfie.onclick = function () {
+      showImageModal(selfiePreview.src);
+    };
+  }
 }
+
+// Modal image view
+function showImageModal(src) {
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImage");
+
+  modal.style.display = "flex";
+  modalImg.src = src;
+}
+
+function closeModal() {
+  document.getElementById("imageModal").style.display = "none";
+}
+
+// Form submission
+function submitForm() {
+  const submitBtn = document.getElementById("submitForm");
+  const errorMsg = document.getElementById("error-message");
+  const successMsg = document.getElementById("success-message");
+
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="spinner"></i> Submitting...';
+  errorMsg.style.display = "none";
+  successMsg.style.display = "none";
+
+  // Simulate form submission (replace with actual AJAX call)
+  setTimeout(function () {
+    // This is where you would normally make an AJAX call
+    // For demonstration, we'll simulate a successful submission
+
+    submitBtn.innerHTML = "Submit Checklist";
+    submitBtn.disabled = false;
+
+    successMsg.textContent = "Checklist submitted successfully!";
+    successMsg.style.display = "block";
+
+    // Scroll to show success message
+    successMsg.scrollIntoView({ behavior: "smooth" });
+
+    // Optionally reset form after successful submission
+    // document.getElementById('halfyearlyppmForm').reset();
+  }, 2000);
+}
+
+// Close modal when clicking outside the image
+window.onclick = function (event) {
+  const modal = document.getElementById("imageModal");
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
