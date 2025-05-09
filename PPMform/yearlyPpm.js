@@ -24,19 +24,6 @@ function showSection(currentSection, nextSection) {
 }
 
 
-// Form Submission
-document.getElementById('yearlyppmForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    // Add validation logic here
-    const formData = new FormData(this);
-
-    // Process form data (Add your submission logic here)
-    console.log([...formData.entries()]);
-
-    alert('Form submitted successfully!');
-    // Reset form or redirect as needed
-});
 
 function previewPhoto(inputId, previewImgId) {
     const input = document.getElementById(inputId);
@@ -190,7 +177,7 @@ function updatePreview() {
         </tbody>
     `;
 
-    // Fire Extinguisher Table (keep existing implementation)
+
 
 
     // Clear and update preview
@@ -247,46 +234,66 @@ function displaySuccess(message) {
 document.getElementById('yearlyppmForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const storeData = {
-        mainControlPanel: document.getElementById("mainControlPanel").value,
-        mainControlPanelComment: document.getElementById("mainControlPanelComment").value,
+    const storeId =123;
+    const ppmFormData =[
 
-        busDuct: document.getElementById("busDuct").value,
-        busDuctComment: document.getElementById("busDuctComment").value,
+        {
+            ppmFormDataId:25,
+            status: document.getElementById("mainControlPanel").value,
+            comment: document.getElementById("mainControlPanelComment").value,                      
+        },
+        {
+            ppmFormDataId:26,
+            status: document.getElementById("busDuct").value,
+            comment: document.getElementById("busDuctComment").value,
+        },
+        {
+            ppmFormDataId:27,
+            status: document.getElementById("EarthPits").value,
+            comment: document.getElementById("EarthPitsComment").value,
+            photoId:   document.getElementById("EarthPitsPhotoID").value,
+        },
+        {
+            ppmFormDataId:28,
+            status: document.getElementById("EarthPits2").value,
+            comment: document.getElementById("EarthPits2Comment").value,
 
-        earthPits: document.getElementById("EarthPits").value,
-        earthPitsComment: document.getElementById("EarthPitsComment").value,
-        earthPitsPhotoID: document.getElementById("EarthPitsPhotoID").value,
+        },
+        {
+            ppmFormDataId:29,
+            status: document.getElementById("CapacitorPanel").value,
+            comment: document.getElementById("CapacitorPanelComment").value,
+        },
+        {
+            ppmFormDataId:30,
+            status: document.getElementById("General").value,
+            comment: document.getElementById("GeneralComment").value,
+            photoId:   document.getElementById("GeneralPhotoID").value,
+        }
+    ]
 
-        earthPits2: document.getElementById("EarthPits2").value,
-        earthPits2Comment: document.getElementById("EarthPits2Comment").value,
-
-        capacitorPanel: document.getElementById("CapacitorPanel").value,
-        capacitorPanelComment: document.getElementById("CapacitorPanelComment").value,
-
-        general: document.getElementById("General").value,
-        generalComment: document.getElementById("GeneralComment").value,
-        generalPhotoID: document.getElementById("GeneralPhotoID").value
-    };
-    console.log('formData', storeData)
+   const data = {
+    storeId: storeId,
+    ppmFormData: ppmFormData,
+   }
+    console.log('formData', data)
 
     try {
-        // Here you would typically send the data to your backend
-        console.log('Form Data:', storeData);
+        const response = await fetch(`${api}/ppmForm/save`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${token}`
+            },
+            body: JSON.stringify(data)
+        });
 
-        // Show success message
-        document.getElementById('success-message').innerHTML =
-            '<p style="color: green;">Form submitted successfully!</p>';
-
-        // Optionally reset the form
-        setTimeout(() => {
-            document.getElementById('yearlyppmForm').reset();
-            window.location.href = 'ppminscpectionList.html';
-        }, 2000);
+        const result = await response.json();
+        console.log('Submission result:', result);
+        alert('PPM Form submitted successfully!');
     } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('error-message').innerHTML =
-            '<p style="color: red;">Error submitting form. Please try again.</p>';
+        console.error('Error submitting form:', error);
+        alert('Submission failed. Please try again.');
     }
 });
 
