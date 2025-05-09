@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const option = document.createElement("option");
         option.value = client.id;
         option.textContent = client.clientName;
+      
         clientSelect.appendChild(option);
       });
     })
@@ -60,6 +61,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const option = document.createElement("option");
             option.value = store.id;
             option.textContent = store.storeCode + " - " + store.storeName + "-" + store.address;
+            option.dataset.zoneId = store.zone.id
+            option.dataset.storeManagerEmail = store.storeManagerEmail
+            option.dataset.zonalManagerEmail = store.zonalHeadEmail
             storeSelect.appendChild(option);
           });
         })
@@ -71,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       storeSelect.innerHTML = '<option value="">Select a Store</option>'; // Clear store dropdown if no client is selected
     }
+
   });
 
   // Handle form submission
@@ -89,11 +94,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // const technicianEmail = document.getElementById("technicianEmail").value.trim();
     const date = document.getElementById("date").value;
     const scheduleFor = document.getElementById("scheduleFor").value;
-
+    const storeOption = document.getElementById("storeName").selectedOptions[0];
+    const zoneId = parseInt(storeOption.dataset.zoneId) 
+    const storeManagerEmail = storeOption.dataset.storeManagerEmail
+    const zonalManagerEmail = storeOption.dataset.zonalManagerEmail
+    console.log("zoneId",zoneId)
     const storeData = {
       client: { id: client },
       store: { id: storeName },
+      zone: {id:zoneId},
+      zonalHeadEmail: zonalManagerEmail,
+      storeManagerEmail: storeManagerEmail,
       user: { id: technicianId,
+
+       
         email:technicianEmail,
         mobileNumber:phoneNumber,userName:technicianName},
       scheduleFor: scheduleFor,
