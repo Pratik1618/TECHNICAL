@@ -431,3 +431,73 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
+
+document.getElementById('halfyearlyppmForm').addEventListener('submit',async(e)=>{
+  e.preventDefault();
+  const storeId = 123;
+  const ppmFormData =[
+    {
+      ppmFormDataId:18,
+      status:document.getElementById('mainControlPanelStatus').value,
+      comment:document.getElementById('mainControlPanelComment').value,
+    },
+    {
+      ppmFormDataId:19,
+      status:document.getElementById('mainControlPanel2Status').value,
+      comment:document.getElementById('mainControlPanel2Comment').value,
+    },
+    {
+      ppmFormDataId:20,
+      status:document.getElementById('distributionBoardsStatus').value,
+      comment:document.getElementById('distributionBoardsComment').value,
+      photoId:document.getElementById('distributionBoardsPhotoId').value,
+    },
+    {
+      ppmFormDataId:21,
+      status:document.getElementById('busDuctStatus').value,
+      comment:document.getElementById('busDuctComment').value,
+    },
+    {
+      ppmFormDataId:22,
+      status:document.getElementById('CapacitorPanelStatus').value,
+      comment:document.getElementById('CapacitorPanelComment').value,
+      photoId:document.getElementById('CapacitorPanelPhotoId').value,
+    },
+    {
+      ppmFormDataId:23,
+      status:document.getElementById('CapacitorPanel2Status').value,
+      comment:document.getElementById('CapacitorPanel2Comment').value,
+      photoId:document.getElementById('CapacitorPanel2PhotoId').value,
+    },
+    {
+      ppmFormDataId:24,
+      status:document.getElementById('electricMotorsStatus').value,
+      comment:document.getElementById('electricMotorsComment').value,
+
+    }
+  ]
+
+  const data ={
+    storeId:storeId,
+    ppmFormData:ppmFormData,
+    selfiePhotoId:document.getElementById('selfiePhotoId').value,
+  };
+
+  try {
+    const response = await fetch(`${api}/ppmForm/save`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${token}`
+        },
+        body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+    console.log('Submission result:', result);
+    alert('PPM Form submitted successfully!');
+} catch (error) {
+    console.error('Error submitting form:', error);
+    alert('Submission failed. Please try again.');
+}
+})

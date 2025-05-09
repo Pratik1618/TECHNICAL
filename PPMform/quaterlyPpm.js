@@ -223,57 +223,84 @@ function updatePreview() {
 document.getElementById('quaterlyppmForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const storeData ={
-        mainControlPanel:document.getElementById("mainControlPanel").value,
-        mainControlPanelComment: document.getElementById("mainControlPanelComment").value,
-        mainControlPanelPhotoID: document.getElementById("mainControlPanelPhotoID").value,
 
+    const storeId =123;
+    const ppmFormData=[
+        {
+            ppmFormDataId:9,
+            status:document.getElementById("mainControlPanel").value,
+            comment:document.getElementById('mainControlPanelComment').value,
+            photoId:document.getElementById('mainControlPanelPhotoID').value,
+        },
+        {
+            ppmFormDataId:10,
+            status:document.getElementById('distributionBoards').value,
+            comment:document.getElementById('distributionBoardsComment').value,
+        },
+        {ppmFormDataId:11,
+            status:document.getElementById('distributionBoards2').value,
+            comment:document.getElementById('distributionBoards2Comment').value,
+        },
+        {
+            ppmFormDataId:12,
+            status:document.getElementById('busDuct').value,
+            comment:document.getElementById('busDuctComment').value,
+        },
+        {
+            ppmFormDataId:13,
+            status:document.getElementById('EarthPits').value,
+            comment:document.getElementById('EarthPitsComment').value,
+            photoId:document.getElementById('EarthPitsPhotoID').value,
+        },
+        {
+            ppmFormDataId:14,
+            status:document.getElementById('EarthPits2').value,
+            comment:document.getElementById('EarthPits2Comment').value,
+            photoId:document.getElementById('EarthPits2PhotoID').value,
+        },
+        {
+            ppmFormDataId:15,
+            status:document.getElementById('CapacitorPanel').value,
+            comment:document.getElementById('CapacitorPanelComment').value,
+        },
+        {
+            ppmFormDataId:16,
+            status:document.getElementById('electricMotors').value,
+            comment:document.getElementById('electricMotorsComment').value,
+        },
+        {
+            ppmFormDataId:17,
+            status:document.getElementById('electricMotors2').value,
+            comment:document.getElementById('electricMotors2Comment').value,
 
-        distributionBoards: document.getElementById("distributionBoards").value,
-        distributionBoardsComments:document.getElementById("distributionBoardsComment").value,
-
-        distributionBoards2: document.getElementById("distributionBoards2").value,
-        distributionBoardsComments2:document.getElementById("distributionBoards2Comment").value,
-        
-        busDuct:document.getElementById("busDuct").value,
-        busDuctComment: document.getElementById("busDuctComment").value,
-    
-        earthPits:document.getElementById("EarthPits").value,
-        earthPitsComment:document.getElementById("EarthPitsComment").value,
-        earthPitsPhotoID:document.getElementById("EarthPitsPhotoID").value,
-    
-        earthPits2:document.getElementById("EarthPits2").value,
-        earthPits2Comment:document.getElementById("EarthPits2Comment").value,
-        earthPits2PhotoID:document.getElementById("EarthPits2PhotoID").value,
-    
-        capacitorPanel:document.getElementById("CapacitorPanel").value,
-        capacitorPanelComment:document.getElementById("CapacitorPanelComment").value,
-
-        ElectricMotors: document.getElementById("electricMotors").value,
-        ElectricMotorsComment:document.getElementById("electricMotorsComment").value,
-    
-        ElectricMotors2: document.getElementById("electricMotors2").value,
-        ElectricMotors2Comment:document.getElementById("electricMotors2Comment").value,
-    };
-    console.log('formData',storeData)
+        }
+    ]
+   const data = {
+    storeId:storeId,
+    ppmFormData: ppmFormData
+   }
+    console.log('formData',data)
     
     try {
-        // Here you would typically send the data to your backend
-        console.log('Form Data:', storeData);
+        const response = await fetch(`  ${api}/ppmForm/save`, {
+        method: 'POST',
+        headers:{
+            'Authorization': `${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
         
-        // Show success message
-        document.getElementById('success-message').innerHTML = 
-            '<p style="color: green;">Form submitted successfully!</p>';
         
-        // Optionally reset the form
-        setTimeout(() => {
-            document.getElementById('yearlyppmForm').reset();
-            window.location.href = 'ppminscpectionList.html';
-        }, 2000);
+        }
+
+        );
+        const result = await response.json();
+        console.log('Response:', result);
+        alert('Form submitted successfully!');
+    
     } catch (error) {
         console.error('Error:', error);
-        document.getElementById('error-message').innerHTML = 
-            '<p style="color: red;">Error submitting form. Please try again.</p>';
+        alert('Submission failed. Please try again.');
     }
 });
 

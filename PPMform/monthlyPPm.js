@@ -21,18 +21,7 @@ function addFireExtinguisherRow() {
 }
 
 // Form Submission
-document.getElementById('ppmForm').addEventListener('submit', function (e) {
-    e.preventDefault();
 
-    // Add validation logic here
-    const formData = new FormData(this);
-
-    // Process form data (Add your submission logic here)
-    console.log([...formData.entries()]);
-
-    alert('Form submitted successfully!');
-    // Reset form or redirect as needed
-});
 function previewPhoto(inputId, previewImgId) {
     const input = document.getElementById(inputId);
     const preview = document.getElementById(previewImgId);
@@ -255,20 +244,20 @@ function validateCompanyDetails() {
     document.querySelectorAll('.error').forEach(el => el.textContent = '');
 
     // Validate each field
-    if (!ticketNumber) {
-        document.getElementById('ticketNumberError').textContent = 'Ticket number is required';
-        isValid = false;
-    }
+    // if (!ticketNumber) {
+    //     document.getElementById('ticketNumberError').textContent = 'Ticket number is required';
+    //     isValid = false;
+    // }
     
-    if (!companyName) {
-        document.getElementById('companyNameError').textContent = 'Company name is required';
-        isValid = false;
-    }
+    // if (!companyName) {
+    //     document.getElementById('companyNameError').textContent = 'Company name is required';
+    //     isValid = false;
+    // }
     
-    if (!storeName) {
-        document.getElementById('storeNameError').textContent = 'Store name is required';
-        isValid = false;
-    }
+    // if (!storeName) {
+    //     document.getElementById('storeNameError').textContent = 'Store name is required';
+    //     isValid = false;
+    // }
     
     
 
@@ -436,4 +425,112 @@ document.addEventListener("DOMContentLoaded", function () {
             storeSelect.innerHTML = '<option value="">Select a Store</option>';
         }
     });
+});
+function collectFireExtinguishers() {
+    const fireRows = document.querySelectorAll('#fireExtinguisherBody tr');
+    const extinguisherData = [];
+
+    fireRows.forEach((row, index) => {
+        const type = row.querySelector(`input[id^="extinguisherType"]`)?.value.trim() || '';
+        const capacity = row.querySelector(`input[id^="extinguisherCapacity"]`)?.value.trim() || '';
+        let refillDate = row.querySelector(`input[type="date"]`)?.value || '';
+        const remark = row.querySelector(`input[id^="extinguisherRemark"]`)?.value.trim() || '';
+
+        // ✅ Append time if date is present
+        if (refillDate) {
+            refillDate += 'T00:00:00';
+        }
+
+        if (type || capacity || refillDate || remark) {
+            extinguisherData.push({
+                fireExtinguisherType: type,
+                capacity: capacity,
+                refillDate: refillDate,
+                remark: remark
+            });
+        }
+    });
+
+    return extinguisherData;
+}
+
+
+
+
+
+
+document.getElementById('ppmForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const storeId =  123;
+    const ppmFormData = [
+        {
+            ppmFormDataId:1,
+            status: document.getElementById('mainControlPanel').value,
+            comment: document.getElementById('mainControlPanelComment').value,
+            photoId: document.getElementById('illuminationPhotoID').value
+        },
+        {
+            ppmFormDataId:2,
+            status:document.getElementById('visualInspectionofCableJoints').value,
+            comment:document.getElementById('visualInspectionofCableJointsComment').value,
+    
+        },
+        {
+            ppmFormDataId:3,
+            status:document.getElementById('busDuct').value,
+            comment:document.getElementById('busDuctComment').value
+        },
+        {
+            ppmFormDataId:4,
+            status:document.getElementById('CapacitorPanel').value,
+            comment:document.getElementById('CapacitorPanelComment').value,
+            photoId:document.getElementById('CapacitorPanelPhotoID').value
+        },
+        {
+            ppmFormDataId:5,
+            status:document.getElementById('CapacitorPanel2').value,
+            comment:document.getElementById('CapacitorPanel2Comment').value,
+            photoId:document.getElementById('CapacitorPanel2PhotoID').value
+        },
+        {
+            ppmFormDataId:6,
+            status:document.getElementById('ups').value,
+            comment:document.getElementById('upsComment').value,
+        },
+        {
+            ppmFormDataId:7,
+            status:document.getElementById('ups2').value,
+            comment:document.getElementById('ups2Comment').value,
+        },
+        {
+            ppmFormDataId:8,
+            status:document.getElementById('lights').value,
+            comment:document.getElementById('lightsComment').value,
+        }
+    ]
+    const data = {
+        storeId: storeId,
+        ppmFormData: ppmFormData,
+        // ppmFormLoadData: collectLoadReadings() || null,
+        fireExtinguisherStatusData: collectFireExtinguishers()
+    };
+console.log('Form data:', data); // Log data for debugging
+    try {
+        const response = await fetch(`${api}/ppmForm/save`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${token}`
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        console.log('Submission result:', result);
+        alert('PPM Form submitted successfully!');
+    } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('Submission failed. Please try again.');
+    }
 });
