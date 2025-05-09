@@ -249,6 +249,7 @@ function captureSelfie() {
   
   try {
       const photoId = await uploadPhoto(file, 'selfie', 'selfiePreview', 'selfiePhotoId');
+     selfiePhotoId.value = photoId; // Set the photo ID in the hidden field
       document.getElementById('selfieError').style.display = 'none';
   } catch (error) {
       document.getElementById('selfieError').style.display = 'block';
@@ -435,6 +436,7 @@ window.onclick = function (event) {
 document.getElementById('halfyearlyppmForm').addEventListener('submit',async(e)=>{
   e.preventDefault();
   const storeId = 123;
+  selfiePhotoId=document.getElementById('selfiePhotoId').value;
   const ppmFormData =[
     {
       ppmFormDataId:18,
@@ -467,7 +469,7 @@ document.getElementById('halfyearlyppmForm').addEventListener('submit',async(e)=
       ppmFormDataId:23,
       status:document.getElementById('CapacitorPanel2Status').value,
       comment:document.getElementById('CapacitorPanel2Comment').value,
-      photoId:document.getElementById('CapacitorPanel2PhotoId').value,
+      photoId:Number(document.getElementById('CapacitorPanel2PhotoId').value),
     },
     {
       ppmFormDataId:24,
@@ -480,8 +482,9 @@ document.getElementById('halfyearlyppmForm').addEventListener('submit',async(e)=
   const data ={
     storeId:storeId,
     ppmFormData:ppmFormData,
-    selfiePhotoId:document.getElementById('selfiePhotoId').value,
+    selfiePhotoId:selfiePhotoId,
   };
+  console.log('check',data);
 
   try {
     const response = await fetch(`${api}/ppmForm/save`, {
