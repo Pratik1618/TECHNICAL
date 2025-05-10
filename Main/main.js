@@ -411,6 +411,7 @@ document.getElementById("next-company").addEventListener("click", function () {
     (position) => {
       // Store coordinates in hidden inputs
       document.getElementById("latitude").value = position.coords.latitude;
+      console.log(position.coords.latitude);
       document.getElementById("longitude").value = position.coords.longitude;
       // Proceed to next section
       showNextSection("companyDetails", "sectionA");
@@ -686,8 +687,7 @@ document.addEventListener("DOMContentLoaded", function () {
         signageShopFrantageCheckedOk: A5Ok == "OK" ? true : false,
         signageShopFrantageRemarks: A5Reasion,
 
-        signageAndFrontagePhotoId: document.getElementById("sectionAPhotoID").value.trim(),
-
+       
         // section B ---->
         safetyFireAlarmCheckedOk: B1ok == "OK" ? true : false,
         safetyFireAlarmRemarks: B1Reasion,
@@ -718,8 +718,7 @@ document.addEventListener("DOMContentLoaded", function () {
         safetyLooseConnectionCheckedOk: B9ok == "OK" ? true : false,
         safetyLooseConnectionRemarks: B9Reasion,
 
-        safteyAndSecurityPhotoId: document.getElementById("sectionBPhotoID").value.trim(),
-
+      
         //section C ----->
         shopTrackLightsCheckedOk: C1Ok == "OK" ? true : false,
         shopTrackLightsRemarks: C1Reasion,
@@ -741,7 +740,7 @@ document.addEventListener("DOMContentLoaded", function () {
         shopACRemarks: C6Reasion,
         shopACPhotoId: document.getElementById("acPhotoID").value.trim(),
 
-        mainShopPhotoId: document.getElementById("sectionCPhotoID").value.trim(),
+     
 
 
         //section D ------>
@@ -760,7 +759,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trailRoomLightingSystemCheckedOk: D5ok == "OK" ? true : false,
         trailRoomLightingSystemRemarks: D5Reasion,
 
-        trailRoomPhotoId: document.getElementById("sectionDPhotoID").value.trim(),
+       
 
         //section E --->
         washroomWaterFlowCheckedOk: E1Ok == "OK" ? true : false,
@@ -772,7 +771,7 @@ document.addEventListener("DOMContentLoaded", function () {
         washroomFittingCheckedOk: E3ok == "OK" ? true : false,
         washroomFittingRemarks: E3Reasion,
 
-        washroomPhotoId: document.getElementById("sectionEPhotoID").value.trim(),
+
 
 
         //section F --->
@@ -789,7 +788,7 @@ document.addEventListener("DOMContentLoaded", function () {
         electricalStablizerCheckedOk: F4ok == "OK" ? true : false,
         electricalStablizerRemarks: F4Reasion,
 
-        electricalPhotoId: document.getElementById("sectionFPhotoID").value.trim(),
+
 
         //section G --->
         deiselFuelIndicatorCheckedOk: G1Ok == "OK" ? true : false,
@@ -800,7 +799,7 @@ document.addEventListener("DOMContentLoaded", function () {
         deiselBatteryChargesRemarks: G2Reasion,
         deiselBatteryChargesPhotoId: document.getElementById("batteryPhotoID").value.trim(),
 
-        deiselGeneratorPhotoId: document.getElementById("sectionGPhotoID").value.trim(),
+
 
 
         //section H --->
@@ -810,12 +809,12 @@ document.addEventListener("DOMContentLoaded", function () {
         pumbingAllPumpsCheckedOk: H2ok == "OK" ? true : false,
         pumbingAllPumpsRemarks: H2Reasion,
 
-        pumbingAndsanitationPhotoId: document.getElementById("sectionHPhotoID").value.trim(),
+      
 
         tikitNumber: ticketNumber,
 
-        // latitude: latitude,
-        // lognitude: longitude,
+        latitude: latitude,
+        lognitude: longitude,
         store: {
           id: storeName,
         },
