@@ -38,9 +38,10 @@ document.addEventListener("DOMContentLoaded", function () {
         data.scheduleinspectiondto.forEach(entry => {
           table.row.add([
             entry.zoneName || "N/A",
-            entry.storeManager || "N/A",
-            entry.zonalManager || "N/A",
-            entry.scheduleType || "N/A",
+            entry.storename || "N/A",
+            entry.storeManagerEmail || "N/A",
+            entry.zonalManagerEmail || "N/A",
+         entry.scheduleType || 'N/A',
             entry.status || "N/A",
             entry.date || "N/A"
           ]).draw();

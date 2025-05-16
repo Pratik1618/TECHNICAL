@@ -429,7 +429,7 @@ window.onclick = function (event) {
 
 document.getElementById('yearlyppmForm').addEventListener('submit',async(e)=>{
   e.preventDefault();
-  const storeId = 123;
+  const storeId = 1;
   selfiePhotoId=document.getElementById('selfiePhotoId').value;
   const ppmFormData =[
     {

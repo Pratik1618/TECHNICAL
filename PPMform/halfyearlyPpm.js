@@ -1,5 +1,5 @@
 const api = "http://localhost:5000";
-const token = localStorage.getItem("token");
+const token = localStorage.getItem("authToken");
 // Global variables
 let currentSection = "companyDetails";
 let cameraStream = null;
@@ -435,35 +435,38 @@ window.onclick = function (event) {
 
 document.getElementById('halfyearlyppmForm').addEventListener('submit',async(e)=>{
   e.preventDefault();
-  const storeId = 123;
+  const storeId = 1;
   selfiePhotoId=document.getElementById('selfiePhotoId').value;
   const ppmFormData =[
     {
       ppmFormDataId:18,
       status:document.getElementById('mainControlPanelStatus').value,
       comment:document.getElementById('mainControlPanelComment').value,
+
     },
     {
       ppmFormDataId:19,
       status:document.getElementById('mainControlPanel2Status').value,
       comment:document.getElementById('mainControlPanel2Comment').value,
+   
     },
     {
       ppmFormDataId:20,
       status:document.getElementById('distributionBoardsStatus').value,
       comment:document.getElementById('distributionBoardsComment').value,
-      photoId:document.getElementById('distributionBoardsPhotoId').value,
+      photoId:Number(document.getElementById('distributionBoardsPhotoId').value),
     },
     {
       ppmFormDataId:21,
       status:document.getElementById('busDuctStatus').value,
       comment:document.getElementById('busDuctComment').value,
+    
     },
     {
       ppmFormDataId:22,
       status:document.getElementById('CapacitorPanelStatus').value,
       comment:document.getElementById('CapacitorPanelComment').value,
-      photoId:document.getElementById('CapacitorPanelPhotoId').value,
+      photoId:Number(document.getElementById('CapacitorPanelPhotoId').value),
     },
     {
       ppmFormDataId:23,
@@ -475,6 +478,7 @@ document.getElementById('halfyearlyppmForm').addEventListener('submit',async(e)=
       ppmFormDataId:24,
       status:document.getElementById('electricMotorsStatus').value,
       comment:document.getElementById('electricMotorsComment').value,
+ 
 
     }
   ]
@@ -485,22 +489,26 @@ document.getElementById('halfyearlyppmForm').addEventListener('submit',async(e)=
     selfiePhotoId:selfiePhotoId,
   };
   console.log('check',data);
+try {
+  const response = await fetch(`${api}/ppmForm/save`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `${token}`
+    },
+    body: JSON.stringify(data)
+  });
 
-  try {
-    const response = await fetch(`${api}/ppmForm/save`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `${token}`
-        },
-        body: JSON.stringify(data)
-    });
+  const result = await response.json();
 
-    const result = await response.json();
-    console.log('Submission result:', result);
-    alert('PPM Form submitted successfully!');
+  if (!response.ok) {
+    throw new Error(result.message || "Submission failed with unknown error");
+  }
+
+  console.log('Submission result:', result);
+  alert('PPM Form submitted successfully!');
 } catch (error) {
-    console.error('Error submitting form:', error);
-    alert('Submission failed. Please try again.');
+  console.error('Error submitting form:', error);
+  alert('Submission failed: ' + error.message);
 }
 })
