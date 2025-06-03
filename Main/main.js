@@ -813,8 +813,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         tikitNumber: ticketNumber,
 
-        latitude: latitude,
-        lognitude: longitude,
+        // latitude: latitude,
+        // lognitude: longitude,
         store: {
           id: storeName,
         },
