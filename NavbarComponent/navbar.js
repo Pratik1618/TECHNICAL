@@ -15,7 +15,7 @@ $(document).ready(function() {
       // Redirect to login if not authenticated
       window.location.href = '../login/login.html';
   } else {
-      $("#navbar-placeholder").load("../NavBar/navbar.html", function() {
+      $("#navbar-placeholder").load("../NavbarComponent/navbar.html", function() {
           setActiveTab();
           setupLogoutHandler();
       });
