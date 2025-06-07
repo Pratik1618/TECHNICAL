@@ -3,8 +3,76 @@ const token = localStorage.getItem("authToken");
 // Global variables
 let currentSection = "companyDetails";
 let cameraStream = null;
+let dynamicStoreId = null;
 
+document.addEventListener("DOMContentLoaded", function () {
+  const clientSelect = document.getElementById("companyName");
+  const storeSelect = document.getElementById("storeName");
+  const ticketInput = document.getElementById("ticketNumber");
+  const frequencySelect = document.getElementById("frequency");
 
+  // Function to fetch client and store data based on the ticket number
+  function fetchDataByTicketNumber(ticketInput) {
+    // Fetch data for the ticket
+    fetch(`${api}/schedule/ticket/${ticketInput}`, { headers: { 'Authorization': `${token}` } }) // Update URL as necessary
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Ticket data:", data); // Log data for debugging
+
+        if (data) {
+          if (data.scheduleFor === "Half-Yearly") {
+            if (data.store && data.store.id) {
+              dynamicStoreId = data.store.id;
+            }
+            // Update the client dropdown
+            if (data.client && data.client.id && data.client.clientName) {
+              clientSelect.innerHTML = `<option value="${data.client.id}">${data.client.clientName}</option>`;
+            } else {
+              clientSelect.innerHTML =
+                '<option value="">Select a client</option>';
+            }
+
+            // Update the store dropdown
+            if (data.store && data.store.id && data.store.storeName) {
+              storeSelect.innerHTML = `<option value="${data.store.id}">${data.store.storeCode} - ${data.store.storeName}</option>`;
+            } else {
+              storeSelect.innerHTML =
+                '<option value="">Select a Store</option>';
+            }
+            if (data.scheduleFor) {
+              frequencySelect.innerHTML = `<option value="${data.store.id}">${data.scheduleFor}</option>`;
+            } else {
+              frequencySelect.innerHTML =
+                '<option value="">Select a frequency</option>';
+            }
+          } else {
+            console.log("not valid schdeule type");
+          }
+        } else {
+          // Handle cases where no data is returned
+          clientSelect.innerHTML = '<option value="">Select a client</option>';
+          storeSelect.innerHTML = '<option value="">Select a Store</option>';
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching ticket data:", error);
+        displayError("Failed to load ticket data. Please try again later.");
+      });
+  }
+
+  // Event listener for changes in the ticket number input
+  ticketInput.addEventListener("change", function () {
+    const ticketNumber = this.value;
+
+    if (ticketNumber) {
+      fetchDataByTicketNumber(ticketNumber);
+    } else {
+      // Reset dropdowns if no ticket number is entered
+      clientSelect.innerHTML = '<option value="">Select a client</option>';
+      storeSelect.innerHTML = '<option value="">Select a Store</option>';
+    }
+  });
+});
 async function uploadPhoto(
   photoInputIdOrFile,
 
@@ -70,8 +138,8 @@ async function uploadPhoto(
 document.addEventListener("DOMContentLoaded", function () {
   // Set up event listeners for photo uploads
   setupPhotoUpload('distributionBoardsPhoto', 'distributionBoardsPreview', 'distributionBoardsPhotoId');
-setupPhotoUpload('CapacitorPanelPhoto', 'CapacitorPanelPreview', 'CapacitorPanelPhotoId');
-setupPhotoUpload('CapacitorPanel2Photo', 'CapacitorPanel2Preview', 'CapacitorPanel2PhotoId');
+  setupPhotoUpload('CapacitorPanelPhoto', 'CapacitorPanelPreview', 'CapacitorPanelPhotoId');
+  setupPhotoUpload('CapacitorPanel2Photo', 'CapacitorPanel2Preview', 'CapacitorPanel2PhotoId');
   // Initialize camera when selfie section is shown
   document
     .getElementById("selfieSection")
@@ -152,30 +220,30 @@ function validateSelfie() {
 
 // Photo upload handling
 function setupPhotoUpload(inputId, previewId, photoIdField) {
-const input = document.getElementById(inputId);
-const preview = document.getElementById(previewId);
+  const input = document.getElementById(inputId);
+  const preview = document.getElementById(previewId);
 
-input.addEventListener('change', async function() {
-  if (this.files && this.files[0]) {
+  input.addEventListener('change', async function () {
+    if (this.files && this.files[0]) {
       try {
-          // Show loading state
-          preview.src = '';
-          preview.style.display = 'block';
-          preview.alt = 'Uploading...';
-          
-          // Call uploadPhoto function
-          await uploadPhoto(inputId, previewId, photoIdField);
-          
-          // Make preview clickable
-          preview.onclick = function() {
-              showImageModal(preview.src);
-          };
+        // Show loading state
+        preview.src = '';
+        preview.style.display = 'block';
+        preview.alt = 'Uploading...';
+
+        // Call uploadPhoto function
+        await uploadPhoto(inputId, previewId, photoIdField);
+
+        // Make preview clickable
+        preview.onclick = function () {
+          showImageModal(preview.src);
+        };
       } catch (error) {
-          preview.style.display = 'none';
-          input.value = ''; // Reset input
+        preview.style.display = 'none';
+        input.value = ''; // Reset input
       }
-  }
-});
+    }
+  });
 }
 
 // Camera functions
@@ -244,19 +312,19 @@ function captureSelfie() {
   // Hide error message if shown
   document.getElementById("selfieError").style.display = "none";
 
-  canvas.toBlob(async function(blob) {
-  const file = new File([blob], 'selfie.jpg', { type: 'image/jpeg' });
-  
-  try {
+  canvas.toBlob(async function (blob) {
+    const file = new File([blob], 'selfie.jpg', { type: 'image/jpeg' });
+
+    try {
       const photoId = await uploadPhoto(file, 'selfie', 'selfiePreview', 'selfiePhotoId');
-     selfiePhotoId.value = photoId; // Set the photo ID in the hidden field
+      selfiePhotoId.value = photoId; // Set the photo ID in the hidden field
       document.getElementById('selfieError').style.display = 'none';
-  } catch (error) {
+    } catch (error) {
       document.getElementById('selfieError').style.display = 'block';
       preview.style.display = 'none';
       selfiePhotoId.value = ''; // Clear photo ID on error
-  }
-}, 'image/jpeg');
+    }
+  }, 'image/jpeg');
 }
 
 
@@ -340,8 +408,8 @@ function updatePreview() {
         statusSelect.value === "ok"
           ? "status-ok"
           : statusSelect.value === "not-ok"
-          ? "status-not-ok"
-          : "status-na";
+            ? "status-not-ok"
+            : "status-na";
 
       cell3.innerHTML = `<span class="status-indicator ${statusClass}"></span>${statusText}`;
 
@@ -433,82 +501,89 @@ window.onclick = function (event) {
   }
 };
 
-document.getElementById('halfyearlyppmForm').addEventListener('submit',async(e)=>{
+document.getElementById('halfyearlyppmForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const storeId = 1;
-  selfiePhotoId=document.getElementById('selfiePhotoId').value;
-  const ppmFormData =[
+  const storeId = dynamicStoreId;
+  selfiePhotoId = document.getElementById('selfiePhotoId').value;
+  const ppmFormData = [
     {
-      ppmFormDataId:18,
-      status:document.getElementById('mainControlPanelStatus').value,
-      comment:document.getElementById('mainControlPanelComment').value,
+      ppmFormDataId: 18,
+      status: document.getElementById('mainControlPanelStatus').value,
+      comment: document.getElementById('mainControlPanelComment').value,
 
     },
     {
-      ppmFormDataId:19,
-      status:document.getElementById('mainControlPanel2Status').value,
-      comment:document.getElementById('mainControlPanel2Comment').value,
-   
+      ppmFormDataId: 19,
+      status: document.getElementById('mainControlPanel2Status').value,
+      comment: document.getElementById('mainControlPanel2Comment').value,
+
     },
     {
-      ppmFormDataId:20,
-      status:document.getElementById('distributionBoardsStatus').value,
-      comment:document.getElementById('distributionBoardsComment').value,
-      photoId:Number(document.getElementById('distributionBoardsPhotoId').value),
+      ppmFormDataId: 20,
+      status: document.getElementById('distributionBoardsStatus').value,
+      comment: document.getElementById('distributionBoardsComment').value,
+      photoId: Number(document.getElementById('distributionBoardsPhotoId').value),
     },
     {
-      ppmFormDataId:21,
-      status:document.getElementById('busDuctStatus').value,
-      comment:document.getElementById('busDuctComment').value,
-    
+      ppmFormDataId: 21,
+      status: document.getElementById('busDuctStatus').value,
+      comment: document.getElementById('busDuctComment').value,
+
     },
     {
-      ppmFormDataId:22,
-      status:document.getElementById('CapacitorPanelStatus').value,
-      comment:document.getElementById('CapacitorPanelComment').value,
-      photoId:Number(document.getElementById('CapacitorPanelPhotoId').value),
+      ppmFormDataId: 22,
+      status: document.getElementById('CapacitorPanelStatus').value,
+      comment: document.getElementById('CapacitorPanelComment').value,
+      photoId: Number(document.getElementById('CapacitorPanelPhotoId').value),
     },
     {
-      ppmFormDataId:23,
-      status:document.getElementById('CapacitorPanel2Status').value,
-      comment:document.getElementById('CapacitorPanel2Comment').value,
-      photoId:Number(document.getElementById('CapacitorPanel2PhotoId').value),
+      ppmFormDataId: 23,
+      status: document.getElementById('CapacitorPanel2Status').value,
+      comment: document.getElementById('CapacitorPanel2Comment').value,
+      photoId: Number(document.getElementById('CapacitorPanel2PhotoId').value),
     },
     {
-      ppmFormDataId:24,
-      status:document.getElementById('electricMotorsStatus').value,
-      comment:document.getElementById('electricMotorsComment').value,
- 
+      ppmFormDataId: 24,
+      status: document.getElementById('electricMotorsStatus').value,
+      comment: document.getElementById('electricMotorsComment').value,
+
 
     }
   ]
 
-  const data ={
-    storeId:storeId,
-    ppmFormData:ppmFormData,
-    selfiePhotoId:selfiePhotoId,
+  const data = {
+    storeId: storeId,
+    ppmFormData: ppmFormData,
+    selfiePhotoId: selfiePhotoId,
   };
-  console.log('check',data);
-try {
-  const response = await fetch(`${api}/ppmForm/save`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `${token}`
-    },
-    body: JSON.stringify(data)
-  });
+  console.log('check', data);
+  try {
+    const response = await fetch(`${api}/ppmForm/save`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
 
-  const result = await response.json();
+    const contentType = response.headers.get('content-type') || '';
+    let result;
 
-  if (!response.ok) {
-    throw new Error(result.message || "Submission failed with unknown error");
+    if (contentType.includes('application/json')) {
+      result = await response.json();
+    } else {
+      // If not JSON, parse as text to avoid error
+      const text = await response.text();
+      console.warn('Non-JSON response:', text);
+      result = { message: text };
+    }
+
+    console.log('Response:', result);
+    alert('Form submitted successfully!');
+
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Submission failed. Please try again.');
   }
-
-  console.log('Submission result:', result);
-  alert('PPM Form submitted successfully!');
-} catch (error) {
-  console.error('Error submitting form:', error);
-  alert('Submission failed: ' + error.message);
-}
 })

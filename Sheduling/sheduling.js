@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", function () {
               render: function(data, type, row) {
                   if (userrole === "ADMIN") {
                       return `
-                          <button class="edit" onclick="window.location.href='editShedule.html?id=${row.id}'">Edit</button>
+                         
                           <button class="delete" onclick="deleteSchedule(${row.id})">Delete</button>
                       `;
                   }
