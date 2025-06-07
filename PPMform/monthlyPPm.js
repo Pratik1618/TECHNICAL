@@ -1,7 +1,7 @@
 api = getBaseUrl();
 token = localStorage.getItem('authToken');
 
-
+let DynamicStoreId = null;
 // Fire Extinguisher Dynamic Rows
 let fireExtinguisherCounter = 1;
 function addFireExtinguisherRow() {
@@ -66,7 +66,7 @@ async function uploadPhoto(photoInputIdOrFile, backendName, previewImgId, dtoKey
     formData.append(backendName, file);
 
     try {
-        const response = await fetch(`${api}/inspectionPhoto/create`, {
+        const response = await fetch(`${api}/ppmPhoto/create`, {
             method: 'POST',
             headers: {
                 'Authorization': `${token}`
@@ -233,7 +233,7 @@ function updatePreview() {
 
 function validateCompanyDetails() {
     let isValid = true;
-    
+
     // Get values
     const ticketNumber = document.getElementById('ticketNumber').value;
     const companyName = document.getElementById('companyName').value;
@@ -244,22 +244,22 @@ function validateCompanyDetails() {
     document.querySelectorAll('.error').forEach(el => el.textContent = '');
 
     // Validate each field
-    // if (!ticketNumber) {
-    //     document.getElementById('ticketNumberError').textContent = 'Ticket number is required';
-    //     isValid = false;
-    // }
-    
-    // if (!companyName) {
-    //     document.getElementById('companyNameError').textContent = 'Company name is required';
-    //     isValid = false;
-    // }
-    
-    // if (!storeName) {
-    //     document.getElementById('storeNameError').textContent = 'Store name is required';
-    //     isValid = false;
-    // }
-    
-    
+    if (!ticketNumber) {
+        document.getElementById('ticketNumberError').textContent = 'Ticket number is required';
+        isValid = false;
+    }
+
+    if (!companyName) {
+        document.getElementById('companyNameError').textContent = 'Company name is required';
+        isValid = false;
+    }
+
+    if (!storeName) {
+        document.getElementById('storeNameError').textContent = 'Store name is required';
+        isValid = false;
+    }
+
+
 
     return isValid;
 }
@@ -376,7 +376,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log("Ticket data:", data); // Log data for debugging
 
                 if (data) {
-                    if (data.scheduleFor === "PPM-Monthly") {
+                    if (data.scheduleFor === "Monthly") {
+                        if (data.store && data.store.id) {
+                            dynamicStoreId = data.store.id;
+                        }
                         // Update the client dropdown
                         if (data.client && data.client.id && data.client.clientName) {
                             clientSelect.innerHTML = `<option value="${data.client.id}">${data.client.clientName}</option>`;
@@ -461,52 +464,55 @@ function collectFireExtinguishers() {
 
 document.getElementById('ppmForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    const storeId =  123;
+if (!dynamicStoreId) {
+    alert("Store ID not found. Please check the ticket number.");
+    return;
+}
+    const storeId = dynamicStoreId;
     const ppmFormData = [
         {
-            ppmFormDataId:1,
+            ppmFormDataId: 1,
             status: document.getElementById('mainControlPanel').value,
             comment: document.getElementById('mainControlPanelComment').value,
             photoId: document.getElementById('illuminationPhotoID').value
         },
         {
-            ppmFormDataId:2,
-            status:document.getElementById('visualInspectionofCableJoints').value,
-            comment:document.getElementById('visualInspectionofCableJointsComment').value,
-    
+            ppmFormDataId: 2,
+            status: document.getElementById('visualInspectionofCableJoints').value,
+            comment: document.getElementById('visualInspectionofCableJointsComment').value,
+
         },
         {
-            ppmFormDataId:3,
-            status:document.getElementById('busDuct').value,
-            comment:document.getElementById('busDuctComment').value
+            ppmFormDataId: 3,
+            status: document.getElementById('busDuct').value,
+            comment: document.getElementById('busDuctComment').value
         },
         {
-            ppmFormDataId:4,
-            status:document.getElementById('CapacitorPanel').value,
-            comment:document.getElementById('CapacitorPanelComment').value,
-            photoId:document.getElementById('CapacitorPanelPhotoID').value
+            ppmFormDataId: 4,
+            status: document.getElementById('CapacitorPanel').value,
+            comment: document.getElementById('CapacitorPanelComment').value,
+            photoId: document.getElementById('CapacitorPanelPhotoID').value
         },
         {
-            ppmFormDataId:5,
-            status:document.getElementById('CapacitorPanel2').value,
-            comment:document.getElementById('CapacitorPanel2Comment').value,
-            photoId:document.getElementById('CapacitorPanel2PhotoID').value
+            ppmFormDataId: 5,
+            status: document.getElementById('CapacitorPanel2').value,
+            comment: document.getElementById('CapacitorPanel2Comment').value,
+            photoId: document.getElementById('CapacitorPanel2PhotoID').value
         },
         {
-            ppmFormDataId:6,
-            status:document.getElementById('ups').value,
-            comment:document.getElementById('upsComment').value,
+            ppmFormDataId: 6,
+            status: document.getElementById('ups').value,
+            comment: document.getElementById('upsComment').value,
         },
         {
-            ppmFormDataId:7,
-            status:document.getElementById('ups2').value,
-            comment:document.getElementById('ups2Comment').value,
+            ppmFormDataId: 7,
+            status: document.getElementById('ups2').value,
+            comment: document.getElementById('ups2Comment').value,
         },
         {
-            ppmFormDataId:8,
-            status:document.getElementById('lights').value,
-            comment:document.getElementById('lightsComment').value,
+            ppmFormDataId: 8,
+            status: document.getElementById('lights').value,
+            comment: document.getElementById('lightsComment').value,
         }
     ]
     const data = {
@@ -515,7 +521,7 @@ document.getElementById('ppmForm').addEventListener('submit', async (e) => {
         // ppmFormLoadData: collectLoadReadings() || null,
         fireExtinguisherStatusData: collectFireExtinguishers()
     };
-console.log('Form data:', data); // Log data for debugging
+    console.log('Form data:', data); // Log data for debugging
     try {
         const response = await fetch(`${api}/ppmForm/save`, {
             method: 'POST',

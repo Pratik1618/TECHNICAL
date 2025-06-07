@@ -22,7 +22,7 @@ else if(userrole==="TECHNICIAN"){
 document.addEventListener("DOMContentLoaded", function () {
   const table = $("#ppmId").DataTable({
     ajax: {
-      url: `${api}/ppmForm/`, // Replace with your API endpoint
+      url: `${api}/ppmForm/getPpmFormData`, // Replace with your API endpoint
       dataSrc: "",
       headers: {
         'Authorization': `${token}`
@@ -35,14 +35,15 @@ document.addEventListener("DOMContentLoaded", function () {
           return meta.row + 1; // Display serial number starting from 1
         },
       },
-      { data: "tikitNumber" },
-      { data: "client.clientName" },
-      { data: "store.storeName" },
-      { data: "store.storeCode" },
-      { data: "store.zone.zoneName" },
-      { data: "store.state.stateName" },
-      { data: "store.address" },
-      { data: "status" },
+     { data: "ticketNumber" },
+     {data:"frequencyvalue"},
+  { data: "clientName" }, // This is null, so will be empty
+  { data: "storeName" },  // ✅ Use flat property names
+  { data: "storeCode" },
+  { data: "zoneName" },
+  { data: "stateName" },
+  { data: "address" },
+  { data: "status" },
       {
         data: null,
         render: function (data, type, row) {

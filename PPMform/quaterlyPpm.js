@@ -4,7 +4,51 @@ let videoStream = null;
 const videoElement = document.getElementById('video');
 const canvasElement = document.getElementById('canvas');
 const ctx = canvasElement.getContext('2d');
+let dynamicStoreId = null
+
+function validateCompanyDetails() {
+    let isValid = true;
+
+    // Get values
+    const ticketNumber = document.getElementById('ticketNumber').value;
+    const companyName = document.getElementById('companyName').value;
+    const storeName = document.getElementById('storeName').value;
+
+
+    // Clear previous errors
+    document.querySelectorAll('.error').forEach(el => el.textContent = '');
+
+    // Validate each field
+    if (!ticketNumber) {
+        document.getElementById('ticketNumberError').textContent = 'Ticket number is required';
+        isValid = false;
+    }
+
+    if (!companyName) {
+        document.getElementById('companyNameError').textContent = 'Company name is required';
+        isValid = false;
+    }
+
+    if (!storeName) {
+        document.getElementById('storeNameError').textContent = 'Store name is required';
+        isValid = false;
+    }
+
+ if (!isValid) {
+        alert("enter ticket no");
+    }
+
+    return isValid;
+}
+
 function showSection(currentSection, nextSection) {
+    
+    if (currentSection === 'companyDetails' && nextSection === 'quaterlyPPM') {
+        if (!validateCompanyDetails()) {
+            return;
+        }
+    }
+
     // Stop camera when leaving selfie section
     if (currentSection === 'selfieSection') {
         stopCamera();
@@ -23,20 +67,6 @@ function showSection(currentSection, nextSection) {
     }
 }
 
-
-// Form Submission
-document.getElementById('ppmForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Add validation logic here
-    const formData = new FormData(this);
-    
-    // Process form data (Add your submission logic here)
-    console.log([...formData.entries()]);
-    
-    alert('Form submitted successfully!');
-    // Reset form or redirect as needed
-});
 
 function previewPhoto(inputId, previewImgId) {
     const input = document.getElementById(inputId);
@@ -82,7 +112,7 @@ async function uploadPhoto(photoInputIdOrFile, backendName, previewImgId, dtoKey
     formData.append(backendName, file);
 
     try {
-        const response = await fetch(`${api}/inspectionPhoto/create`, {
+        const response = await fetch(`${api}/ppmPhoto/create`, {
             method: 'POST',
             headers: {
                 'Authorization': `${token}`
@@ -217,14 +247,81 @@ function updatePreview() {
     addSection('Quaterly PPM Checklist', quaterlyTable);
   
 }
+document.addEventListener("DOMContentLoaded", function () {
+    const clientSelect = document.getElementById("companyName");
+    const storeSelect = document.getElementById("storeName");
+    const ticketInput = document.getElementById("ticketNumber");
+    const frequencySelect = document.getElementById("frequency");
 
+    // Function to fetch client and store data based on the ticket number
+    function fetchDataByTicketNumber(ticketInput) {
+        // Fetch data for the ticket
+        fetch(`${api}/schedule/ticket/${ticketInput}`, { headers: { 'Authorization': `${token}` } }) // Update URL as necessary
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Ticket data:", data); // Log data for debugging
+
+                if (data) {
+                    if (data.scheduleFor === "Quarterly") {
+                        if (data.store && data.store.id) {
+                            dynamicStoreId = data.store.id;
+                        }
+                        // Update the client dropdown
+                        if (data.client && data.client.id && data.client.clientName) {
+                            clientSelect.innerHTML = `<option value="${data.client.id}">${data.client.clientName}</option>`;
+                        } else {
+                            clientSelect.innerHTML =
+                                '<option value="">Select a client</option>';
+                        }
+
+                        // Update the store dropdown
+                        if (data.store && data.store.id && data.store.storeName) {
+                            storeSelect.innerHTML = `<option value="${data.store.id}">${data.store.storeCode} - ${data.store.storeName}</option>`;
+                        } else {
+                            storeSelect.innerHTML =
+                                '<option value="">Select a Store</option>';
+                        }
+                        if (data.scheduleFor) {
+                            frequencySelect.innerHTML = `<option value="${data.store.id}">${data.scheduleFor}</option>`;
+                        } else {
+                            frequencySelect.innerHTML =
+                                '<option value="">Select a frequency</option>';
+                        }
+                    } else {
+                        console.log("not valid schdeule type");
+                    }
+                } else {
+                    // Handle cases where no data is returned
+                    clientSelect.innerHTML = '<option value="">Select a client</option>';
+                    storeSelect.innerHTML = '<option value="">Select a Store</option>';
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching ticket data:", error);
+                displayError("Failed to load ticket data. Please try again later.");
+            });
+    }
+
+    // Event listener for changes in the ticket number input
+    ticketInput.addEventListener("change", function () {
+        const ticketNumber = this.value;
+
+        if (ticketNumber) {
+            fetchDataByTicketNumber(ticketNumber);
+        } else {
+            // Reset dropdowns if no ticket number is entered
+            clientSelect.innerHTML = '<option value="">Select a client</option>';
+            storeSelect.innerHTML = '<option value="">Select a Store</option>';
+        }
+    });
+});
 
 
 document.getElementById('quaterlyppmForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
 
-    const storeId =123;
+    const storeId =dynamicStoreId;
     const ppmFormData=[
         {
             ppmFormDataId:9,
@@ -281,27 +378,35 @@ document.getElementById('quaterlyppmForm').addEventListener('submit', async (e) 
    }
     console.log('formData',data)
     
-    try {
-        const response = await fetch(`  ${api}/ppmForm/save`, {
+ try {
+    const response = await fetch(`${api}/ppmForm/save`, {
         method: 'POST',
-        headers:{
+        headers: {
             'Authorization': `${token}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-        
-        
-        }
+    });
 
-        );
-        const result = await response.json();
-        console.log('Response:', result);
-        alert('Form submitted successfully!');
-    
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Submission failed. Please try again.');
+    const contentType = response.headers.get('content-type') || '';
+    let result;
+
+    if (contentType.includes('application/json')) {
+        result = await response.json();
+    } else {
+        // If not JSON, parse as text to avoid error
+        const text = await response.text();
+        console.warn('Non-JSON response:', text);
+        result = { message: text };
     }
+
+    console.log('Response:', result);
+    alert('Form submitted successfully!');
+
+} catch (error) {
+    console.error('Error:', error);
+    alert('Submission failed. Please try again.');
+}
 });
 
 
