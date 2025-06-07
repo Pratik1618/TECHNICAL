@@ -101,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
 };
 
 window.previewInspectionForm = function(id) {
+  console.log(`${api}/inspectionForm/${id}/excel`)
     const url = `${api}/inspectionForm/${id}/excel`;
     console.log(url)
 

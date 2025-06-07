@@ -1,81 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PPM List</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PPM List</title>
 
-    <link rel="stylesheet" href="ppminscpectionList.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-  <!-- jQuery library -->
+  <link rel="stylesheet" href="ppminscpectionList.css"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
+  <link rel="stylesheet" href="../NavbarComponent/navbar.css"/>
+
+  <!-- jQuery & DataTables -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <!-- DataTables JS -->
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+  <!-- Optional: For Excel Parsing (still included just in case) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <link rel="stylesheet" href="../NavbarComponent/navbar.css">
+
+  <style>
+    .modal {
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 20px;
+      max-width: 90%;
+      border-radius: 6px;
+      max-height: 90%;
+      overflow-y: auto;
+    }
+
+    .close-button {
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .section-title {
+      margin-top: 20px;
+      font-size: 18px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .preview-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .preview-table th, .preview-table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+
+    img {
+      max-width: 200px;
+      margin-top: 10px;
+    }
+  </style>
 </head>
+
 <body>
   <div id="navbar-placeholder"></div>
+
   <div class="whole-container">
+    <!-- PPM Buttons -->
     <div class="newContainer" id="ppmContainerHide">
-        <a href="monthlyPpm.html">
-          <button id="inscpectionButton">Monthly PPM</button>
-        </a> 
-        <a href="quaterlyPpm.html">
-          <button id="inscpectionButton">Quarterly PPM</button>
-        </a>
-        <a href="halfyearlyPpm.html">
-          <button id="inscpectionButton">Half Yearly PPM</button>
-        </a>
-        <a href="yearlyPpm.html">
-          <button id="inscpectionButton">Yearly PPM</button>
-        </a>
-      </div>
-      <div class="table-container">
-        <!-- Modal Structure -->
-        <div id="previewModal" class="modal">
-          <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <div id="previewContainer"></div>
-          </div>
-        </div>
+      <a href="monthlyPpm.html"><button id="inscpectionButton">Monthly PPM</button></a>
+      <a href="quaterlyPpm.html"><button id="inscpectionButton">Quarterly PPM</button></a>
+      <a href="halfyearlyPpm.html"><button id="inscpectionButton">Half Yearly PPM</button></a>
+      <a href="yearlyPpm.html"><button id="inscpectionButton">Yearly PPM</button></a>
+    </div>
+
+    <!-- Data Table -->
     <div class="container">
-        <h2>SCHEDULED PPM INSPECTION VISITS DATA TABLE</h2>
-        <a href="historyPpm.html">
-          <button id="HISTORY">HISTORY</button>
-        </a>
-        <div class="table-container">
-          <table id="ppmId" class="display">
-            <thead>
-              <tr>
-                <th>Sr.no</th>
-                <th>Ticket Number</th>
-                <th>Frequency</th>
-                <th>Client Name</th>
-                <th>Store Name</th>
-                <th>Store Code</th>
-                <th>Zone</th>
-                <th>State</th>
-                <th>Addresss</th>
-                <th>Status</th>
-                <th id="actionHide">Actions</th>
-                <th id="appRejHide">Approval/Rejection</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Table data will be populated here -->
-            </tbody>
-          </table>
-          <div id="previewContainer"></div>
-        </div>
-        <div id="pagination" class="pagination">
-          <!-- Page numbers and navigation buttons will be generated here -->
-        </div>
+      <h2>SCHEDULED PPM INSPECTION VISITS DATA TABLE</h2>
+      <a href="historyPpm.html">
+        <button id="HISTORY">HISTORY</button>
+      </a>
+
+      <div class="table-container">
+        <table id="ppmId" class="display">
+          <thead>
+            <tr>
+              <th>Sr.no</th>
+              <th>Ticket Number</th>
+              <th>Frequency</th>
+              <th>Client Name</th>
+              <th>Store Name</th>
+              <th>Store Code</th>
+              <th>Zone</th>
+              <th>State</th>
+              <th>Address</th>
+              <th>Status</th>
+              <th id="actionHide">Actions</th>
+              <th id="appRejHide">Approval/Rejection</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Data populated by JS -->
+          </tbody>
+        </table>
       </div>
+
+      <div id="pagination" class="pagination">
+        <!-- Pagination controlled by DataTables -->
       </div>
-      <script src="../globals/global.js"></script>
-<script src="ppminscpectionList.js"></script>
-<script src="../NavbarComponent/navbar.js" defer></script>
+    </div>
+  </div>
+
+  <!-- PPM Modal Preview -->
+  <div id="jsonPreviewModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <div id="jsonPreviewContent"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../globals/global.js"></script>
+  <script src="ppminscpectionList.js"></script>
+  <script src="../NavbarComponent/navbar.js" defer></script>
 </body>
 </html>

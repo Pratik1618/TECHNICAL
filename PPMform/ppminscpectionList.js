@@ -99,28 +99,40 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = url;
 };
   
-   window.previewInspectionForm = function(id) {
-            const integerId = parseInt(id, 10); // Convert id to integer
+window.previewInspectionForm = function(id) {
+    fetch(`${api}/ppmForm/getData/5`, {
+        headers: {
+            'Authorization': token
+        }
+    })
+    .then(response => response.json())
+    
+    .then(data => showPpmDataInModal(data))
 
-            if (isNaN(integerId)) {
-                console.error("Invalid ID provided. Must be a number.");
-                return;
-            }
+    .catch(err => console.error("Error fetching PPM data:", err));
+};
+//    window.previewInspectionForm = function(id) {
+//             const integerId = parseInt(id, 10); // Convert id to integer
 
-            const excelUrl = `${api}/ppmForm/${integerId}/excel`;
+//             if (isNaN(integerId)) {
+//                 console.error("Invalid ID provided. Must be a number.");
+//                 return;
+//             }
 
-            // Fetch the Excel data
-            fetch(excelUrl,{headers: {'Authorization': `${token}`} })
-                .then(response => response.arrayBuffer()) // Get the file as an ArrayBuffer
-                .then(arrayBuffer => {
-                    const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: "array" });
-                    const sheetName = workbook.SheetNames[0]; // Assume the first sheet is the one to display
-                    const worksheet = workbook.Sheets[sheetName];
-                    const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 }); // Convert to JSON
-                    fetchImagesAndDisplayPreview(data);
-                })
-                .catch(error => console.error("Error fetching Excel file:", error));
-        };
+//             const excelUrl = `${api}/ppmForm/${integerId}/excel`;
+
+//             // Fetch the Excel data
+//             fetch(excelUrl,{headers: {'Authorization': `${token}`} })
+//                 .then(response => response.arrayBuffer()) // Get the file as an ArrayBuffer
+//                 .then(arrayBuffer => {
+//                     const workbook = XLSX.read(new Uint8Array(arrayBuffer), { type: "array" });
+//                     const sheetName = workbook.SheetNames[0]; // Assume the first sheet is the one to display
+//                     const worksheet = workbook.Sheets[sheetName];
+//                     const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 }); // Convert to JSON
+//                     fetchImagesAndDisplayPreview(data);
+//                 })
+//                 .catch(error => console.error("Error fetching Excel file:", error));
+//         };
 
         // Function to fetch images and display the preview
         function fetchImagesAndDisplayPreview(data) {
@@ -346,4 +358,67 @@ function rejectInspectionForm(id) {
         console.log('Token:', token);
         sendInspectionForm(id, false, approverId, token);
     }
+}
+
+function showPpmDataInModal(data) {
+    console.log("ppm preview",data)
+    const container = document.getElementById("jsonPreviewContent");
+    const modal = document.getElementById("jsonPreviewModal");
+    const closeButton = document.querySelector(".close-button");
+
+    container.innerHTML = "";
+
+    container.innerHTML += `<h3 class="section-title">Store Info</h3>`;
+    container.innerHTML += `<p><strong>ID:</strong> ${data.storeId ?? 'N/A'}</p>`;
+    container.innerHTML += `<p><strong>Name:</strong> ${data.storeName ?? 'N/A'}</p>`;
+
+    container.innerHTML += `<h3 class="section-title">PPM Form</h3>`;
+    if (Array.isArray(data.ppmFormData)) {
+        data.ppmFormData.forEach((item, i) => {
+            container.innerHTML += `
+                <p><strong>Equipment:</strong> ${item.equipment}</p>
+                <p><strong>Description:</strong> ${item.description}</p>
+                <p><strong>Status:</strong> ${item.status}</p>
+                <p><strong>Comments:</strong> ${item.comments}</p>
+                <p><strong>Frequency:</strong> ${item.frequencyValue}</p>
+            `;
+            if (item.photoData) {
+                container.innerHTML += `<p><img src="data:${item.photoContentType};base64,${item.photoData}" alt="Photo"></p>`;
+            }
+        });
+    } else {
+        container.innerHTML += `<p>No PPM form data available.</p>`;
+    }
+
+    container.innerHTML += `<h3 class="section-title">Load Data</h3>`;
+    if (Array.isArray(data.ppmFormLoadData)) {
+        data.ppmFormLoadData.forEach(load => {
+            if (load.loadBefore) {
+                container.innerHTML += `<p><strong>Before (${load.loadBeforeVoltage}):</strong> ${load.loadBefore} - ${load.loadBeforeValue}</p>`;
+            }
+            if (load.loadAfter) {
+                container.innerHTML += `<p><strong>After (${load.loadAfterVoltage}):</strong> ${load.loadAfter} - ${load.loadAfterValue}</p>`;
+            }
+        });
+    } else {
+        container.innerHTML += `<p>No Load Data available.</p>`;
+    }
+
+    container.innerHTML += `<h3 class="section-title">Fire Extinguishers</h3>`;
+    if (Array.isArray(data.fireExtinguisherStatusData)) {
+        data.fireExtinguisherStatusData.forEach(ext => {
+            container.innerHTML += `
+                <p><strong>Type:</strong> ${ext.extinguisherType}</p>
+                <p><strong>Capacity:</strong> ${ext.capacity}</p>
+                <p><strong>Refill Date:</strong> ${new Date(ext.refillDate).toLocaleString()}</p>
+                <p><strong>Remarks:</strong> ${ext.remarks}</p>
+            `;
+        });
+    } else {
+        container.innerHTML += `<p>No Fire Extinguisher data available.</p>`;
+    }
+
+    modal.style.display = "block";
+    closeButton.onclick = () => modal.style.display = "none";
+    window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
 }
