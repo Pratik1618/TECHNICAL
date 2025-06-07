@@ -497,7 +497,7 @@ window.onclick = function (event) {
 
 document.getElementById('yearlyppmForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const storeId = 1;
+  const storeId = dynamicStoreId;
   selfiePhotoId = document.getElementById('selfiePhotoId').value;
   const ppmFormData = [
     {
