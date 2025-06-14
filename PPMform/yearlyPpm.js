@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Ticket data:", data); // Log data for debugging
 
         if (data) {
-          if (data.scheduleFor === "Half-Yearly") {
+          if (data.scheduleFor === "Yearly") {
             if (data.store && data.store.id) {
               dynamicStoreId = data.store.id;
             }
